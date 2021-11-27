@@ -8,6 +8,7 @@ const Navbar = (props) => {
             <Link to="/">Landing (Home)</Link>
             {!props.isLoggedIn ? <Link to="/login">Login</Link> : ''}
             {props.isLoggedIn ? <Link to="/myProfile">My Profile</Link> : ''}
+            {props.isLoggedIn ? <Link to="/newPost">New Post</Link> : ''}
             {props.isLoggedIn ? <a onClick={props.clearToken}>Logout</a> : ''}
         </div>
     )

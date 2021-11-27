@@ -10,6 +10,7 @@ div {
 #landing {border:3px solid green;background:lightgreen}
 #navbar {border:3px solid purple;background:lightpink}
 #debugStuff {border:3px solid black;background:lightgrey}
+#newPost {border: 3px solid orangered; background: orange;}
 #login {border:3px solid yellow;background:lightyellow;display:block;}
 #signup {border:3px solid seagreen;background:lightseagreen;}
 .active {background-color:#fff;color:#000}
