@@ -10,6 +10,11 @@ div {
 #landing {border:3px solid green;background:lightgreen}
 #navbar {border:3px solid purple;background:lightpink}
 #debugStuff {border:3px solid black;background:lightgrey}
+#login {border:3px solid yellow;background:lightyellow;display:block;}
+#signup {border:3px solid seagreen;background:lightseagreen;}
+.active {background-color:#fff;color:#000}
+.notActive {background-color:rgb(99, 99, 99);color:rgb(206, 206, 206);}
+.toggler {display:inline-block;width:300px;}
 
 span {display:inline-block;margin:0 10px 0 0;}
 
@@ -19,4 +24,4 @@ a:hover {background:lightsalmon;}
 h5 {padding:0;margin:0 0 20px 0 !important;}
 
 .s200 {color:green;}
-.s401, .s500 {color:red;}
+.s401, .s500, .s409, .s400 {color:red;}
