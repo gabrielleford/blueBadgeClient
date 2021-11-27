@@ -5,6 +5,7 @@ const LoginSignup = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
     const navigate = useNavigate();
     const [feedback, setFeedBack] = useState('');
     const [feedbackStatus, setFeedBackStatus] = useState('');
@@ -14,7 +15,7 @@ const LoginSignup = (props) => {
         event.preventDefault();
         fetch(`http://localhost:3000/user/register`, {
             method: 'POST',
-            body: JSON.stringify({ user: { email: email, password: password } }),
+            body: JSON.stringify({ user: { email: email, password: password, username: username } }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -26,7 +27,7 @@ const LoginSignup = (props) => {
             .then((data) => {
                 props.updateToken(data.sessionToken);
                 setFeedBack(data.message);
-                //navigate('/')
+                if (data.response == '200') navigate('/')
             })
     }
 
@@ -73,6 +74,7 @@ const LoginSignup = (props) => {
     return (
         <div id='loginSignup'>
             <h5>Log In / Sign Up</h5>
+            {feedback ? <div className={feedbackStatus}>{feedback}</div> : ''}
             <div id='loginSwitcher' className='active toggler' onClick={() => setActiveTab('login')}>
                 Log In
             </div>
@@ -87,7 +89,6 @@ const LoginSignup = (props) => {
                     <label htmlFor='password'>Password</label>
                     <input onChange={(e) => setPassword(e.target.value)} type='password' name='password'></input>
                     <button type='submit'>Log In</button>
-                    {feedback ? <span className={feedbackStatus}>{feedback}</span> : ''}
                 </form>
             </div>
             <div id='signup'>
@@ -95,6 +96,8 @@ const LoginSignup = (props) => {
                 <form onSubmit={register}>
                     <label htmlFor='email'>Email</label>
                     <input onChange={(e) => setEmail(e.target.value)} type='email' name='email'></input>
+                    <label htmlFor='email'>Username</label>
+                    <input onChange={(e) => setUsername(e.target.value)} type='text' name='username'></input>
                     <label htmlFor='password'>Password</label>
                     <input onChange={(e) => setPassword(e.target.value)} type='password' name='password'></input>
                     <button type='submit'>Sign Up</button>
