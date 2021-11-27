@@ -12,29 +12,45 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [sessionToken, setSessionToken] = useState('');
+  const [userID, setUserID] = useState('');
+
+  const updateToken = (newToken) => {
+    localStorage.setItem('Authorization', newToken);
+    setSessionToken(newToken);
+  }
+
+  const clearToken = () => {
+    localStorage.clear();
+    setSessionToken('');
+    setIsLoggedIn(false);
+  }
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      setSessionToken(localStorage.getItem('token'));
-      console.log(`Session token: ${sessionToken}`);
+    if (localStorage.getItem('Authorization')) {
+      setSessionToken(localStorage.getItem('Authorization'));
       try {
-        fetch('/user/checkToken', {
-          method: 'GET',
+        fetch('http://localhost:3000/user/checkToken', {
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + sessionToken,
             credentials: 'include'
           }
         }).then(result => {
-          console.log(result);
-          if (result.status == 200) setIsLoggedIn(true)
-        })
+          if (result.status == 200) {
+            setIsLoggedIn(true)
+          }
+          else setIsLoggedIn(false);
+          return result.json()
+        }).then(result => { setUserID(result.user_id); }
+        )
       } catch (error) {
         console.log(error);
       }
     }
+    else setIsLoggedIn(false);
 
-  }, [sessionToken])
+  }, [sessionToken, isLoggedIn])
 
   return (
     <>
@@ -42,16 +58,14 @@ function App() {
         <div id='debugStuff'>
           <h5>Debug Stuff</h5>
           <p>Logged In? = {isLoggedIn ? 'true' : 'false'}</p>
-          <p><span className='purple'>navbar</span>
-            <span className='red'>myProfile</span>
-            <span className='blue'>signUp / logIn</span>
-            <span className='green'>landing</span></p>
+          <p>SessionToken = {sessionToken}</p>
+          <p>user_id = {userID}</p>
         </div>
-        <Navbar isLoggedIn={isLoggedIn} sessionToken={sessionToken} />
+        <Navbar clearToken={clearToken} isLoggedIn={isLoggedIn} sessionToken={sessionToken} setSessionToken={setSessionToken} />
 
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<LoginSignup />} />
+          <Route path="/login" element={<LoginSignup updateToken={updateToken} setSessionToken={setSessionToken} sessionToken={sessionToken} updateToken={updateToken} />} />
           <Route path='/myProfile' element={<MyProfile sessionToken={sessionToken} />} />
         </Routes>
       </Router>
