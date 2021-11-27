@@ -67,7 +67,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<LoginSignup updateToken={updateToken} setSessionToken={setSessionToken} sessionToken={sessionToken} updateToken={updateToken} />} />
-          <Route path='/myProfile' element={<MyProfile sessionToken={sessionToken} />} />
+          <Route path='/myProfile' element={<MyProfile sessionToken={sessionToken} userID={userID} sessionToken={sessionToken} />} />
           <Route path="/newPost" element={<CreatePost sessionToken={sessionToken} />} />
         </Routes>
       </Router>
