@@ -2,7 +2,8 @@ const MyProfile = (props) => {
 
     return (
         <div id='myProfile'>
-            <p>My Profile (logged in)</p>
+            <h5>My Profile</h5>
+            <p>My Profile (must be logged in)</p>
         </div>
     )
 }
