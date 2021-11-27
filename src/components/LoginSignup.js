@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const LoginSignup = (props) => {
@@ -8,6 +8,7 @@ const LoginSignup = (props) => {
     const navigate = useNavigate();
     const [feedback, setFeedBack] = useState('');
     const [feedbackStatus, setFeedBackStatus] = useState('');
+    const [activeTab, setActiveTab] = useState('login');
 
     const register = event => {
         event.preventDefault();
@@ -49,9 +50,35 @@ const LoginSignup = (props) => {
             })
     }
 
+    useEffect(() => {
+        if (activeTab == 'login') {
+            document.getElementById('signup').style.display = 'none';
+            document.getElementById('login').style.display = 'block';
+            document.getElementById('loginSwitcher').classList.remove('notActive');
+            document.getElementById('loginSwitcher').classList.add('active');
+            document.getElementById('signupSwitcher').classList.remove('active');
+            document.getElementById('signupSwitcher').classList.add('notActive');
+        }
+        if (activeTab == 'signup') {
+            document.getElementById('login').style.display = 'none'
+            document.getElementById('signup').style.display = 'block';
+            document.getElementById('signupSwitcher').classList.remove('notActive');
+            document.getElementById('signupSwitcher').classList.add('active');
+            document.getElementById('loginSwitcher').classList.remove('active');
+            document.getElementById('loginSwitcher').classList.add('notActive');
+        }
+
+    }, [activeTab])
+
     return (
         <div id='loginSignup'>
             <h5>Log In / Sign Up</h5>
+            <div id='loginSwitcher' className='active toggler' onClick={() => setActiveTab('login')}>
+                Log In
+            </div>
+            <div id='signupSwitcher' className='notActive toggler' onClick={() => setActiveTab('signup')}>
+                Sign Up
+            </div>
             <div id='login'>
                 <h5>Login</h5>
                 <form onSubmit={login}>
@@ -63,7 +90,7 @@ const LoginSignup = (props) => {
                     {feedback ? <span className={feedbackStatus}>{feedback}</span> : ''}
                 </form>
             </div>
-            <div id='login'>
+            <div id='signup'>
                 <h5>Sign Up</h5>
                 <form onSubmit={register}>
                     <label htmlFor='email'>Email</label>
