@@ -18,6 +18,7 @@ div {
 .toggler {display:inline-block;width:300px;}
 label, input {width:200px;display:block;}
 .smol {width:100px;}
+.post img {max-width: 500px; max-height: 500px;}
 
 span {display:inline-block;margin:0 10px 0 0;}
 

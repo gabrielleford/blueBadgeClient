@@ -55,7 +55,7 @@ const CreatePost = (props) => {
         console.log(json.url);
         
         try {
-            const res = await fetch('http://localhost:3000/post/create', {
+            await fetch('http://localhost:3000/post/create', {
                 method: 'POST',
                 body: JSON.stringify({
                     post: {
@@ -78,7 +78,9 @@ const CreatePost = (props) => {
             })
             .then((json) => {
                 console.log(json);
-                if (responseCode == '201') navigate('/');
+                if (responseCode === '201') {
+                    navigate("/");
+                }
             })
         } catch (error) {
             console.log(error)
