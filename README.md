@@ -46,4 +46,4 @@ Completion Date: 11/28
 
 **Post by ID Component**  
 Completion Date: WIP  
-[11/28]: Post by ID Component / PostEditDelete.js */ Created file & gave basic setup
+[11/28]: Post by ID Component / PostById.js */ Created file & gave basic setup
