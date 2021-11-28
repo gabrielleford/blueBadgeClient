@@ -17,6 +17,7 @@ div {
 .notActive {background-color:rgb(99, 99, 99);color:rgb(206, 206, 206);}
 .toggler {display:inline-block;width:300px;}
 label, input {width:200px;display:block;}
+.smol {width:100px;}
 
 span {display:inline-block;margin:0 10px 0 0;}
 
