@@ -15,7 +15,7 @@ const PostDisplay = (props) => {
     };
     
     return(
-        <div className='postDisplay'>
+        <div id='postDisplay'>
             <h5>Post Display</h5>
             <p>Multiple posts</p>
             {postMapper()}
