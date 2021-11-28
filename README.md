@@ -39,8 +39,11 @@ Completion Date: WIP
 [11/27]: Create new post / CreatePost.js */ Connected CreatePost to cloudinary & server to send new post to DB  
 [11/28]: Create new Post / CreatePost.js */ Added rerouting to successful upload  
 
-Endpoint 2
-Completion Date: WIP / [completion date]
-[date]: [focused items / files]
-[date]: [focused items / files]
+**Landing Component**  
+Completion Date: 11/28
+[11/28]: Landing Component / Landing.js, PostDisplay.js */ Completed Landing & PostDisplay
 *additional / optional
+
+**Post by ID Component**  
+Completion Date: WIP  
+[11/28]: Post by ID Component / PostEditDelete.js */ Created file & gave basic setup

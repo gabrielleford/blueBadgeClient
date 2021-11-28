@@ -13,11 +13,14 @@ div {
 #newPost {border: 3px solid orangered; background: orange;}
 #login {border:3px solid yellow;background:lightyellow;display:block;}
 #signup {border:3px solid seagreen;background:lightseagreen;}
+#postDisplay {border:3px solid goldenrod;background:lightyellow;}
 .active {background-color:#fff;color:#000}
 .notActive {background-color:rgb(99, 99, 99);color:rgb(206, 206, 206);}
 .toggler {display:inline-block;width:300px;}
 label, input {width:200px;display:block;}
 .smol {width:100px;}
+.post {border:3px solid rgb(75, 94, 240);background:rgb(147, 159, 250);}
+.post img {max-width: 500px; max-height: 500px;}
 
 span {display:inline-block;margin:0 10px 0 0;}
 
