@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import { useNavigate } from 'react-router';
 
 const CreatePost = (props) => {
     const [ title, setTitle ] = useState('');
     const [ image, setImage ] = useState('');
-    const [ selectedImage, setSelectedImage ] = useState('');
     const [ previewSrc, setPreviewSrc ] = useState('');
     const [ description, setDescription ] = useState('');
     const [ tag, setTag ] = useState('');
     const [ isPrivate, setIsPrivate ] = useState(false);
+    const navigate = useNavigate();
 
     const isChecked = (e) => {
         const checked = e.target.checked;
@@ -17,6 +18,7 @@ const CreatePost = (props) => {
 
     const handleImage = (e) => {
         const file = e.target.files[0];
+        setImage(e.target.value);
         previewImage(file);
     };
 
@@ -39,6 +41,7 @@ const CreatePost = (props) => {
 
     const uploadImage = async (encodedImage) => {
         // console.log(encodedImage);
+        let responseCode;
         console.log(isPrivate);
         const formData = new FormData();
         formData.append('file', encodedImage);
@@ -52,7 +55,7 @@ const CreatePost = (props) => {
         console.log(json.url);
         
         try {
-            await fetch('http://localhost:3000/post/create', {
+            const res = await fetch('http://localhost:3000/post/create', {
                 method: 'POST',
                 body: JSON.stringify({
                     post: {
@@ -68,13 +71,19 @@ const CreatePost = (props) => {
                     Authorization: `Bearer ${props.sessionToken}`
                 })
             })
+            .then((res) => {
+                responseCode = res.status;
+                console.log(responseCode);
+                return res.json();
+            })
+            .then((json) => {
+                console.log(json);
+                if (responseCode == '201') navigate('/');
+            })
         } catch (error) {
             console.log(error)
         }
-
     }
-
-    console.log(isPrivate);
 
     return (
         <div id='newPost'>
@@ -102,7 +111,7 @@ const CreatePost = (props) => {
                 <FormGroup>
                     <Label htmlFor='tag'>Tag</Label>
                     <Input type='select' name='tag' onChange={e => setTag(e.target.value)} value={tag} required>
-                        
+
                         <option value='Fur Baby'>Fur Baby</option>
                         <option value='Scale Baby'>Scale Baby</option>
                         <option value='Exotic Baby'>Exotic Baby</option>
