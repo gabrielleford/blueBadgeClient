@@ -12,6 +12,7 @@ const LoginSignup = (props) => {
     const [activeTab, setActiveTab] = useState('login');
 
     const register = event => {
+        let responseCode;
         event.preventDefault();
         fetch(`http://localhost:3000/user/register`, {
             method: 'POST',
@@ -22,16 +23,18 @@ const LoginSignup = (props) => {
         })
             .then((response) => {
                 setFeedBackStatus(`s${response.status}`)
+                responseCode = response.status
                 return response.json();
             })
             .then((data) => {
                 props.updateToken(data.sessionToken);
                 setFeedBack(data.message);
-                if (data.response == '200') navigate('/')
+                if (responseCode == '200') navigate('/')
             })
     }
 
     const login = event => {
+        let responseCode;
         event.preventDefault();
         fetch("http://localhost:3000/user/login", {
             method: 'POST',
@@ -41,13 +44,14 @@ const LoginSignup = (props) => {
             }
         })
             .then((response) => {
-                setFeedBackStatus(`s${response.status}`);
+                setFeedBackStatus(`s${response.status}`)
+                responseCode = response.status
                 return response.json();
             })
             .then((data) => {
                 props.updateToken(data.sessionToken);
                 setFeedBack(data.message);
-                if (data.response == '200') navigate('/')
+                if (responseCode == '200') navigate('/')
             })
     }
 
