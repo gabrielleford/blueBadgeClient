@@ -5,7 +5,7 @@
 
 Technology Used:
 
-              [ note technology and purposes ]
+              HTML 5, CSS 3, Node.js, React
 
 Team Member #1  [NAME]
 
@@ -25,36 +25,22 @@ Completion Date: WIP / [completion date]
 *additional / optional
  
 
-Team Member #2  [NAME]
+## Team Member #2  Gabrielle Ford
 
-              GitHub, LinkedIn, Portfolio links
+            GitHub: https://github.com/gabrielleford
+            LinkedIn: https://www.linkedin.com/in/gabrielle-f-293251221/
+            Portfolio: https://gabrielleford.github.io/
 
-Assigned Tasks
-Endpoint 1
-Completion Date: WIP / [completion date]
-[date]: [focused items / files] */consider your commit message
-[date]: [focused items / files]
-[date]: [focused items / files]
-Ex: 11/29: Navbar.jsx – build out routing and styling.
+### Assigned Tasks
+
+**Creat Post Component**  
+Completion Date: WIP  
+[11/27]: Create new post / CreatePost.js, App.js, Navbar.js */ Linked CreatePost to App & Navbar, layed out basic form for submission  
+[11/27]: Create new post / CreatePost.js */ Connected CreatePost to cloudinary & server to send new post to DB  
+[11/28]: Create new Post / CreatePost.js */ Added rerouting to successful upload  
+
 Endpoint 2
 Completion Date: WIP / [completion date]
 [date]: [focused items / files]
 [date]: [focused items / files]
 *additional / optional
- 
-
-Team Member #3  [NAME]
-
-              GitHub, LinkedIn, and Portfolio links
-
-Assigned Tasks
-Endpoint 1
-Completion Date: WIP / [completion date]
-[date]: [focused items / files] */consider your commit message
-[date]: [focused items / files]
-[date]: [focused items / files]
-Ex: 11/29: Navbar.jsx – build out routing and styling.
-Endpoint 2
-Completion Date: WIP / [completion date]
-[date]: [focused items / files]
-[date]: [focused items / files]
