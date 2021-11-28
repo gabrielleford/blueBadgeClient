@@ -29,7 +29,7 @@ const LoginSignup = (props) => {
             .then((data) => {
                 props.updateToken(data.sessionToken);
                 setFeedBack(data.message);
-                if (responseCode == '200') navigate('/')
+                if (responseCode == '201') navigate('/')
             })
     }
 
