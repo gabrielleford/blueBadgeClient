@@ -108,9 +108,9 @@ const CreatePost = (props) => {
                 <FormGroup>
                     <Label htmlFor='tag'>Tag</Label>
                     <Input type='select' name='tag' onChange={e => setTag(e.target.value)} value={tag} required>
-                        <option value='Fur Baby'>Fur Baby</option>
-                        <option value='Scale Baby'>Scale Baby</option>
-                        <option value='Exotic Baby'>Exotic Baby</option>
+                        <option value='FurBaby'>Fur Baby</option>
+                        <option value='ScaleBaby'>Scale Baby</option>
+                        <option value='ExoticBaby'>Exotic Baby</option>
                     </Input>
                 </FormGroup>
 
