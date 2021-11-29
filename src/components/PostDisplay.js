@@ -28,17 +28,6 @@ const PostDisplay = (props) => {
                 })
         }
         catch (error) { console.log(error) }
-
-        return posts.map((post, index) => {
-            return (
-                <div key={index} className='post'>
-                    <img src={post.image} alt={post.title} />
-                    <p>{post.title}</p>
-                    <p>{post.description}</p>
-                    <p>{post.tag}</p>
-                </div>
-            );
-        });
     };
 
     useEffect(() => {
