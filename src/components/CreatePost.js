@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 const CreatePost = (props) => {
     const [ title, setTitle ] = useState('');
@@ -10,6 +10,8 @@ const CreatePost = (props) => {
     const [ tag, setTag ] = useState('');
     const [ isPrivate, setIsPrivate ] = useState(false);
     const navigate = useNavigate();
+    let params = useParams();
+    let { id } = params;
 
     const isChecked = (e) => {
         const checked = e.target.checked;
@@ -40,9 +42,7 @@ const CreatePost = (props) => {
     }
 
     const uploadImage = async (encodedImage) => {
-        // console.log(encodedImage);
         let responseCode;
-        console.log(isPrivate);
         const formData = new FormData();
         formData.append('file', encodedImage);
         formData.append("upload_preset", "instapet");
@@ -52,39 +52,34 @@ const CreatePost = (props) => {
             body: formData
         })
         const json = await res.json();
-        console.log(json.url);
         
-        try {
-            await fetch('http://localhost:3000/post/create', {
-                method: 'POST',
-                body: JSON.stringify({
-                    post: {
-                        private: isPrivate,
-                        title: title,
-                        image: json.url,
-                        description: description,
-                        tag: tag
-                    }
-                }),
-                headers: new Headers({
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${props.sessionToken}`
-                })
-            })
-            .then((res) => {
-                responseCode = res.status;
-                console.log(responseCode);
-                return res.json();
-            })
-            .then((json) => {
-                console.log(json);
-                if (responseCode === '201') {
-                    navigate("/");
+        await fetch('http://localhost:3000/post/create', {
+            method: 'POST',
+            body: JSON.stringify({
+                post: {
+                    private: isPrivate,
+                    title: title,
+                    image: json.url,
+                    description: description,
+                    tag: tag
                 }
+            }),
+            headers: new Headers({
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${props.sessionToken}`
             })
-        } catch (error) {
-            console.log(error)
-        }
+        })
+        .then((res) => {
+            responseCode = res.status;
+            console.log(responseCode);
+            return res.json();
+        })
+        .then((json) => {
+            console.log(json);
+            params.id = json.post.id;
+            console.log(params.id);
+            if (responseCode == '201') navigate(`/post/${params.id}`, { state: params.id });
+        })
     }
 
     return (
@@ -113,7 +108,6 @@ const CreatePost = (props) => {
                 <FormGroup>
                     <Label htmlFor='tag'>Tag</Label>
                     <Input type='select' name='tag' onChange={e => setTag(e.target.value)} value={tag} required>
-
                         <option value='Fur Baby'>Fur Baby</option>
                         <option value='Scale Baby'>Scale Baby</option>
                         <option value='Exotic Baby'>Exotic Baby</option>

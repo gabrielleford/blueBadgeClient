@@ -7,6 +7,7 @@ import LoginSignup from './components/LoginSignup'
 import Landing from './components/Landing'
 import MyProfile from './components/MyProfile'
 import CreatePost from './components/CreatePost';
+import PostById from './components/PostById';
 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
           <Route path="/login" element={<LoginSignup updateToken={updateToken} setSessionToken={setSessionToken} sessionToken={sessionToken} updateToken={updateToken} />} />
           <Route path='/myProfile' element={<MyProfile sessionToken={sessionToken} userID={userID} sessionToken={sessionToken} />} />
           <Route path="/newPost" element={<CreatePost sessionToken={sessionToken} />} />
+          <Route path="/post/:id" element={<PostById sessionToken={sessionToken} />} />
         </Routes>
       </Router>
     </>
