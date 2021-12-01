@@ -36,18 +36,20 @@ const PostDisplay = (props) => {
                 else if (props.getWhat.tag === "scale baby")
                     fetchURL = "/post/tag/all/ScaleBaby";
                 else if (props.getWhat.tag === "exotic baby")
-                    fetchURL =
-                        "/post/tag/all/ExoticBaby";
+                    fetchURL = "/post/tag/all/ExoticBaby";
                 break;
-            case 'user': fetchURL = `/post/posts/all/${props.username}`;
+            case 'user': fetchURL = `/post/posts/all/${props.username}`; break;
+            case 'likes': fetchURL = '/post/toplikes'; break;
         }
 
         try {
             fetch(`http://localhost:3000${fetchURL}`, method)
                 .then((res) => res.json())
                 .then((json) => {
-                    console.log(json);
+                    //console.log(json);
                     setPosts(json);
+                    console.log(posts)
+                    console.log(typeof posts);
                 })
         }
         catch (error) { console.log(error) }

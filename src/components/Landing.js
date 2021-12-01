@@ -8,27 +8,31 @@ const Landing = (props) => {
 
     const furBaby = () => {
         console.log(props.sessionToken);
-        setGetWhat({what: 'tag', tag: 'fur baby'});
+        setGetWhat({ what: 'tag', tag: 'fur baby' });
         setTagClicked(true);
     };
 
     const scaleBaby = () => {
-        setGetWhat({what: 'tag', tag: 'scale baby'});
+        setGetWhat({ what: 'tag', tag: 'scale baby' });
         setTagClicked(true);
     };
 
     const exoticBaby = () => {
-        setGetWhat({what: 'tag', tag: 'exotic baby'});
+        setGetWhat({ what: 'tag', tag: 'exotic baby' });
         setTagClicked(true);
     };
 
     const getAll = () => {
-        setGetWhat({what: 'all', tag: null});
+        setGetWhat({ what: 'all', tag: null });
+        setTagClicked(false);
+    }
+    const likes = () => {
+        setGetWhat({ what: 'likes', tag: null });
         setTagClicked(false);
     }
 
     useEffect(() => {
-        setGetWhat({what: 'all', tag: null});
+        setGetWhat({ what: 'all', tag: null });
     }, []);
 
     return (
@@ -39,6 +43,7 @@ const Landing = (props) => {
             <Button onClick={furBaby}>Fur Baby</Button>
             <Button onClick={scaleBaby}>Scale Baby</Button>
             <Button onClick={exoticBaby}>Exotic Baby</Button>
+            <Button onClick={likes}>Top Likes</Button>
             <PostDisplay sessionToken={props.sessionToken} getWhat={getWhat} />
         </div>
     )
