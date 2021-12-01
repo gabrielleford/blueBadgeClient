@@ -55,9 +55,7 @@ const PostDisplay = (props) => {
                 else if (props.getWhat.tag === "exotic baby")
                   fetchURL = "http://localhost:3000/post/tag/ExoticBaby";
                 break;
-              case "user":
-                fetchURL = `http://localhost:3000/post/posts/${props.username}`;
-            }
+              case 'user': fetchURL = `http://localhost:3000/post/posts/${props.username}`;
         }
         
         try {
