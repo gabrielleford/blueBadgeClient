@@ -3,12 +3,12 @@ import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { useNavigate, useParams } from 'react-router';
 
 const CreatePost = (props) => {
-    const [ title, setTitle ] = useState('');
-    const [ image, setImage ] = useState('');
-    const [ previewSrc, setPreviewSrc ] = useState('');
-    const [ description, setDescription ] = useState('');
-    const [ tag, setTag ] = useState('');
-    const [ isPrivate, setIsPrivate ] = useState(false);
+    const [title, setTitle] = useState('');
+    const [image, setImage] = useState('');
+    const [previewSrc, setPreviewSrc] = useState('');
+    const [description, setDescription] = useState('');
+    const [tag, setTag] = useState('');
+    const [isPrivate, setIsPrivate] = useState(false);
     const navigate = useNavigate();
     let params = useParams();
     let { id } = params;
@@ -34,8 +34,8 @@ const CreatePost = (props) => {
 
     const handlePost = (e) => {
         e.preventDefault();
-        if(!previewSrc) {
-           console.log("Please choose an image");
+        if (!previewSrc) {
+            console.log("Please choose an image");
         } else {
             uploadImage(previewSrc);
         }
@@ -52,7 +52,7 @@ const CreatePost = (props) => {
             body: formData
         })
         const json = await res.json();
-        
+
         await fetch('http://localhost:3000/post/create', {
             method: 'POST',
             body: JSON.stringify({
@@ -69,17 +69,17 @@ const CreatePost = (props) => {
                 Authorization: `Bearer ${props.sessionToken}`
             })
         })
-        .then((res) => {
-            responseCode = res.status;
-            console.log(responseCode);
-            return res.json();
-        })
-        .then((json) => {
-            console.log(json);
-            params.id = json.post.id;
-            console.log(params.id);
-            if (responseCode == '201') navigate(`/post/${params.id}`, { state: params.id });
-        })
+            .then((res) => {
+                responseCode = res.status;
+                console.log(responseCode);
+                return res.json();
+            })
+            .then((json) => {
+                console.log(json);
+                params.id = json.post.post_id;
+                console.log(params.id);
+                if (responseCode == '201') navigate(`/post/${params.id}`, { state: params.id });
+            })
     }
 
     return (
@@ -93,11 +93,11 @@ const CreatePost = (props) => {
                 </FormGroup>
 
                 <FormGroup>
-                <Input type='file' name='image' onChange={handleImage} value={image} />
+                    <Input type='file' name='image' onChange={handleImage} value={image} />
                 </FormGroup>
 
                 {previewSrc && (
-                    <img src={previewSrc} alt='Preview of chosen file' style={{height: '300px'}} />
+                    <img src={previewSrc} alt='Preview of chosen file' style={{ height: '300px' }} />
                 )}
 
                 <FormGroup>
