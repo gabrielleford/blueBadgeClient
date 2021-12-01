@@ -29,7 +29,7 @@ const PostDisplay = (props) => {
     const postMapper = () => {
         let fetchURL;
         switch (props.getWhat.what) {
-            case 'all': props.sessionToken ? fetchURL = '/post/posts' : fetchURL = '/post/'; break;
+            case 'all': props.sessionToken ? fetchURL = '/post/allposts' : fetchURL = '/post/'; break;
             case "tag":
                 if (props.getWhat.tag === "fur baby")
                     fetchURL = "/post/tag/all/FurBaby";
