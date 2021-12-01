@@ -1,28 +1,31 @@
 
-# InstaPet
+# InstaPet Client
 
-[Brief description of project build]  *This will be different between client and server.  It can be detailed as you see fit (look over other ReadMe files for examples)
+Client for InstaPet.
 
 Technology Used:
 
               HTML 5, CSS 3, Node.js, React
 
-Team Member #1  [NAME]
+## Team Member #1  Katie Sallows
 
-              GitHub, LinkedIn, Portfolio links
+[GitHub](https://github.com/ksallows)
 
-Assigned Tasks
-Endpoint 1
-Completion Date: WIP / [completion date]
-[date]: [focused items / files] */consider your commit message
-[date]: [focused items / files]
-[date]: [focused items / files]
-Ex: 11/29: Navbar.jsx – build out routing and styling.
-Endpoint 2
-Completion Date: WIP / [completion date]
-[date]: [focused items / files]
-[date]: [focused items / files]
-*additional / optional
+[Portfolio](https://ksallows.github.io/)
+
+[LinkedIn](https://www.linkedin.com/in/katie-sallows-b7b6b6222/)
+
+### Assigned Tasks
+
+    Completed   Task
+    ---         ---
+    11.25       app.js
+    11.25       user register, login component
+    11.25       navbar component
+    11.25       logout component
+    11.27       user edit
+    11.30       my profile component
+    tbd         styling
  
 
 ## Team Member #2  Gabrielle Ford
