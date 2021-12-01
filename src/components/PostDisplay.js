@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react'
 
 const PostDisplay = (props) => {
     const [posts, setPosts] = useState([]);
-    const [method, setMethod] =useState({})
+    const [method, setMethod] = useState({})
 
     const createHeaders = () => {
         if (props.sessionToken) {
-            console.log('logged in');
+            //console.log('logged in');
             setMethod({
-                method: "GET", 
+                method: "GET",
                 headers: new Headers({
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${props.sessionToken}`,
@@ -16,7 +16,7 @@ const PostDisplay = (props) => {
                 })
             });
         } else {
-            console.log('not logged in');
+            //console.log('not logged in');
             setMethod({
                 method: "GET",
                 headers: new Headers({
@@ -28,38 +28,22 @@ const PostDisplay = (props) => {
 
     const postMapper = () => {
         let fetchURL;
-        if (props.sessionToken) {
-            switch (props.getWhat.what) {
-                case 'all': fetchURL = 'http://localhost:3000/post/posts'; break;
-                case "tag":
+        switch (props.getWhat.what) {
+            case 'all': props.sessionToken ? fetchURL = '/post/posts' : fetchURL = '/post/'; break;
+            case "tag":
                 if (props.getWhat.tag === "fur baby")
-                  fetchURL = "http://localhost:3000/post/tag/all/FurBaby";
+                    fetchURL = "/post/tag/all/FurBaby";
                 else if (props.getWhat.tag === "scale baby")
-                  fetchURL = "http://localhost:3000/post/tag/all/ScaleBaby";
+                    fetchURL = "/post/tag/all/ScaleBaby";
                 else if (props.getWhat.tag === "exotic baby")
-                  fetchURL =
-                    "http://localhost:3000/post/tag/all/ExoticBaby";
+                    fetchURL =
+                        "/post/tag/all/ExoticBaby";
                 break;
-                case 'user': fetchURL = `http://localhost:3000/post/posts/all/${props.username}`;
-            }
-        } else {
-            switch (props.getWhat.what) {
-              case "all":
-                fetchURL = "http://localhost:3000/post/";
-                break;
-              case "tag":
-                if (props.getWhat.tag === "fur baby")
-                  fetchURL = "http://localhost:3000/post/tag/FurBaby";
-                else if (props.getWhat.tag === "scale baby")
-                  fetchURL = "http://localhost:3000/post/tag/ScaleBaby";
-                else if (props.getWhat.tag === "exotic baby")
-                  fetchURL = "http://localhost:3000/post/tag/ExoticBaby";
-                break;
-              case 'user': fetchURL = `http://localhost:3000/post/posts/${props.username}`;
+            case 'user': fetchURL = `/post/posts/all/${props.username}`;
         }
-        
+
         try {
-            fetch(fetchURL, method)
+            fetch(`http://localhost:3000${fetchURL}`, method)
                 .then((res) => res.json())
                 .then((json) => {
                     console.log(json);
