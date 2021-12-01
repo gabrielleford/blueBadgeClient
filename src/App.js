@@ -66,11 +66,11 @@ function App() {
         <Navbar clearToken={clearToken} isLoggedIn={isLoggedIn} sessionToken={sessionToken} setSessionToken={setSessionToken} />
 
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route path="/" element={<Landing sessionToken={sessionToken}/>} />
           <Route path="/login" element={<LoginSignup updateToken={updateToken} setSessionToken={setSessionToken} sessionToken={sessionToken} updateToken={updateToken} />} />
           <Route path='/myProfile' element={<MyProfile sessionToken={sessionToken} userID={userID} sessionToken={sessionToken} />} />
           <Route path="/newPost" element={<CreatePost sessionToken={sessionToken} />} />
-          <Route path="/post/:id" element={<PostById sessionToken={sessionToken} />} />
+          <Route path="/post/:id" element={<PostById isLoggedIn={isLoggedIn} sessionToken={sessionToken} />} />
         </Routes>
       </Router>
     </>
