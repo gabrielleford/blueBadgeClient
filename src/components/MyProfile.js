@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import PostDisplay from "./PostDisplay";
 
 const MyProfile = (props) => {
     const [profileDescription, setProfileDescription] = useState('');
@@ -8,6 +9,7 @@ const MyProfile = (props) => {
     const [feedback, setFeedBack] = useState('');
     const [previewSrc, setPreviewSrc] = useState('');
     const [feedbackStatus, setFeedBackStatus] = useState('');
+    const [getWhat, setGetWhat] = useState({ what: 'user', tag: null });
 
     const previewImage = (file) => {
         const reader = new FileReader();
@@ -101,6 +103,7 @@ const MyProfile = (props) => {
                 <input type='file' name='image' onChange={handleImage} />
                 <button type='submit'>Save</button>
             </form>
+            <PostDisplay getWhat={getWhat} username={props.username} />
         </div>
     )
 }

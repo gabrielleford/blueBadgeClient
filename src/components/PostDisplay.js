@@ -12,7 +12,7 @@ const PostDisplay = (props) => {
                 else if (props.getWhat.tag === 'scale baby') fetchURL = 'http://localhost:3000/post/tag/:scalebaby'
                 else if (props.getWhat.tag === 'exotic baby') fetchURL = 'http://localhost:3000/post/tag/:exoticbaby'
                 break;
-            case 'user': fetchURL = 'http://localhost:3000/posts/:user_id'; // !update w/variable
+            case 'user': fetchURL = `http://localhost:3000/post/posts/${props.username}`;
         }
         try {
             fetch(fetchURL, {
