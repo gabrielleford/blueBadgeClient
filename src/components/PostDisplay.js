@@ -5,8 +5,7 @@ const PostDisplay = (props) => {
     const [method, setMethod] = useState({})
 
     const createHeaders = () => {
-        if (props.sessionToken) {
-            //console.log('logged in');
+        if (props.sessionToken !== '') {
             setMethod({
                 method: "GET",
                 headers: new Headers({
@@ -45,12 +44,7 @@ const PostDisplay = (props) => {
         try {
             fetch(`http://localhost:3000${fetchURL}`, method)
                 .then((res) => res.json())
-                .then((json) => {
-                    //console.log(json);
-                    setPosts(json);
-                    console.log(posts)
-                    console.log(typeof posts);
-                })
+                .then((json) => setPosts(json))
         }
         catch (error) { console.log(error) }
     };
@@ -58,13 +52,13 @@ const PostDisplay = (props) => {
     useEffect(() => {
         postMapper();
         createHeaders();
-    }, [props.getWhat, props.sessionToken])
+    }, [props.getWhat, props.sessionToken, Array.isArray(posts)])
 
     return (
         <div id='postDisplay'>
             <h5>Post Display</h5>
             <p>Multiple posts</p>
-            {posts.map((post, index) => {
+            {Array.isArray(posts) ? posts.map((post, index) => {
                 let postTag;
 
                 if (post.tag === 'FurBaby') {
@@ -83,7 +77,7 @@ const PostDisplay = (props) => {
                         <p>{postTag} Baby</p>
                     </div>
                 );
-            })}
+            }) : ''}
         </div>
     );
 };

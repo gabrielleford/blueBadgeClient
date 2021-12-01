@@ -25,31 +25,6 @@ const PostById = (props) => {
             .then((res) => res.json())
             .then((json) => {
               setPost(json[0]);
-              if(json[0].tag === "FurBaby") {
-                  setTag(json[0].tag.slice(0, 3));
-              } else if (json[0].tag === "ScaleBaby") {
-                  setTag(json[0].tag.slice(0, 5));
-              } else if (json[0].tag === "ExoticBaby") {
-                  setTag(json[0].tag.slice(0, 6));
-              }
-            })
-            .catch((error) => console.log(error));
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    } else {
-        fetchURL = `http://localhost:3000/post/${id}`;
-        try {
-          await fetch(fetchURL, {
-            method: "GET",
-            headers: new Headers({
-              "Content-Type": "application/json",
-            }),
-          })
-            .then((res) => res.json())
-            .then((json) => {
-              setPost(json[0]);
               if (json[0].tag === "FurBaby") {
                 setTag(json[0].tag.slice(0, 3));
               } else if (json[0].tag === "ScaleBaby") {
@@ -62,6 +37,31 @@ const PostById = (props) => {
         } catch (error) {
           console.log(error);
         }
+      }
+    } else {
+      fetchURL = `http://localhost:3000/post/${id}`;
+      try {
+        await fetch(fetchURL, {
+          method: "GET",
+          headers: new Headers({
+            "Content-Type": "application/json",
+          }),
+        })
+          .then((res) => res.json())
+          .then((json) => {
+            setPost(json[0]);
+            if (json[0].tag === "FurBaby") {
+              setTag(json[0].tag.slice(0, 3));
+            } else if (json[0].tag === "ScaleBaby") {
+              setTag(json[0].tag.slice(0, 5));
+            } else if (json[0].tag === "ExoticBaby") {
+              setTag(json[0].tag.slice(0, 6));
+            }
+          })
+          .catch((error) => console.log(error));
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
