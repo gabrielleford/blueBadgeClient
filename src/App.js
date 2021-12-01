@@ -15,6 +15,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [sessionToken, setSessionToken] = useState('');
   const [userID, setUserID] = useState('');
+  const [username, setUsername] = useState('');
 
   const updateToken = (newToken) => {
     localStorage.setItem('Authorization', newToken);
@@ -44,7 +45,7 @@ function App() {
           }
           else setIsLoggedIn(false);
           return result.json()
-        }).then(result => { setUserID(result.user_id); }
+        }).then(result => { console.log(result); setUserID(result.user_id); setUsername(result.username); }
         )
       } catch (error) {
         console.log(error);
@@ -62,13 +63,14 @@ function App() {
           <p>Logged In? = {isLoggedIn ? 'true' : 'false'}</p>
           <p>SessionToken = {sessionToken}</p>
           <p>user_id = {userID}</p>
+          <p>username = {username}</p>
         </div>
         <Navbar clearToken={clearToken} isLoggedIn={isLoggedIn} sessionToken={sessionToken} setSessionToken={setSessionToken} />
 
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<LoginSignup updateToken={updateToken} setSessionToken={setSessionToken} sessionToken={sessionToken} updateToken={updateToken} />} />
-          <Route path='/myProfile' element={<MyProfile sessionToken={sessionToken} userID={userID} sessionToken={sessionToken} />} />
+          <Route path='/myProfile' element={<MyProfile username={username} sessionToken={sessionToken} userID={userID} sessionToken={sessionToken} />} />
           <Route path="/newPost" element={<CreatePost sessionToken={sessionToken} />} />
           <Route path="/post/:id" element={<PostById sessionToken={sessionToken} />} />
         </Routes>
