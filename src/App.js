@@ -45,7 +45,7 @@ function App() {
           }
           else setIsLoggedIn(false);
           return result.json()
-        }).then(result => { console.log(result); setUserID(result.user_id); setUsername(result.username); }
+        }).then(result => { setUserID(result.user_id); setUsername(result.username); }
         )
       } catch (error) {
         console.log(error);
@@ -68,7 +68,7 @@ function App() {
         <Navbar clearToken={clearToken} isLoggedIn={isLoggedIn} sessionToken={sessionToken} setSessionToken={setSessionToken} />
 
         <Routes>
-          <Route path="/" element={<Landing sessionToken={sessionToken}/>} />
+          <Route path="/" element={<Landing sessionToken={sessionToken} />} />
           <Route path="/login" element={<LoginSignup updateToken={updateToken} setSessionToken={setSessionToken} sessionToken={sessionToken} updateToken={updateToken} />} />
           <Route path='/myProfile' element={<MyProfile username={username} sessionToken={sessionToken} userID={userID} sessionToken={sessionToken} />} />
           <Route path="/newPost" element={<CreatePost sessionToken={sessionToken} />} />
