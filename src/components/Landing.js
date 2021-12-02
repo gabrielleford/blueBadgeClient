@@ -44,7 +44,12 @@ const Landing = (props) => {
             <Button onClick={scaleBaby}>Scale Baby</Button>
             <Button onClick={exoticBaby}>Exotic Baby</Button>
             <Button onClick={likes}>Top Likes</Button>
-            <PostDisplay sessionToken={props.sessionToken} getWhat={getWhat} />
+            <PostDisplay
+                sessionToken={props.sessionToken}
+                getWhat={getWhat}
+                userLikedPosts={props.userLikedPosts}
+                fetchData={props.fetchData}
+            />
         </div>
     )
 }
