@@ -1,14 +1,53 @@
 import { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import EditDeletePost from "./EditDeletePost";
+import TitleDescription from "./TitleDescription";
 
 const PostById = (props) => {
   let pathName = window.location.pathname;
-  let id = pathName.slice(6, (pathName.length));
+  let id = pathName.slice(6, 42);
   const [post, setPost] = useState({});
   const [tag, setTag] = useState('');
-  //const { postID } = route.params;
-  //console.log(postID)
+  const [edit, setEdit] = useState("Edit");
+
+  const editPost = () => {
+        if (edit === "Edit") {
+            setEdit("Save");
+        } else if (edit === "Save") {
+            setEdit("Edit");
+        }
+  }
+
+  const componentRender = () => {
+      if (edit === "Edit") {
+          console.log(`EDIT: ${edit}`);
+        return(
+            <EditDeletePost postTitle={post.title} postDescrip={post.description} isPrivate={post.private} id={id} />
+        )
+      } else if (edit === "Save") {
+          console.log(`SAVE: ${edit}`);
+          return(
+              <TitleDescription postTitle={post.title} postDescrip={post.description} />
+          )
+      }
+  }
+
+  const buttonRender = () => {
+      if (edit === "Edit") {
+          return(
+              <Button onClick={editPost}>{edit}</Button>
+          )
+      } else if (edit === "Save") {
+          return(
+              <Button form="updatePost" type="submit" onClick={editPost}>{edit}</Button>
+          )
+      }
+      
+  }
+  
+  const deletePost = () => {
+    console.log("post deleted");
+  };
 
   const fetchPostById = async () => {
     let fetchURL;
@@ -76,13 +115,14 @@ const PostById = (props) => {
       <p>Individual post with edit/delete options</p>
       <div className="post">
         {post ? <img src={post.image} alt={post.title} /> : ""}
-        {post ? <p className='notEditMode'>{post.title}</p> : ""}
-        {post ? <p className='notEditMode'>{post.description}</p> : ""}
+        {post ? componentRender() : ""}
         {post ? <p>{tag} Baby</p> : ""}
-        {post && props.sessionToken ? <EditDeletePost post={post} /> : ""}
+        {post ? buttonRender() : ""}
+        <Button onClick={deletePost}>Delete</Button>
       </div>
     </div>
   );
 };
 
 export default PostById;
+//postTitle={post.title} postDescrip={post.description}
