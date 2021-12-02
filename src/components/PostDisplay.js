@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import LikeButton from './LikeButton';
 
 const PostDisplay = (props) => {
     const [posts, setPosts] = useState([]);
@@ -10,8 +11,7 @@ const PostDisplay = (props) => {
                 method: "GET",
                 headers: new Headers({
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${props.sessionToken}`,
-                    credentials: "included"
+                    Authorization: `Bearer ${props.sessionToken}`
                 })
             });
         } else {
@@ -25,10 +25,10 @@ const PostDisplay = (props) => {
         }
     };
 
-    const postMapper = () => {
+    const postMapper = async () => {
         let fetchURL;
         switch (props.getWhat.what) {
-            case 'all': props.sessionToken ? fetchURL = '/post/allposts' : fetchURL = '/post/'; break;
+            case 'all': props.sessionToken !== '' ? fetchURL = '/post/allposts' : fetchURL = '/post/'; break;
             case "tag":
                 if (props.getWhat.tag === "fur baby")
                     fetchURL = "/post/tag/all/FurBaby";
@@ -41,18 +41,16 @@ const PostDisplay = (props) => {
             case 'likes': fetchURL = '/post/toplikes'; break;
         }
 
-        try {
-            fetch(`http://localhost:3000${fetchURL}`, method)
-                .then((res) => res.json())
-                .then((json) => setPosts(json))
-        }
-        catch (error) { console.log(error) }
+        await fetch(`http://localhost:3000${fetchURL}`, method)
+            .then((res) => res.json())
+            .then((json) => setPosts(json))
+            .catch((error) => console.log(error))
     };
 
     useEffect(() => {
         postMapper();
         createHeaders();
-    }, [props.getWhat, props.sessionToken, Array.isArray(posts)])
+    }, [props.getWhat, props.sessionToken, Array.isArray(posts), props.userLikedPosts])
 
     return (
         <div id='postDisplay'>
@@ -74,6 +72,15 @@ const PostDisplay = (props) => {
                         <img src={post.image} alt={post.title} />
                         <p>{post.title}</p>
                         <p>{post.description}</p>
+                        <p>{post.likes} Likes</p>
+                        <p>
+                            <LikeButton
+                                post_id={post.post_id}
+                                userLikedPosts={props.userLikedPosts}
+                                sessionToken={props.sessionToken}
+                                fetchData={props.fetchData}
+                            />
+                        </p>
                         <p>{postTag} Baby</p>
                     </div>
                 );

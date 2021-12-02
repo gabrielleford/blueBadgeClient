@@ -16,6 +16,43 @@ function App() {
   const [sessionToken, setSessionToken] = useState('');
   const [userID, setUserID] = useState('');
   const [username, setUsername] = useState('');
+  const [userLikedPosts, setUserLikedPosts] = useState([])
+
+  const fetchData = async () => {
+    if (localStorage.getItem('Authorization')) {
+      setSessionToken(localStorage.getItem('Authorization'));
+      if (sessionToken !== '') await fetch('http://localhost:3000/user/checkToken', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + sessionToken,
+        }
+      }).then(result => {
+        if (result.status == 200) {
+          setIsLoggedIn(true)
+        }
+        else setIsLoggedIn(false);
+        return result.json()
+      })
+        .then(result => {
+          setUserID(result.user_id);
+          setUsername(result.username);
+        })
+        .catch((error) => console.log(error))
+
+      if (sessionToken !== '') await fetch('http://localhost:3000/user/likes', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + sessionToken,
+        }
+      })
+        .then(result => result.json())
+        .then(result => { setUserLikedPosts(result[0].likedPosts); })
+        .catch((error) => console.log(error))
+    }
+    else setIsLoggedIn(false);
+  }
 
   const updateToken = (newToken) => {
     localStorage.setItem('Authorization', newToken);
@@ -29,30 +66,8 @@ function App() {
   }
 
   useEffect(() => {
-    if (localStorage.getItem('Authorization')) {
-      setSessionToken(localStorage.getItem('Authorization'));
-      try {
-        fetch('http://localhost:3000/user/checkToken', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + sessionToken,
-            credentials: 'include'
-          }
-        }).then(result => {
-          if (result.status == 200) {
-            setIsLoggedIn(true)
-          }
-          else setIsLoggedIn(false);
-          return result.json()
-        }).then(result => { setUserID(result.user_id); setUsername(result.username); }
-        )
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    else setIsLoggedIn(false);
-
+    fetchData();
+    //console.log(userLikedPosts)
   }, [sessionToken, isLoggedIn])
 
   return (
@@ -68,9 +83,9 @@ function App() {
         <Navbar clearToken={clearToken} isLoggedIn={isLoggedIn} sessionToken={sessionToken} setSessionToken={setSessionToken} />
 
         <Routes>
-          <Route path="/" element={<Landing sessionToken={sessionToken} />} />
-          <Route path="/login" element={<LoginSignup updateToken={updateToken} setSessionToken={setSessionToken} sessionToken={sessionToken} updateToken={updateToken} />} />
-          <Route path='/myProfile' element={<MyProfile username={username} sessionToken={sessionToken} userID={userID} sessionToken={sessionToken} />} />
+          <Route path="/" element={<Landing fetchData={fetchData} sessionToken={sessionToken} userLikedPosts={userLikedPosts} />} />
+          <Route path="/login" element={<LoginSignup updateToken={updateToken} setSessionToken={setSessionToken} sessionToken={sessionToken} />} />
+          <Route path='/myProfile' element={<MyProfile username={username} userID={userID} sessionToken={sessionToken} />} />
           <Route path="/newPost" element={<CreatePost sessionToken={sessionToken} />} />
           <Route path="/post/:id" element={<PostById isLoggedIn={isLoggedIn} sessionToken={sessionToken} />} />
         </Routes>
