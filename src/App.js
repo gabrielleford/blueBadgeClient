@@ -48,7 +48,7 @@ function App() {
         }
       })
         .then(result => result.json())
-        .then(result => { setUserLikedPosts(result); console.log(result) })
+        .then(result => { setUserLikedPosts(result[0].likedPosts); })
         .catch((error) => console.log(error))
     }
     else setIsLoggedIn(false);
@@ -67,7 +67,7 @@ function App() {
 
   useEffect(() => {
     fetchData();
-
+    //console.log(userLikedPosts)
   }, [sessionToken, isLoggedIn])
 
   return (
@@ -83,7 +83,7 @@ function App() {
         <Navbar clearToken={clearToken} isLoggedIn={isLoggedIn} sessionToken={sessionToken} setSessionToken={setSessionToken} />
 
         <Routes>
-          <Route path="/" element={<Landing sessionToken={sessionToken} />} />
+          <Route path="/" element={<Landing fetchData={fetchData} sessionToken={sessionToken} userLikedPosts={userLikedPosts} />} />
           <Route path="/login" element={<LoginSignup updateToken={updateToken} setSessionToken={setSessionToken} sessionToken={sessionToken} />} />
           <Route path='/myProfile' element={<MyProfile username={username} userID={userID} sessionToken={sessionToken} />} />
           <Route path="/newPost" element={<CreatePost sessionToken={sessionToken} />} />

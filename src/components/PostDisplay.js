@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import LikeButton from './LikeButton';
 
 const PostDisplay = (props) => {
     const [posts, setPosts] = useState([]);
@@ -49,7 +50,7 @@ const PostDisplay = (props) => {
     useEffect(() => {
         postMapper();
         createHeaders();
-    }, [props.getWhat, props.sessionToken, Array.isArray(posts)])
+    }, [props.getWhat, props.sessionToken, Array.isArray(posts), props.userLikedPosts])
 
     return (
         <div id='postDisplay'>
@@ -71,7 +72,15 @@ const PostDisplay = (props) => {
                         <img src={post.image} alt={post.title} />
                         <p>{post.title}</p>
                         <p>{post.description}</p>
-                        <p>{post.likes}</p>
+                        <p>{post.likes} Likes</p>
+                        <p>
+                            <LikeButton
+                                post_id={post.post_id}
+                                userLikedPosts={props.userLikedPosts}
+                                sessionToken={props.sessionToken}
+                                fetchData={props.fetchData}
+                            />
+                        </p>
                         <p>{postTag} Baby</p>
                     </div>
                 );
