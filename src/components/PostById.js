@@ -20,8 +20,7 @@ const PostById = (props) => {
             method: "GET",
             headers: new Headers({
               "Content-Type": "application/json",
-              Authorization: `Bearer ${props.sessionToken}`,
-              credentials: "included",
+              Authorization: `Bearer ${props.sessionToken}`
             }),
           })
             .then((res) => res.json())

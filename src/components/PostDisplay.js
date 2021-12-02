@@ -10,8 +10,7 @@ const PostDisplay = (props) => {
                 method: "GET",
                 headers: new Headers({
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${props.sessionToken}`,
-                    credentials: "included"
+                    Authorization: `Bearer ${props.sessionToken}`
                 })
             });
         } else {
@@ -25,10 +24,10 @@ const PostDisplay = (props) => {
         }
     };
 
-    const postMapper = () => {
+    const postMapper = async () => {
         let fetchURL;
         switch (props.getWhat.what) {
-            case 'all': props.sessionToken ? fetchURL = '/post/allposts' : fetchURL = '/post/'; break;
+            case 'all': props.sessionToken !== '' ? fetchURL = '/post/allposts' : fetchURL = '/post/'; break;
             case "tag":
                 if (props.getWhat.tag === "fur baby")
                     fetchURL = "/post/tag/all/FurBaby";
@@ -41,12 +40,10 @@ const PostDisplay = (props) => {
             case 'likes': fetchURL = '/post/toplikes'; break;
         }
 
-        try {
-            fetch(`http://localhost:3000${fetchURL}`, method)
-                .then((res) => res.json())
-                .then((json) => setPosts(json))
-        }
-        catch (error) { console.log(error) }
+        await fetch(`http://localhost:3000${fetchURL}`, method)
+            .then((res) => res.json())
+            .then((json) => setPosts(json))
+            .catch((error) => console.log(error))
     };
 
     useEffect(() => {
