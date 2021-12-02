@@ -74,6 +74,7 @@ const PostDisplay = (props) => {
                         <img src={post.image} alt={post.title} />
                         <p>{post.title}</p>
                         <p>{post.description}</p>
+                        <p>{post.likes}</p>
                         <p>{postTag} Baby</p>
                     </div>
                 );

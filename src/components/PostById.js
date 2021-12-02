@@ -4,9 +4,11 @@ import EditDeletePost from "./EditDeletePost";
 
 const PostById = (props) => {
   let pathName = window.location.pathname;
-  let id = pathName.slice(6, 8);
+  let id = pathName.slice(6, (pathName.length));
   const [post, setPost] = useState({});
   const [tag, setTag] = useState('');
+  //const { postID } = route.params;
+  //console.log(postID)
 
   const fetchPostById = async () => {
     let fetchURL;
@@ -25,7 +27,7 @@ const PostById = (props) => {
             .then((res) => res.json())
             .then((json) => {
               setPost(json[0]);
-              if (json[0].tag === "FurBaby") {
+              if (json.tag === "FurBaby") {
                 setTag(json[0].tag.slice(0, 3));
               } else if (json[0].tag === "ScaleBaby") {
                 setTag(json[0].tag.slice(0, 5));
@@ -51,11 +53,11 @@ const PostById = (props) => {
           .then((json) => {
             setPost(json[0]);
             if (json[0].tag === "FurBaby") {
-              setTag(json[0].tag.slice(0, 3));
+              setTag(json.tag[0].slice(0, 3));
             } else if (json[0].tag === "ScaleBaby") {
-              setTag(json[0].tag.slice(0, 5));
-            } else if (json[0].tag === "ExoticBaby") {
-              setTag(json[0].tag.slice(0, 6));
+              setTag(json.tag[0].slice(0, 5));
+            } else if (json.tag[0] === "ExoticBaby") {
+              setTag(json.tag[0].slice(0, 6));
             }
           })
           .catch((error) => console.log(error));
