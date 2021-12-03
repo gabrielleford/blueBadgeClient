@@ -57,15 +57,7 @@ const PostDisplay = (props) => {
             <p>Multiple posts</p>
             {Array.isArray(posts) ? posts.map((post, index) => {
                 let postTag;
-
-                if (post.tag === 'FurBaby') {
-                    postTag = post.tag.slice(0, 3);
-                } else if (post.tag === 'ScaleBaby') {
-                    postTag = post.tag.slice(0, 5);
-                } else if (post.tag === 'ExoticBaby') {
-                    postTag = post.tag.slice(0, 6);
-                }
-
+                postTag = post.tag.slice(0, post.tag.search('Baby'))
                 return (
                     <div key={index} className='post'>
                         <img src={post.image} alt={post.title} />
