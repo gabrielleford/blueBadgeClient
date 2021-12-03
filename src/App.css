@@ -19,7 +19,7 @@ div {
 .notActive {background-color:rgb(99, 99, 99);color:rgb(206, 206, 206);}
 .toggler {display:inline-block;width:300px;}
 label, input {width:200px;display:block;}
-.smol {width:100px;}
+.smol {width:100px;height:100px}
 .post {border:3px solid rgb(75, 94, 240);background:rgb(147, 159, 250);}
 .post img {max-width: 500px; max-height: 500px;}
 
@@ -32,3 +32,5 @@ h5 {padding:0;margin:0 0 20px 0 !important;}
 
 .s200 {color:green;}
 .s401, .s500, .s409, .s400 {color:red;}
+
+.active {background-color:cyan !important;color:#000 !important}

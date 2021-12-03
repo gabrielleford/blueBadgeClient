@@ -6,12 +6,13 @@ const PostDisplay = (props) => {
     const [method, setMethod] = useState({})
 
     const createHeaders = () => {
+        //console.log(props.sessionToken)
         if (props.sessionToken !== '') {
             setMethod({
                 method: "GET",
                 headers: new Headers({
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${props.sessionToken}`
+                    'Authorization': `Bearer ${props.sessionToken}`
                 })
             });
         } else {
@@ -30,17 +31,15 @@ const PostDisplay = (props) => {
         switch (props.getWhat.what) {
             case 'all': props.sessionToken !== '' ? fetchURL = '/post/allposts' : fetchURL = '/post/'; break;
             case "tag":
-                if (props.getWhat.tag === "fur baby")
-                    fetchURL = "/post/tag/all/FurBaby";
-                else if (props.getWhat.tag === "scale baby")
-                    fetchURL = "/post/tag/all/ScaleBaby";
-                else if (props.getWhat.tag === "exotic baby")
-                    fetchURL = "/post/tag/all/ExoticBaby";
+                fetchURL = '/post/tag/all/';
+                if (props.getWhat.tag === "fur baby") fetchURL += "FurBaby";
+                else if (props.getWhat.tag === "scale baby") fetchURL += "ScaleBaby";
+                else if (props.getWhat.tag === "exotic baby") fetchURL += "ExoticBaby";
                 break;
-            case 'user': fetchURL = `/post/posts/all/${props.username}`; break;
+            case 'user': props.sessionToken !== '' ? fetchURL = `/post/posts/all/${props.username}` : fetchURL = `/post/posts/${props.username}`; break;
             case 'likes': fetchURL = '/post/toplikes'; break;
         }
-
+        //console.log(`http://localhost:3000${fetchURL}`)
         await fetch(`http://localhost:3000${fetchURL}`, method)
             .then((res) => res.json())
             .then((json) => setPosts(json))
@@ -48,9 +47,9 @@ const PostDisplay = (props) => {
     };
 
     useEffect(() => {
-        postMapper();
         createHeaders();
-    }, [props.getWhat, props.sessionToken, Array.isArray(posts), props.userLikedPosts])
+        if (props.username !== '') postMapper();
+    }, [props.getWhat, props.sessionToken, Array.isArray(posts), props.userLikedPosts, props.username])
 
     return (
         <div id='postDisplay'>
