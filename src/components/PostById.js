@@ -9,14 +9,9 @@ const PostById = (props) => {
   const [post, setPost] = useState({});
   const [tag, setTag] = useState('');
   const [edit, setEdit] = useState("Edit");
-  const [wait, setWait] = useState(true);
   
   const editActive = () => {
     setEdit("Save");
-  }
-
-  const editInactive = () => {
-    setEdit("Edit");
   }
 
   const componentRender = () => {
@@ -29,7 +24,7 @@ const PostById = (props) => {
       } else if (edit === "Save") {
           return(
             <div>
-                <EditDeletePost postTitle={post.title} postDescrip={post.description} isPrivate={post.private} id={id} sessionToken={props.sessionToken} editInactive={editInactive} edit={edit} />
+                <EditDeletePost postTitle={post.title} postDescrip={post.description} isPrivate={post.private} id={id} sessionToken={props.sessionToken} fetchPostById={fetchPostById} setEdit={setEdit} edit={edit} />
             </div>
           )
       }
@@ -73,6 +68,7 @@ const PostById = (props) => {
           .then((res) => res.json())
           .then((json) => {
             setPost(json[0]);
+            console.log(json[0].tag);
             if (json[0].tag === "FurBaby") {
               setTag(json.tag[0].slice(0, 3));
             } else if (json[0].tag === "ScaleBaby") {
@@ -89,7 +85,7 @@ const PostById = (props) => {
 
   useEffect(() => {
     if (Object.keys(post).length === 0) fetchPostById();
-  }, [edit, props.sessionToken]);
+  }, [props.sessionToken]);
 
   return (
     <div id="postById">
@@ -98,7 +94,7 @@ const PostById = (props) => {
       <div className="post">
         {post ? <img src={post.image} alt={post.title} /> : ""}
         {post ? componentRender() : ""}
-        {post? <p>{tag}</p> : ""}
+        {post ? <p>{tag}</p> : ""}
       </div>
     </div>
   );

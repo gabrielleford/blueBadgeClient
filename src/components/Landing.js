@@ -55,3 +55,5 @@ const Landing = (props) => {
 }
 
 export default Landing;
+
+// if there's a page use that & if no page then grab the first 12
