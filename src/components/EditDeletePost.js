@@ -30,11 +30,11 @@ const EditDeletePost = (props) => {
       }),
     })
       .then((res) => {
-        console.log(res);
-        res.json();
-        responseCode = res.status;
+        console.log(res)
+        res.json()
+        responseCode = res.status
         if (responseCode === 200) {
-          props.setEdit("Edit");
+          props.setEdit('Edit');
           props.fetchPostById();
         }
       })
@@ -45,28 +45,30 @@ const EditDeletePost = (props) => {
     console.log("post deleted");
   };
 
-  return(
-      <div id='editPost'>
-          <Form onSubmit={updatePost}>
-            <FormGroup>
-                  <Label htmlFor='title' />
-                  <Input name='title' onChange={e => setTitle(e.target.value)} value={title} required />
-              </FormGroup>
+  console.log(isPrivate)
 
-              <FormGroup>
-                  <Label htmlFor='description' />
-                  <Input type='text' name='description' onChange={e => setDescription(e.target.value)} value={description} required />
-              </FormGroup>
+  return (
+    <div id='editPost'>
+      <Form onSubmit={updatePost}>
+        <FormGroup>
+          <Label htmlFor='title' />
+          <Input name='title' onChange={e => setTitle(e.target.value)} value={title} required />
+        </FormGroup>
 
-              <FormGroup>
-                <Label htmlFor='private'>Private</Label>
-                <Input type='checkbox' name='private' onChange={e => isChecked(e)} defaultChecked={isPrivate} />
-              </FormGroup>
+        <FormGroup>
+          <Label htmlFor='description' />
+          <Input type='text' name='description' onChange={e => setDescription(e.target.value)} value={description} required />
+        </FormGroup>
 
-              <Button type='submit'>{props.edit}</Button>
-              <Button onClick={deletePost}>Delete</Button>
-          </Form>
-      </div>
+        <FormGroup>
+          <Label htmlFor='private'>Private</Label>
+          <Input type='checkbox' name='private' onChange={e => isChecked(e)} defaultChecked={isPrivate} />
+        </FormGroup>
+
+        <Button type='submit'>{props.edit}</Button>
+        <Button onClick={deletePost}>Delete</Button>
+      </Form>
+    </div>
   )
 };
 

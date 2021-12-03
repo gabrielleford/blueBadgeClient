@@ -15,19 +15,19 @@ const PostById = (props) => {
   }
 
   const componentRender = () => {
-      if (edit === "Edit") {
-        return(
-            <div>
-                <TitleDescription postTitle={post.title} postDescrip={post.description} editActive={editActive} edit={edit}/>
-            </div>
-        )
-      } else if (edit === "Save") {
-          return(
-            <div>
-                <EditDeletePost postTitle={post.title} postDescrip={post.description} isPrivate={post.private} id={id} sessionToken={props.sessionToken} fetchPostById={fetchPostById} setEdit={setEdit} edit={edit} />
-            </div>
-          )
-      }
+    if (edit === "Edit") {
+      return (
+        <div>
+          <TitleDescription postTitle={post.title} postDescrip={post.description} editActive={editActive} edit={edit} />
+        </div>
+      )
+    } else if (edit === "Save") {
+      return (
+        <div>
+          <EditDeletePost fetchPostById={fetchPostById} setEdit={setEdit} postTitle={post.title} postDescrip={post.description} isPrivate={post.private} id={id} sessionToken={props.sessionToken} edit={edit} />
+        </div>
+      )
+    }
   }
 
   const fetchPostById = async () => {
@@ -35,51 +35,34 @@ const PostById = (props) => {
     if (props.sessionToken) {
       fetchURL = `http://localhost:3000/post/validated/${id}`;
       if (props.sessionToken !== '') {
-          await fetch(fetchURL, {
-            method: "GET",
-            headers: new Headers({
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${props.sessionToken}`,
-            }),
-          })
-            .then((res) => res.json())
-            .then((json) => {
-              setPost(json[0]);
-              if (json.tag === "FurBaby") {
-                setTag(json[0].tag.slice(0, 3) + " Baby");
-              } else if (json[0].tag === "ScaleBaby") {
-                setTag(json[0].tag.slice(0, 5) + " Baby");
-              } else if (json[0].tag === "ExoticBaby") {
-                setTag(json[0].tag.slice(0, 6) + " Baby");
-              } else {
-                  setTag("");
-              }
-            })
-            .catch((error) => console.log(error));
-      }
-    } else {
-      fetchURL = `http://localhost:3000/post/${id}`;
         await fetch(fetchURL, {
           method: "GET",
           headers: new Headers({
             "Content-Type": "application/json",
+            Authorization: `Bearer ${props.sessionToken}`,
           }),
         })
           .then((res) => res.json())
           .then((json) => {
             setPost(json[0]);
-            console.log(json[0].tag);
-            if (json[0].tag === "FurBaby") {
-              setTag(json.tag[0].slice(0, 3));
-            } else if (json[0].tag === "ScaleBaby") {
-              setTag(json.tag[0].slice(0, 5));
-            } else if (json.tag[0] === "ExoticBaby") {
-              setTag(json.tag[0].slice(0, 6));
-            } else {
-                setTag("");
-            }
+            setTag(json.tag.slice(0, json.tag.search('Baby')))
           })
           .catch((error) => console.log(error));
+      }
+    } else {
+      fetchURL = `http://localhost:3000/post/${id}`;
+      await fetch(fetchURL, {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          setPost(json[0]);
+          setTag(json[0].tag.slice(0, json[0].tag.search('Baby')))
+        })
+        .catch((error) => console.log(error));
     }
   };
 

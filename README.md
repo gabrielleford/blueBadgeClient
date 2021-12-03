@@ -25,6 +25,7 @@ Technology Used:
     11.25       logout component
     11.27       user edit
     11.30       my profile component
+    12.02       like post component
     tbd         styling
  
 

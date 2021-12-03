@@ -11,6 +11,22 @@ const MyProfile = (props) => {
     const [feedbackStatus, setFeedBackStatus] = useState('');
     const [getWhat, setGetWhat] = useState({ what: 'user', tag: null });
 
+    const fetchUserInfo = async () => {
+        await fetch(`http://localhost:3000/user/${props.userID}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                //console.log(data)
+                setProfileDescription(data[0].profileDescription)
+                setProfilePicture(data[0].profilePicture)
+                setNewProfileDescription(data[0].profileDescription)
+            })
+    }
+
     const previewImage = (file) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -36,57 +52,40 @@ const MyProfile = (props) => {
             const formData = new FormData();
             formData.append('file', encodedImage);
             formData.append("upload_preset", "instapet");
-            try {
-                await fetch(`https://api.cloudinary.com/v1_1/gabrielleford/image/upload`, {
-                    method: "POST",
-                    body: formData
-                })
-                    .then(result => { result.json() })
-                    .then(json => imageURL = json.url)
-
-                console.log(`Image URL: ${imageURL}`);
-            } catch (error) {
-                console.log(error)
-            }
+            await fetch(`https://api.cloudinary.com/v1_1/gabrielleford/image/upload`, {
+                method: "POST",
+                body: formData
+            })
+                .then(result => result.json())
+                .then(result => imageURL = result.url)
+                .catch((error) => console.log(error))
         }
         else imageURL = profilePicture;
 
-        try {
-            await fetch('http://localhost:3000/user/edit', {
-                method: 'PUT',
-                body: JSON.stringify({
-                    user: {
-                        description: newProfileDescription,
-                        imageURL: imageURL
-                    }
-                }),
-                headers: new Headers({
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${props.sessionToken}`
-                })
-            }).then((response) => {
+        await fetch('http://localhost:3000/user/edit', {
+            method: 'PUT',
+            body: JSON.stringify({
+                user: {
+                    description: newProfileDescription,
+                    imageURL: imageURL
+                }
+            }),
+            headers: new Headers({
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${props.sessionToken}`
+            })
+        })
+            .then((response) => {
                 setFeedBackStatus(`s${response.status}`)
                 return response.json();
             })
-                .then((data) => setFeedBack(data.message))
-        } catch (error) {
-            console.log(error)
-        }
+            .then((data) => setFeedBack(data.message))
+            .then(fetchUserInfo())
+            .catch((error) => console.log(error))
     }
 
     useEffect(() => {
-        fetch(`http://localhost:3000/user/${props.userID}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                setProfileDescription(data[0].profileDescription)
-                setProfilePicture(data[0].profilePicture)
-                setNewProfileDescription(data[0].profileDescription)
-            })
+        if (props.userID !== '') fetchUserInfo();
 
     }, [props.userID, profileDescription, profilePicture])
 
@@ -98,12 +97,20 @@ const MyProfile = (props) => {
             <p>Edit description:</p>
             <form onSubmit={handleEdit}>
                 <input defaultValue={profileDescription} onChange={e => setNewProfileDescription(e.target.value)}></input>
-                <p>Profile Picture: <img className='smol' src={profilePicture} alt='if there is a picture url it will display here' /></p>
+                {previewSrc ?
+                    <img className='smol' src={previewSrc} alt='Preview of chosen file' /> :
+                    <img className='smol' src={profilePicture} alt='Current profile picture' />
+                }
                 <p>New profile image:</p>
                 <input type='file' name='image' onChange={handleImage} />
                 <button type='submit'>Save</button>
             </form>
-            <PostDisplay getWhat={getWhat} username={props.username} />
+            <PostDisplay
+                getWhat={getWhat}
+                username={props.username}
+                sessionToken={props.sessionToken}
+                userLikedPosts={props.userLikedPosts}
+            />
         </div>
     )
 }
