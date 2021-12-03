@@ -9,78 +9,61 @@ const PostById = (props) => {
   const [post, setPost] = useState({});
   const [tag, setTag] = useState('');
   const [edit, setEdit] = useState("Edit");
+  const [wait, setWait] = useState(true);
+  
+  const editActive = () => {
+    setEdit("Save");
+  }
 
-  const editPost = () => {
-        if (edit === "Edit") {
-            setEdit("Save");
-        } else if (edit === "Save") {
-            setEdit("Edit");
-        }
+  const editInactive = () => {
+    setEdit("Edit");
   }
 
   const componentRender = () => {
       if (edit === "Edit") {
-          console.log(`EDIT: ${edit}`);
         return(
-            <EditDeletePost postTitle={post.title} postDescrip={post.description} isPrivate={post.private} id={id} />
+            <div>
+                <TitleDescription postTitle={post.title} postDescrip={post.description} editActive={editActive} edit={edit}/>
+            </div>
         )
       } else if (edit === "Save") {
-          console.log(`SAVE: ${edit}`);
           return(
-              <TitleDescription postTitle={post.title} postDescrip={post.description} />
+            <div>
+                <EditDeletePost postTitle={post.title} postDescrip={post.description} isPrivate={post.private} id={id} sessionToken={props.sessionToken} editInactive={editInactive} edit={edit} />
+            </div>
           )
       }
   }
-
-  const buttonRender = () => {
-      if (edit === "Edit") {
-          return(
-              <Button onClick={editPost}>{edit}</Button>
-          )
-      } else if (edit === "Save") {
-          return(
-              <Button form="updatePost" type="submit" onClick={editPost}>{edit}</Button>
-          )
-      }
-      
-  }
-  
-  const deletePost = () => {
-    console.log("post deleted");
-  };
 
   const fetchPostById = async () => {
     let fetchURL;
     if (props.sessionToken) {
       fetchURL = `http://localhost:3000/post/validated/${id}`;
       if (props.sessionToken !== '') {
-        try {
           await fetch(fetchURL, {
             method: "GET",
             headers: new Headers({
               "Content-Type": "application/json",
-              Authorization: `Bearer ${props.sessionToken}`
+              Authorization: `Bearer ${props.sessionToken}`,
             }),
           })
             .then((res) => res.json())
             .then((json) => {
               setPost(json[0]);
               if (json.tag === "FurBaby") {
-                setTag(json[0].tag.slice(0, 3));
+                setTag(json[0].tag.slice(0, 3) + " Baby");
               } else if (json[0].tag === "ScaleBaby") {
-                setTag(json[0].tag.slice(0, 5));
+                setTag(json[0].tag.slice(0, 5) + " Baby");
               } else if (json[0].tag === "ExoticBaby") {
-                setTag(json[0].tag.slice(0, 6));
+                setTag(json[0].tag.slice(0, 6) + " Baby");
+              } else {
+                  setTag("");
               }
             })
             .catch((error) => console.log(error));
-        } catch (error) {
-          console.log(error);
-        }
       }
     } else {
       fetchURL = `http://localhost:3000/post/${id}`;
-      try {
         await fetch(fetchURL, {
           method: "GET",
           headers: new Headers({
@@ -96,18 +79,17 @@ const PostById = (props) => {
               setTag(json.tag[0].slice(0, 5));
             } else if (json.tag[0] === "ExoticBaby") {
               setTag(json.tag[0].slice(0, 6));
+            } else {
+                setTag("");
             }
           })
           .catch((error) => console.log(error));
-      } catch (error) {
-        console.log(error);
-      }
     }
   };
 
   useEffect(() => {
     if (Object.keys(post).length === 0) fetchPostById();
-  }, [props.sessionToken]);
+  }, [edit, props.sessionToken]);
 
   return (
     <div id="postById">
@@ -116,9 +98,7 @@ const PostById = (props) => {
       <div className="post">
         {post ? <img src={post.image} alt={post.title} /> : ""}
         {post ? componentRender() : ""}
-        {post ? <p>{tag} Baby</p> : ""}
-        {post ? buttonRender() : ""}
-        <Button onClick={deletePost}>Delete</Button>
+        {post? <p>{tag}</p> : ""}
       </div>
     </div>
   );
