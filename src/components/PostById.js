@@ -9,14 +9,9 @@ const PostById = (props) => {
   const [post, setPost] = useState({});
   const [tag, setTag] = useState('');
   const [edit, setEdit] = useState("Edit");
-  const [wait, setWait] = useState(true);
-
+  
   const editActive = () => {
     setEdit("Save");
-  }
-
-  const editInactive = () => {
-    setEdit("Edit");
   }
 
   const componentRender = () => {
@@ -29,7 +24,7 @@ const PostById = (props) => {
     } else if (edit === "Save") {
       return (
         <div>
-          <EditDeletePost fetchPostById={fetchPostById} setEdit={setEdit} postTitle={post.title} postDescrip={post.description} isPrivate={post.private} id={id} sessionToken={props.sessionToken} editInactive={editInactive} edit={edit} />
+          <EditDeletePost fetchPostById={fetchPostById} setEdit={setEdit} postTitle={post.title} postDescrip={post.description} isPrivate={post.private} id={id} sessionToken={props.sessionToken} edit={edit} />
         </div>
       )
     }
@@ -73,7 +68,7 @@ const PostById = (props) => {
 
   useEffect(() => {
     if (Object.keys(post).length === 0) fetchPostById();
-  }, [edit, props.sessionToken]);
+  }, [props.sessionToken]);
 
   return (
     <div id="postById">

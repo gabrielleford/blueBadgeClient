@@ -7,7 +7,7 @@ const CreatePost = (props) => {
     const [image, setImage] = useState('');
     const [previewSrc, setPreviewSrc] = useState('');
     const [description, setDescription] = useState('');
-    const [tag, setTag] = useState('');
+    const [tag, setTag] = useState('FurBaby');
     const [isPrivate, setIsPrivate] = useState(false);
     const navigate = useNavigate();
     let params = useParams();
