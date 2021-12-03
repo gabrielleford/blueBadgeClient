@@ -80,14 +80,47 @@ function App() {
           <p>user_id = {userID}</p>
           <p>username = {username}</p>
         </div>
-        <Navbar clearToken={clearToken} isLoggedIn={isLoggedIn} sessionToken={sessionToken} setSessionToken={setSessionToken} />
+        <Navbar
+          clearToken={clearToken}
+          isLoggedIn={isLoggedIn}
+          sessionToken={sessionToken}
+          setSessionToken={setSessionToken}
+        />
 
         <Routes>
-          <Route path="/" element={<Landing fetchData={fetchData} sessionToken={sessionToken} userLikedPosts={userLikedPosts} />} />
-          <Route path="/login" element={<LoginSignup updateToken={updateToken} setSessionToken={setSessionToken} sessionToken={sessionToken} />} />
-          <Route path='/myProfile' element={<MyProfile username={username} userID={userID} sessionToken={sessionToken} />} />
-          <Route path="/newPost" element={<CreatePost sessionToken={sessionToken} />} />
-          <Route path="/post/:id" element={<PostById isLoggedIn={isLoggedIn} sessionToken={sessionToken} />} />
+          <Route path="/" element={
+            <Landing
+              fetchData={fetchData}
+              sessionToken={sessionToken}
+              userLikedPosts={userLikedPosts}
+            />}
+          />
+          <Route path="/login" element={
+            <LoginSignup
+              updateToken={updateToken}
+              setSessionToken={setSessionToken}
+              sessionToken={sessionToken}
+            />}
+          />
+          <Route path='/myProfile' element={
+            <MyProfile
+              username={username}
+              userID={userID}
+              sessionToken={sessionToken}
+              userLikedPosts={userLikedPosts}
+            />}
+          />
+          <Route path="/newPost" element={
+            <CreatePost
+              sessionToken={sessionToken}
+            />}
+          />
+          <Route path="/post/:id" element={
+            <PostById
+              isLoggedIn={isLoggedIn}
+              sessionToken={sessionToken}
+            />}
+          />
         </Routes>
       </Router>
     </>
