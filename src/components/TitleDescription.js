@@ -1,17 +1,46 @@
+import { useEffect } from "react";
 import { Button } from "reactstrap";
-
-const deletePost = () => {
-  console.log("post deleted");
-};
+import { useNavigate } from "react-router";
 
 const TitleDescription = (props) => {
+    const navigate = useNavigate();
+
+    const buttonRender = () => {
+      if(props.sessionToken && props.userId === props.ownerId) {
+        return (
+          <div>
+            <Button onClick={props.editActive}>{props.edit}</Button>
+            <Button onClick={deletePost}>Delete</Button>
+          </div>
+        );
+      }
+    }
+
+    const deletePost = async () => {
+      console.log("post deleted");
+      await fetch(`http://localhost:3000/post/delete/${props.id}`, {
+        method: "DELETE",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${props.sessionToken}`
+        })
+      })
+      .then((res) => {
+        console.log(res);
+        let responseCode = res.status;
+        if (responseCode == '200') {
+          navigate(`/post/myProfile`);
+        }
+      } 
+      );
+    };
+
     return (
       <div>
         <h3>Post</h3>
         <p>{props.postTitle}</p>
         <p>{props.postDescrip}</p>
-        <Button onClick={props.editActive}>{props.edit}</Button>
-        <Button onClick={deletePost}>Delete</Button>
+        {buttonRender()}
       </div>
     );
 };

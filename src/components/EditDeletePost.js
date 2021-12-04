@@ -6,6 +6,7 @@ const EditDeletePost = (props) => {
   const [title, setTitle] = useState(props.postTitle);
   const [description, setDescription] = useState(props.postDescrip);
   const [isPrivate, setIsPrivate] = useState(props.isPrivate);
+  const navigate = useNavigate()
 
   const isChecked = (e) => {
     const checked = e.target.checked;
@@ -33,7 +34,7 @@ const EditDeletePost = (props) => {
         console.log(res)
         res.json()
         responseCode = res.status
-        if (responseCode === 200) {
+        if (responseCode == '200') {
           props.setEdit('Edit');
           props.fetchPostById();
         }
@@ -41,8 +42,21 @@ const EditDeletePost = (props) => {
       .catch((err) => console.log(err))
   }
 
-  const deletePost = () => {
+  const deletePost = async () => {
     console.log("post deleted");
+    await fetch(`http://localhost:3000/post/delete/${props.id}`, {
+      method: "DELETE",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${props.sessionToken}`,
+      }),
+    }).then((res) => {
+      console.log(res);
+      let responseCode = res.status;
+      if (responseCode == "200") {
+        navigate(`/post/myProfile`);
+      }
+    });
   };
 
   console.log(isPrivate)
