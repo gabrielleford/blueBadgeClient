@@ -40,7 +40,7 @@ const PostDisplay = (props) => {
             case 'likes': fetchURL = '/post/toplikes'; break;
         }
         //console.log(`http://localhost:3000${fetchURL}`)
-        await fetch(`http://localhost:3000${fetchURL}`, method)
+        await fetch(`${props.fetchUrl}${fetchURL}`, method)
             .then((res) => res.json())
             .then((json) => setPosts(json))
             .catch((error) => console.log(error))
@@ -66,6 +66,7 @@ const PostDisplay = (props) => {
                         <p>{post.likes} Likes</p>
                         <p>
                             <LikeButton
+                                fetchUrl={props.fetchUrl}
                                 post_id={post.post_id}
                                 userLikedPosts={props.userLikedPosts}
                                 sessionToken={props.sessionToken}

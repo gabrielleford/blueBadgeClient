@@ -14,7 +14,7 @@ const LoginSignup = (props) => {
     const register = event => {
         let responseCode;
         event.preventDefault();
-        fetch(`http://localhost:3000/user/register`, {
+        fetch(`${props.fetchUrl}/user/register`, {
             method: 'POST',
             body: JSON.stringify({ user: { email: email, password: password, username: username } }),
             headers: {
@@ -36,7 +36,7 @@ const LoginSignup = (props) => {
     const login = event => {
         let responseCode;
         event.preventDefault();
-        fetch("http://localhost:3000/user/login", {
+        fetch(`${props.fetchUrl}/user/login`, {
             method: 'POST',
             body: JSON.stringify({ user: { email: email, password: password } }),
             headers: {
