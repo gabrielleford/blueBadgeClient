@@ -17,13 +17,13 @@ const PostById = (props) => {
     if (edit === "Edit") {
       return (
         <div>
-          <TitleDescription postTitle={post.title} userId={props.userId} ownerId={post.owner_id} id={id} postDescrip={post.description} editActive={editActive} edit={edit} sessionToken={props.sessionToken} />
+          <TitleDescription fetchUrl={props.fetchUrl} postTitle={post.title} userID={props.userID} ownerId={post.owner_id} id={id} postDescrip={post.description} editActive={editActive} edit={edit} sessionToken={props.sessionToken} />
         </div>
       )
     } else if (edit === "Save") {
       return (
         <div>
-          <EditDeletePost fetchPostById={fetchPostById} setEdit={setEdit} postTitle={post.title} postDescrip={post.description} isPrivate={post.private} id={id} sessionToken={props.sessionToken} edit={edit} />
+          <EditDeletePost fetchUrl={props.fetchUrl} fetchPostById={fetchPostById} setEdit={setEdit} postTitle={post.title} postDescrip={post.description} isPrivate={post.private} id={id} sessionToken={props.sessionToken} edit={edit} />
         </div>
       )
     }
@@ -32,7 +32,7 @@ const PostById = (props) => {
   const fetchPostById = async () => {
     let fetchURL;
     if (props.sessionToken) {
-      fetchURL = `http://localhost:3000/post/validated/${id}`;
+      fetchURL = `${props.fetchUrl}/post/validated/${id}`;
       if (props.sessionToken !== '') {
         await fetch(fetchURL, {
           method: "GET",
@@ -44,13 +44,12 @@ const PostById = (props) => {
           .then((res) => res.json())
           .then((json) => {
             setPost(json[0]);
-            console.log(json[0].user_id);
             setTag(json.tag.slice(0, json.tag.search('Baby')))
           })
           .catch((error) => console.log(error));
       }
     } else {
-      fetchURL = `http://localhost:3000/post/${id}`;
+      fetchURL = `${props.fetchUrl}/post/${id}`;
       await fetch(fetchURL, {
         method: "GET",
         headers: new Headers({
@@ -84,4 +83,3 @@ const PostById = (props) => {
 };
 
 export default PostById;
-//postTitle={post.title} postDescrip={post.description}

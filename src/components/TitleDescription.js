@@ -6,7 +6,7 @@ const TitleDescription = (props) => {
     const navigate = useNavigate();
 
     const buttonRender = () => {
-      if(props.sessionToken && props.userId === props.ownerId) {
+      if(props.sessionToken && props.userID === props.ownerId) {
         return (
           <div>
             <Button onClick={props.editActive}>{props.edit}</Button>
@@ -18,21 +18,19 @@ const TitleDescription = (props) => {
 
     const deletePost = async () => {
       console.log("post deleted");
-      await fetch(`http://localhost:3000/post/delete/${props.id}`, {
+      await fetch(`${props.fetchUrl}/post/delete/${props.id}`, {
         method: "DELETE",
         headers: new Headers({
           "Content-Type": "application/json",
-          Authorization: `Bearer ${props.sessionToken}`
-        })
-      })
-      .then((res) => {
+          Authorization: `Bearer ${props.sessionToken}`,
+        }),
+      }).then((res) => {
         console.log(res);
         let responseCode = res.status;
-        if (responseCode == '200') {
-          navigate(`/post/myProfile`);
+        if (responseCode == "200") {
+          navigate(`/myProfile`);
         }
-      } 
-      );
+      }).catch(err => console.log(err)) 
     };
 
     return (

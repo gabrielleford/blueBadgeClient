@@ -16,7 +16,7 @@ const EditDeletePost = (props) => {
   const updatePost = async (e) => {
     let responseCode;
     e.preventDefault();
-    await fetch(`http://localhost:3000/post/edit/${props.id}`, {
+    await fetch(`${props.fetchUrl}/post/edit/${props.id}`, {
       method: "PUT",
       body: JSON.stringify({
         post: {
@@ -44,7 +44,7 @@ const EditDeletePost = (props) => {
 
   const deletePost = async () => {
     console.log("post deleted");
-    await fetch(`http://localhost:3000/post/delete/${props.id}`, {
+    await fetch(`${props.fetchUrl}/post/delete/${props.id}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const EditDeletePost = (props) => {
       console.log(res);
       let responseCode = res.status;
       if (responseCode == "200") {
-        navigate(`/post/myProfile`);
+        navigate(`/myProfile`);
       }
     });
   };
