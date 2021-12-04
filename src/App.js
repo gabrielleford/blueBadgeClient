@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './App.css';
 import "bootstrap/dist/css/bootstrap.css";
+import './App.css';
 import Navbar from './components/Navbar'
 import LoginSignup from './components/LoginSignup'
 import Landing from './components/Landing'
 import MyProfile from './components/MyProfile'
 import CreatePost from './components/CreatePost';
 import PostById from './components/PostById';
+import UserProfile from './components/UserProfile';
 
 
 function App() {
@@ -73,55 +74,61 @@ function App() {
   return (
     <>
       <Router>
-        <div id='debugStuff'>
-          <h5>Debug Stuff</h5>
-          <p>Logged In? = {isLoggedIn ? 'true' : 'false'}</p>
-          <p>SessionToken = {sessionToken}</p>
-          <p>user_id = {userID}</p>
-          <p>username = {username}</p>
-        </div>
-        <Navbar
-          clearToken={clearToken}
-          isLoggedIn={isLoggedIn}
-          sessionToken={sessionToken}
-          setSessionToken={setSessionToken}
-        />
+        <div className='container-fluid'>
+          <Navbar
+            clearToken={clearToken}
+            isLoggedIn={isLoggedIn}
+            sessionToken={sessionToken}
+            setSessionToken={setSessionToken}
+          />
 
-        <Routes>
-          <Route path="/" element={
-            <Landing
-              fetchData={fetchData}
-              sessionToken={sessionToken}
-              userLikedPosts={userLikedPosts}
-            />}
-          />
-          <Route path="/login" element={
-            <LoginSignup
-              updateToken={updateToken}
-              setSessionToken={setSessionToken}
-              sessionToken={sessionToken}
-            />}
-          />
-          <Route path='/myProfile' element={
-            <MyProfile
-              username={username}
-              userID={userID}
-              sessionToken={sessionToken}
-              userLikedPosts={userLikedPosts}
-            />}
-          />
-          <Route path="/newPost" element={
-            <CreatePost
-              sessionToken={sessionToken}
-            />}
-          />
-          <Route path="/post/:id" element={
-            <PostById
-              isLoggedIn={isLoggedIn}
-              sessionToken={sessionToken}
-            />}
-          />
-        </Routes>
+          <Routes>
+            <Route path="/" element={
+              <Landing
+                fetchData={fetchData}
+                sessionToken={sessionToken}
+                userLikedPosts={userLikedPosts}
+              />}
+            />
+            <Route path="/login" element={
+              <LoginSignup
+                updateToken={updateToken}
+                setSessionToken={setSessionToken}
+                sessionToken={sessionToken}
+              />}
+            />
+            <Route path='/myProfile' element={
+              <MyProfile
+                username={username}
+                userID={userID}
+                sessionToken={sessionToken}
+                userLikedPosts={userLikedPosts}
+              />}
+            />
+            <Route path="/newPost" element={
+              <CreatePost
+                sessionToken={sessionToken}
+              />}
+            />
+            <Route path="/post/:id" element={
+              <PostById
+                isLoggedIn={isLoggedIn}
+                sessionToken={sessionToken}
+              />}
+            />
+            <Route path="/user/:username" element={
+              <UserProfile
+                isLoggedIn={isLoggedIn}
+                sessionToken={sessionToken}
+                username={username}
+                userLikedPosts={userLikedPosts}
+              />}
+            />
+          </Routes>
+          <footer>
+            <p>Created by Gabrielle Ford and Katie Sallows</p>
+          </footer>
+        </div>
       </Router>
     </>
   );
