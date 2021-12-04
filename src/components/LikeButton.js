@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 const LikeButton = (props) => {
 
     const like = async () => {
-        await fetch(`http://localhost:3000/post/like/${props.post_id}`, {
+        await fetch(`${props.fetchUrl}/post/like/${props.post_id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

@@ -43,7 +43,8 @@ const PostDisplay = (props) => {
             case 'likes': fetchURL = '/post/toplikes'; break;
         }
         //console.log(`http://localhost:3000${fetchURL}`)
-        await fetch(`http://localhost:3000${fetchURL}/${offset}`, method)
+
+        await fetch(`${props.fetchUrl}${fetchURL}`, method)
             .then((res) => res.json())
             .then((json) => {
                 //yes this is stupid :)

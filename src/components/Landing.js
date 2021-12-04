@@ -75,6 +75,7 @@ const Landing = (props) => {
                 </div>
             </div>
             <PostDisplay
+                fetchUrl={props.fetchUrl}
                 sessionToken={props.sessionToken}
                 getWhat={getWhat}
                 userLikedPosts={props.userLikedPosts}
@@ -85,3 +86,5 @@ const Landing = (props) => {
 }
 
 export default Landing;
+
+// if there's a page use that & if no page then grab the first 12

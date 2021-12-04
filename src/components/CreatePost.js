@@ -7,11 +7,10 @@ const CreatePost = (props) => {
     const [image, setImage] = useState('');
     const [previewSrc, setPreviewSrc] = useState('');
     const [description, setDescription] = useState('');
-    const [tag, setTag] = useState('');
+    const [tag, setTag] = useState('FurBaby');
     const [isPrivate, setIsPrivate] = useState(false);
     const navigate = useNavigate();
     let params = useParams();
-    let { id } = params;
 
     const isChecked = (e) => {
         const checked = e.target.checked;
@@ -71,14 +70,12 @@ const CreatePost = (props) => {
         })
             .then((res) => {
                 responseCode = res.status;
-                console.log(responseCode);
                 return res.json();
             })
             .then((json) => {
-                console.log(json);
+                // console.log(json);
                 params.id = json.post.post_id;
-                console.log(params.id);
-                if (responseCode == '201') navigate(`/post/${params.id}`, { state: params.id });
+                if (responseCode == '201') navigate(`/post/${params.id}`);
             })
     }
 
