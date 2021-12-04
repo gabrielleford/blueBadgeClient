@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Button } from "reactstrap";
 import PostDisplay from "./PostDisplay";
 
 const Landing = (props) => {
@@ -49,14 +48,32 @@ const Landing = (props) => {
     }, []);
 
     return (
-        <div id='landing'>
-            <h5>Landing</h5>
-            <p>Landing Page</p>
-            <Button className='active' id='all' onClick={getAll}>Latest</Button>
-            <Button id='furBaby' onClick={furBaby}>Fur Baby</Button>
-            <Button id='scaleBaby' onClick={scaleBaby}>Scale Baby</Button>
-            <Button id='exoticBaby' onClick={exoticBaby}>Exotic Baby</Button>
-            <Button id='likes' onClick={likes}>Top Likes</Button>
+        <>
+            <div class="row mb-3 justify-content-center">
+                <div class="col-xs-10 col-xl-4">
+                    <ul class="tag-nav-left nav nav-pills">
+                        <li class="nav-item">
+                            <a id='furBaby' class="nav-link" onClick={furBaby}>🐶 fur babies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id='exoticBaby' class="nav-link" onClick={exoticBaby}>🐯 exotic babies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id='scaleBaby' class="nav-link" onClick={scaleBaby}>🐠 scale babies</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-10 col-xl-4">
+                    <ul class="tag-nav-right nav nav-pills justify-content-end">
+                        <li class="nav-item">
+                            <a id='all' class="nav-link active" onClick={getAll}>🕐 latest</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id='likes' class="nav-link" onClick={likes}>🔥 top</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <PostDisplay
                 fetchUrl={props.fetchUrl}
                 sessionToken={props.sessionToken}
@@ -64,7 +81,7 @@ const Landing = (props) => {
                 userLikedPosts={props.userLikedPosts}
                 fetchData={props.fetchData}
             />
-        </div>
+        </>
     )
 }
 

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import PostDisplay from "./PostDisplay";
+import MyProfileEdit from './MyProfileEdit'
+import MyProfileDisplay from './MyProfileDisplay'
 
 const MyProfile = (props) => {
     const [profileDescription, setProfileDescription] = useState('');
@@ -10,6 +12,7 @@ const MyProfile = (props) => {
     const [previewSrc, setPreviewSrc] = useState('');
     const [feedbackStatus, setFeedBackStatus] = useState('');
     const [getWhat, setGetWhat] = useState({ what: 'user', tag: null });
+    const [editing, setEditing] = useState(false);
 
     const fetchUserInfo = async () => {
         await fetch(`${props.fetchUrl}/user/${props.userID}`, {
@@ -20,7 +23,7 @@ const MyProfile = (props) => {
         })
             .then((response) => response.json())
             .then((data) => {
-                //console.log(data)
+                console.log(data)
                 setProfileDescription(data[0].profileDescription)
                 setProfilePicture(data[0].profilePicture)
                 setNewProfileDescription(data[0].profileDescription)
@@ -44,6 +47,7 @@ const MyProfile = (props) => {
     const handleEdit = (event) => {
         event.preventDefault();
         editProfile(previewSrc);
+        setEditing(false)
     }
 
     const editProfile = async (encodedImage) => {
@@ -85,26 +89,29 @@ const MyProfile = (props) => {
     }
 
     useEffect(() => {
-        if (props.userID !== '') fetchUserInfo();
+        if (props.username !== '') fetchUserInfo();
 
-    }, [props.userID, profileDescription, profilePicture])
+    }, [props.username, profileDescription, profilePicture, editing, newProfilePicture])
 
     return (
-        <div id='myProfile'>
-            <h5>My Profile</h5>
-            {feedback ? <div className={feedbackStatus}>{feedback}</div> : ''}
-            <p>Profile Description: {profileDescription}</p>
-            <p>Edit description:</p>
-            <form onSubmit={handleEdit}>
-                <input defaultValue={profileDescription} onChange={e => setNewProfileDescription(e.target.value)}></input>
-                {previewSrc ?
-                    <img className='smol' src={previewSrc} alt='Preview of chosen file' /> :
-                    <img className='smol' src={profilePicture} alt='Current profile picture' />
-                }
-                <p>New profile image:</p>
-                <input type='file' name='image' onChange={handleImage} />
-                <button type='submit'>Save</button>
-            </form>
+        <>
+            <div className='row justify-content-center mb-5'>
+                {editing ? <MyProfileEdit
+                    setEditing={setEditing}
+                    handleImage={handleImage}
+                    previewSrc={previewSrc}
+                    username={props.username}
+                    profilePicture={profilePicture}
+                    profileDescription={profileDescription}
+                    handleEdit={handleEdit}
+                    setNewProfileDescription={setNewProfileDescription}
+                    newProfileDescription={newProfileDescription} /> :
+                    <MyProfileDisplay
+                        setEditing={setEditing}
+                        username={props.username}
+                        profilePicture={profilePicture}
+                        profileDescription={profileDescription} />}
+            </div>
             <PostDisplay
                 fetchUrl={props.fetchUrl}
                 getWhat={getWhat}
@@ -112,7 +119,7 @@ const MyProfile = (props) => {
                 sessionToken={props.sessionToken}
                 userLikedPosts={props.userLikedPosts}
             />
-        </div>
+        </>
     )
 }
 
