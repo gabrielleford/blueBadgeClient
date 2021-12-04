@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import LikeButton from './LikeButton';
+import APIURL from '../helpers/environment';
 
 const PostDisplay = (props) => {
     const [posts1, setPosts1] = useState([]);
@@ -44,17 +45,17 @@ const PostDisplay = (props) => {
         }
         //console.log(`http://localhost:3000${fetchURL}`)
 
-        await fetch(`${props.fetchUrl}${fetchURL}`, method)
-            .then((res) => res.json())
-            .then((json) => {
-                //yes this is stupid :)
-                console.log(json)
-                setPosts1(json.slice(0, 4))
-                setPosts2(json.slice(4, 8))
-                setPosts3(json.slice(8, 12))
-                console.log(posts2)
-            })
-            .catch((error) => console.log(error))
+        await fetch(`${APIURL}${fetchURL}`, method)
+          .then((res) => res.json())
+          .then((json) => {
+            //yes this is stupid :)
+            console.log(json);
+            setPosts1(json.slice(0, 4));
+            setPosts2(json.slice(4, 8));
+            setPosts3(json.slice(8, 12));
+            console.log(posts2);
+          })
+          .catch((error) => console.log(error));
     };
 
     useEffect(() => {

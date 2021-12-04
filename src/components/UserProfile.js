@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import APIURL from '../helpers/environment';
 import PostDisplay from "./PostDisplay";
 
 const MyProfile = (props) => {
@@ -10,7 +11,7 @@ const MyProfile = (props) => {
     let username = pathName.slice(6);
 
     const fetchUserInfo = async () => {
-        await fetch(`http://localhost:3000/user/${username}`, {
+        await fetch(`${APIURL}/user/${username}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

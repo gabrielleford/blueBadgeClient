@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { useNavigate, useParams } from 'react-router';
+import APIURL from '../helpers/environment';
 
 const CreatePost = (props) => {
     const [title, setTitle] = useState('');
@@ -52,7 +53,7 @@ const CreatePost = (props) => {
         })
         const json = await res.json();
 
-        await fetch('http://localhost:3000/post/create', {
+        await fetch(`${APIURL}/post/create`, {
             method: 'POST',
             body: JSON.stringify({
                 post: {
