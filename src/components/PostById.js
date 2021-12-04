@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Button } from "reactstrap";
 import EditDeletePost from "./EditDeletePost";
 import TitleDescription from "./TitleDescription";
 
@@ -18,7 +17,7 @@ const PostById = (props) => {
     if (edit === "Edit") {
       return (
         <div>
-          <TitleDescription postTitle={post.title} postDescrip={post.description} editActive={editActive} edit={edit} />
+          <TitleDescription postTitle={post.title} userId={props.userId} ownerId={post.owner_id} id={id} postDescrip={post.description} editActive={editActive} edit={edit} sessionToken={props.sessionToken} />
         </div>
       )
     } else if (edit === "Save") {
@@ -45,6 +44,7 @@ const PostById = (props) => {
           .then((res) => res.json())
           .then((json) => {
             setPost(json[0]);
+            console.log(json[0].user_id);
             setTag(json.tag.slice(0, json.tag.search('Baby')))
           })
           .catch((error) => console.log(error));
@@ -77,7 +77,7 @@ const PostById = (props) => {
       <div className="post">
         {post ? <img src={post.image} alt={post.title} /> : ""}
         {post ? componentRender() : ""}
-        {post ? <p>{tag}</p> : ""}
+        {post ? <p>{tag} Baby</p> : ""}
       </div>
     </div>
   );

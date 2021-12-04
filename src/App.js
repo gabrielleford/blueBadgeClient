@@ -117,7 +117,7 @@ function App() {
           />
           <Route path="/post/:id" element={
             <PostById
-              isLoggedIn={isLoggedIn}
+              userID={userID}
               sessionToken={sessionToken}
             />}
           />
