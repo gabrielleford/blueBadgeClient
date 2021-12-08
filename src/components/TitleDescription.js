@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Button } from "reactstrap";
 import { useNavigate } from "react-router";
+import APIURL from "../helpers/environment";
 
 const TitleDescription = (props) => {
   const navigate = useNavigate();
@@ -16,22 +17,23 @@ const TitleDescription = (props) => {
     }
   }
 
-  const deletePost = async () => {
+ const deletePost = async () => {
     console.log("post deleted");
-    await fetch(`${props.fetchUrl}/post/delete/${props.id}`, {
+    await fetch(`${APIURL}/post/delete/${props.id}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
         Authorization: `Bearer ${props.sessionToken}`,
       }),
     }).then((res) => {
-      console.log(res);
-      let responseCode = res.status;
-      if (responseCode == "200") {
-        navigate(`/myProfile`);
-      }
-    }).catch(err => console.log(err))
+       console.log(res);
+       let responseCode = res.status;
+       if (responseCode == "200") {
+         navigate(`/myProfile`);
+       }
+    }).catch(err => console.log(err)) 
   };
+
 
   return (
     <div>

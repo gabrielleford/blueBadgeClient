@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import APIURL from "../helpers/environment";
 import EditDeletePost from "./EditDeletePost";
 import TitleDescription from "./TitleDescription";
 
@@ -17,25 +18,28 @@ const PostById = (props) => {
     if (edit === "Edit") {
       return (
         <div>
-          <TitleDescription
-            postTitle={post.title}
-            postDescrip={post.description}
-            editActive={editActive}
-            edit={edit} />
+          <TitleDescription 
+            postTitle={post.title} 
+            userID={props.userID} 
+            ownerId={post.owner_id} 
+            id={id} 
+            postDescrip={post.description} 
+            editActive={editActive} 
+            edit={edit} 
+            sessionToken={props.sessionToken} />
         </div>
       )
     } else if (edit === "Save") {
       return (
-        <div>
-          <EditDeletePost
-            fetchPostById={fetchPostById}
-            setEdit={setEdit}
-            postTitle={post.title}
-            postDescrip={post.description}
-            isPrivate={post.private}
-            id={id}
-            sessionToken={props.sessionToken}
-            editInactive={editInactive}
+        <div> 
+          <EditDeletePost 
+            fetchPostById={fetchPostById} 
+            setEdit={setEdit} 
+            postTitle={post.title} 
+            postDescrip={post.description} 
+            isPrivate={post.private} 
+            id={id} 
+            sessionToken={props.sessionToken} 
             edit={edit} />
         </div>
       )
@@ -45,7 +49,7 @@ const PostById = (props) => {
   const fetchPostById = async () => {
     let fetchURL;
     if (props.sessionToken) {
-      fetchURL = `${props.fetchUrl}/post/validated/${id}`;
+      fetchURL = `${APIURL}/post/validated/${id}`;
       if (props.sessionToken !== '') {
         await fetch(fetchURL, {
           method: "GET",
@@ -62,7 +66,7 @@ const PostById = (props) => {
           .catch((error) => console.log(error));
       }
     } else {
-      fetchURL = `${props.fetchUrl}/post/${id}`;
+      fetchURL = `${APIURL}/post/${id}`;
       await fetch(fetchURL, {
         method: "GET",
         headers: new Headers({
