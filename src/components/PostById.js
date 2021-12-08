@@ -15,6 +15,8 @@ const PostById = (props) => {
   }
 
   const componentRender = () => {
+    console.log(`USER ID: ${props.userID}`);
+    console.log(`OWNER ID: ${post.owner_id}`);
     if (edit === "Edit") {
       return (
         <div>

@@ -18,7 +18,6 @@ const TitleDescription = (props) => {
   }
 
  const deletePost = async () => {
-    console.log("post deleted");
     await fetch(`${APIURL}/post/delete/${props.id}`, {
       method: "DELETE",
       headers: new Headers({
