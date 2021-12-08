@@ -26,7 +26,8 @@ Technology Used:
     11.27       user edit
     11.30       my profile component
     12.02       like post component
-    tbd         styling
+    12.04       styling
+    12.04       user profile component
  
 
 ## Team Member #2  Gabrielle Ford

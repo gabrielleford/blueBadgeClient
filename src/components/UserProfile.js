@@ -5,7 +5,7 @@ import PostDisplay from "./PostDisplay";
 const MyProfile = (props) => {
     const [profileDescription, setProfileDescription] = useState('');
     const [profilePicture, setProfilePicture] = useState('');
-    const [getWhat, setGetWhat] = useState({ what: 'user', tag: null });
+    const [getWhat] = useState({ what: 'user', tag: null });
 
     let pathName = window.location.pathname;
     let username = pathName.slice(6);
@@ -29,13 +29,13 @@ const MyProfile = (props) => {
     useEffect(() => {
         if (username !== '') fetchUserInfo();
 
-    }, [username, profileDescription, profilePicture])
+    }, [username, profileDescription, profilePicture, props.sessionToken])
 
     return (
         <div id='userProfile'>
             <h5>User Profile</h5>
             <p>Profile Description: {profileDescription}</p>
-            <img className='smol' src={profilePicture} alt='Current profile picture' />
+            <img className='smol' src={profilePicture} />
             <PostDisplay
                 getWhat={getWhat}
                 username={username}

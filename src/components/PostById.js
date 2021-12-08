@@ -9,7 +9,7 @@ const PostById = (props) => {
   const [post, setPost] = useState({});
   const [tag, setTag] = useState('');
   const [edit, setEdit] = useState("Edit");
-  
+
   const editActive = () => {
     setEdit("Save");
   }
@@ -18,13 +18,29 @@ const PostById = (props) => {
     if (edit === "Edit") {
       return (
         <div>
-          <TitleDescription postTitle={post.title} userID={props.userID} ownerId={post.owner_id} id={id} postDescrip={post.description} editActive={editActive} edit={edit} sessionToken={props.sessionToken} />
+          <TitleDescription 
+            postTitle={post.title} 
+            userID={props.userID} 
+            ownerId={post.owner_id} 
+            id={id} 
+            postDescrip={post.description} 
+            editActive={editActive} 
+            edit={edit} 
+            sessionToken={props.sessionToken} />
         </div>
       )
     } else if (edit === "Save") {
       return (
-        <div>
-          <EditDeletePost fetchPostById={fetchPostById} setEdit={setEdit} postTitle={post.title} postDescrip={post.description} isPrivate={post.private} id={id} sessionToken={props.sessionToken} edit={edit} />
+        <div> 
+          <EditDeletePost 
+            fetchPostById={fetchPostById} 
+            setEdit={setEdit} 
+            postTitle={post.title} 
+            postDescrip={post.description} 
+            isPrivate={post.private} 
+            id={id} 
+            sessionToken={props.sessionToken} 
+            edit={edit} />
         </div>
       )
     }
@@ -45,7 +61,7 @@ const PostById = (props) => {
           .then((res) => res.json())
           .then((json) => {
             setPost(json[0]);
-            setTag(json.tag.slice(0, json.tag.search('Baby')))
+            setTag(json[0].tag.slice(0, json[0].tag.search('Baby')))
           })
           .catch((error) => console.log(error));
       }
@@ -71,15 +87,20 @@ const PostById = (props) => {
   }, [props.sessionToken]);
 
   return (
-    <div id="postById">
-      <h5>Post by ID</h5>
-      <p>Individual post with edit/delete options</p>
-      <div className="post">
-        {post ? <img src={post.image} alt={post.title} /> : ""}
-        {post ? componentRender() : ""}
-        {post ? <p>{tag} Baby</p> : ""}
+    <>
+      <div className='row justify-content-center align-items-start'>
+        <div className='col-sm-10 col-lg-5'>
+          {post ? <img className='shadow post-display-image' src={post.image} alt={post.title} /> : ""}
+          <div className='d-flex justify-content-center'>
+            <p className='post-tags me-auto'><a className='tag'>{post ? tag + ' Baby' : ""}</a></p>
+          </div>
+        </div>
+        <div className='col-sm-10 col-lg-3 with-bg'>
+          {post ? componentRender() : ""}
+        </div>
       </div>
-    </div>
+    </>
+
   );
 };
 

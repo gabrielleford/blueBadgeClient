@@ -69,19 +69,19 @@ function App() {
 
   useEffect(() => {
     fetchData();
-    //console.log(userLikedPosts)
+    console.log(userLikedPosts)
   }, [sessionToken, isLoggedIn])
 
   return (
     <>
       <Router>
-        <div className='container-fluid'>
+        <div id='main' className='container-fluid'>
           <Navbar
             clearToken={clearToken}
             isLoggedIn={isLoggedIn}
             sessionToken={sessionToken}
             setSessionToken={setSessionToken}
-           
+
           />
 
           <Routes>
@@ -105,6 +105,7 @@ function App() {
                 userID={userID}
                 sessionToken={sessionToken}
                 userLikedPosts={userLikedPosts}
+                fetchData={fetchData}
               />}
             />
             <Route path="/newPost" element={
@@ -124,11 +125,12 @@ function App() {
                 sessionToken={sessionToken}
                 username={username}
                 userLikedPosts={userLikedPosts}
+                fetchData={fetchData}
               />}
             />
           </Routes>
           <footer>
-            <p>Created by Gabrielle Ford and Katie Sallows</p>
+            <p>Created by <a href='https://github.com/gabrielleford' target='_blank'>Gabrielle Ford</a> and <a href='https://github.com/ksallows' target='_blank'>Katie Sallows</a></p>
           </footer>
         </div>
       </Router>
