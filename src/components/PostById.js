@@ -21,10 +21,11 @@ const PostById = (props) => {
           <TitleDescription 
             postTitle={post.title} 
             userID={props.userID} 
-            ownerId={post.owner_id} 
+            ownerID={post.owner_id} 
             id={id} 
             postDescrip={post.description} 
-            edit={edit} 
+            edit={edit}
+            editActive={editActive}
             sessionToken={props.sessionToken} />
         </div>
       )

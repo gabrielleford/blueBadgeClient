@@ -7,7 +7,7 @@ const TitleDescription = (props) => {
   const navigate = useNavigate();
 
   const buttonRender = () => {
-    if (props.sessionToken && props.userID === props.ownerId) {
+    if (props.sessionToken && props.userID === props.ownerID) {
       return (
         <div>
           <Button onClick={props.editActive}>{props.edit}</Button>
