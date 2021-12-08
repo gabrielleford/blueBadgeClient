@@ -25,6 +25,7 @@
 }
 
 * {font-family: 'Roboto', sans-serif;z-index:50;}
+
 p {
     color:rgb(83, 83, 83);
     line-height:1.6rem;
@@ -106,6 +107,7 @@ p {
     position:relative;
     top:-40px;
     text-align:center;
+    flex:6 1 0;
 }
 #logobg {
   background-color:#fff;
@@ -115,6 +117,11 @@ p {
   top:-80px;
   box-shadow: 0 0 20px 1px #5cd8fb;
   z-index:10;
+  max-width:20rem;
+  margin:0 auto;
+}
+.logo-bg-container {
+  flex:1 1 0;
 }
 #logobg img {
   display:block;
@@ -143,8 +150,10 @@ p {
 .post-like {
     color:#fff;
     font:300 18pt 'Roboto Condensed' !important;
-    text-shadow:0 0 10px #000;
+    text-shadow:0 0 10px #000;  
+    transition:text-shadow 0.5s;
 }
+.post-like:hover {text-shadow:0 0 20px #d047c8;  }
 .post-row {margin-bottom:-5rem;}
 .post-display-image, .new-post-display-image  {
     display:block;
@@ -167,11 +176,13 @@ h2 {
     font-family: 'Roboto Condensed';
     font-weight:700;
     transition:background 0.25s;
+    text-transform:lowercase;
 }
 .tag:hover,.save:hover {
     background:#fd3c8e;
     color:#fff;
 }
+.tag:hover {background:#d047c8}
 .post-controls {
     display:flex;
     justify-content:right;
@@ -232,6 +243,7 @@ h1 {font-weight:300;text-align:center;margin:0 auto 2rem;color:#8c8c8c}
     margin:0 auto 1rem;
     max-width:80%;
     min-width:20rem;
+    background:#fff !important;
 }
 .input:focus {
     outline:none;
@@ -333,8 +345,6 @@ footer {
 }
 .topbutton {
   margin:0 1rem;
-  display:inline-block;
-  width:12rem;
 }
 #login, #signup {
   z-index:100;
@@ -350,4 +360,28 @@ button {
   display:block;
   margin:0 auto;
   width:fit-content
+}
+p a {text-decoration: none;}
+.label-checkbox {
+    display:inline-block;
+    margin:1rem 0;
+    font:700 12pt 'Roboto Condensed';
+}
+#input-checkbox {
+    display:inline-block;
+    margin:0.5rem 0.5rem 0.5rem 0;
+}
+.checkbox-container {
+    margin:0 auto !important;
+    width:fit-content;
+}
+#createPost {
+    width:fit-content
+}
+#b {margin-top:5rem;}
+
+.preview {
+    margin:2rem auto 2rem;
+    border-radius:20px;
+    display:block;
 }

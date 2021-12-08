@@ -70,19 +70,19 @@ function App() {
 
   useEffect(() => {
     fetchData();
-    //console.log(userLikedPosts)
+    console.log(userLikedPosts)
   }, [sessionToken, isLoggedIn])
 
   return (
     <>
       <Router>
-        <div className='container-fluid'>
+        <div id='main' className='container-fluid'>
           <Navbar
             clearToken={clearToken}
             isLoggedIn={isLoggedIn}
             sessionToken={sessionToken}
             setSessionToken={setSessionToken}
-           
+
           />
 
           <Routes>
@@ -91,7 +91,7 @@ function App() {
                 fetchData={fetchData}
                 sessionToken={sessionToken}
                 userLikedPosts={userLikedPosts}
-                 fetchUrl={fetchUrl}
+                fetchUrl={fetchUrl}
               />}
             />
             <Route path="/login" element={
@@ -99,7 +99,7 @@ function App() {
                 updateToken={updateToken}
                 setSessionToken={setSessionToken}
                 sessionToken={sessionToken}
-                 fetchUrl={fetchUrl}
+                fetchUrl={fetchUrl}
               />}
             />
             <Route path='/myProfile' element={
@@ -108,20 +108,21 @@ function App() {
                 userID={userID}
                 sessionToken={sessionToken}
                 userLikedPosts={userLikedPosts}
-                 fetchUrl={fetchUrl}
+                fetchData={fetchData}
+                fetchUrl={fetchUrl}
               />}
             />
             <Route path="/newPost" element={
               <CreatePost
                 sessionToken={sessionToken}
-                 fetchUrl={fetchUrl}
+                fetchUrl={fetchUrl}
               />}
             />
             <Route path="/post/:id" element={
               <PostById
                 isLoggedIn={isLoggedIn}
                 sessionToken={sessionToken}
-                 fetchUrl={fetchUrl}
+                fetchUrl={fetchUrl}
               />}
             />
             <Route path="/user/:username" element={
@@ -130,12 +131,13 @@ function App() {
                 sessionToken={sessionToken}
                 username={username}
                 userLikedPosts={userLikedPosts}
-                 fetchUrl={fetchUrl}
+                fetchData={fetchData}
+                fetchUrl={fetchUrl}
               />}
             />
           </Routes>
           <footer>
-            <p>Created by Gabrielle Ford and Katie Sallows</p>
+            <p>Created by <a href='https://github.com/gabrielleford' target='_blank'>Gabrielle Ford</a> and <a href='https://github.com/ksallows' target='_blank'>Katie Sallows</a></p>
           </footer>
         </div>
       </Router>
