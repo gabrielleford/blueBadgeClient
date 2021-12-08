@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import PostDisplay from "./PostDisplay";
 import MyProfileEdit from './MyProfileEdit'
 import MyProfileDisplay from './MyProfileDisplay'
+import APIURL from '../helpers/environment';
 
 const MyProfile = (props) => {
     const [profileDescription, setProfileDescription] = useState('');
@@ -15,7 +16,7 @@ const MyProfile = (props) => {
     const [editing, setEditing] = useState(false);
 
     const fetchUserInfo = async () => {
-        await fetch(`${props.fetchUrl}/user/${props.userID}`, {
+        await fetch(`${APIURL}/user/${props.userID}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -66,7 +67,7 @@ const MyProfile = (props) => {
         }
         else imageURL = profilePicture;
 
-        await fetch(`${props.fetchUrl}/user/edit`, {
+        await fetch(`${APIURL}/user/edit`, {
             method: 'PUT',
             body: JSON.stringify({
                 user: {
@@ -112,7 +113,6 @@ const MyProfile = (props) => {
                         profileDescription={profileDescription} />}
             </div>
             <PostDisplay
-                fetchUrl={props.fetchUrl}
                 getWhat={getWhat}
                 username={props.username}
                 sessionToken={props.sessionToken}

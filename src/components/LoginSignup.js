@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import APIURL from '../helpers/environment';
 
 const LoginSignup = (props) => {
 
@@ -14,7 +15,7 @@ const LoginSignup = (props) => {
     const register = event => {
         let responseCode;
         event.preventDefault();
-        fetch(`${props.fetchUrl}/user/register`, {
+        fetch(`${APIURL}/user/register`, {
             method: 'POST',
             body: JSON.stringify({ user: { email: email, password: password, username: username } }),
             headers: {
@@ -36,7 +37,7 @@ const LoginSignup = (props) => {
     const login = event => {
         let responseCode;
         event.preventDefault();
-        fetch(`${props.fetchUrl}/user/login`, {
+        fetch(`${APIURL}/user/login`, {
             method: 'POST',
             body: JSON.stringify({ user: { email: email, password: password } }),
             headers: {

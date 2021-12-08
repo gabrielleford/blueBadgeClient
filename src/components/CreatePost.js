@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { useNavigate, useParams } from 'react-router';
+import APIURL from '../helpers/environment';
 
 const CreatePost = (props) => {
     const [title, setTitle] = useState('');

@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import APIURL from "../helpers/environment";
+
 
 const EditDeletePost = (props) => {
   const [title, setTitle] = useState(props.postTitle);
@@ -15,7 +18,7 @@ const EditDeletePost = (props) => {
   const updatePost = async (e) => {
     let responseCode;
     e.preventDefault();
-    await fetch(`${props.fetchUrl}/post/edit/${props.id}`, {
+    await fetch(`${APIURL}/post/edit/${props.id}`, {
       method: "PUT",
       body: JSON.stringify({
         post: {
@@ -43,7 +46,7 @@ const EditDeletePost = (props) => {
 
   const deletePost = async () => {
     console.log("post deleted");
-    await fetch(`${props.fetchUrl}/post/delete/${props.id}`, {
+    await fetch(`${APIURL}/post/delete/${props.id}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
