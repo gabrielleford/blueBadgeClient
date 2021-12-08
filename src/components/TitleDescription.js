@@ -1,19 +1,18 @@
-import { Button } from "reactstrap";
-
 const deletePost = () => {
   console.log("post deleted");
 };
 
 const TitleDescription = (props) => {
-    return (
-      <div>
-        <h3>Post</h3>
-        <p>{props.postTitle}</p>
-        <p>{props.postDescrip}</p>
-        <Button onClick={props.editActive}>{props.edit}</Button>
-        <Button onClick={deletePost}>Delete</Button>
+  return (
+    <>
+      <h2>{props.postTitle}</h2>
+      <p>{props.postDescrip}</p>
+      <div className='post-controls'>
+        <button className="edit" onClick={props.editActive}>{props.edit}</button>
+        <button className="delete" onClick={deletePost} href="#">delete</button>
       </div>
-    );
+    </>
+  );
 };
 
 export default TitleDescription;

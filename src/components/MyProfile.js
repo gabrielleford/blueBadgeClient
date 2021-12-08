@@ -23,10 +23,10 @@ const MyProfile = (props) => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                //console.log(data)
+                if (!editing) setNewProfileDescription(data[0].profileDescription)
                 setProfileDescription(data[0].profileDescription)
                 setProfilePicture(data[0].profilePicture)
-                setNewProfileDescription(data[0].profileDescription)
             })
     }
 
@@ -90,8 +90,7 @@ const MyProfile = (props) => {
 
     useEffect(() => {
         if (props.username !== '') fetchUserInfo();
-
-    }, [props.username, profileDescription, profilePicture, editing, newProfilePicture])
+    }, [props.username, props.userLikedPosts, editing])
 
     return (
         <>
@@ -103,9 +102,9 @@ const MyProfile = (props) => {
                     username={props.username}
                     profilePicture={profilePicture}
                     profileDescription={profileDescription}
+                    newProfileDescription={newProfileDescription}
                     handleEdit={handleEdit}
-                    setNewProfileDescription={setNewProfileDescription}
-                    newProfileDescription={newProfileDescription} /> :
+                    setNewProfileDescription={setNewProfileDescription} /> :
                     <MyProfileDisplay
                         setEditing={setEditing}
                         username={props.username}
@@ -117,6 +116,7 @@ const MyProfile = (props) => {
                 username={props.username}
                 sessionToken={props.sessionToken}
                 userLikedPosts={props.userLikedPosts}
+                fetchData={props.fetchData}
             />
         </>
     )

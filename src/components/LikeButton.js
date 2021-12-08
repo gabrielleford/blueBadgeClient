@@ -20,7 +20,7 @@ const LikeButton = (props) => {
 
     return (
         <>
-            <p className='like' onClick={() => like()}>{props.userLikedPosts.includes(props.post_id) ? '❤️' : '🤍'}</p>
+            <p className='post-like like' onClick={() => like()}>{props.userLikedPosts.includes(props.post_id) ? '❤️' : '🤍'}</p>
         </>
     )
 }

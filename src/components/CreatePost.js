@@ -83,43 +83,29 @@ const CreatePost = (props) => {
     }
 
     return (
-        <div id='newPost'>
-            <h5>New Post</h5>
-            <p>Create new post</p>
-            <Form onSubmit={handlePost}>
-                <FormGroup>
-                    <Label htmlFor='title' />
-                    <Input name='title' onChange={e => setTitle(e.target.value)} value={title} placeholder='Title' required />
-                </FormGroup>
-
-                <FormGroup>
-                    <Input type='file' name='image' onChange={handleImage} value={image} />
-                </FormGroup>
-
-                {previewSrc && (
-                    <img src={previewSrc} alt='Preview of chosen file' style={{ height: '300px' }} />
-                )}
-
-                <FormGroup>
-                    <Label htmlFor='description' />
-                    <Input type='text' name='description' onChange={e => setDescription(e.target.value)} value={description} placeholder='Description' required />
-                </FormGroup>
-
-                <FormGroup>
-                    <Label htmlFor='tag'>Tag</Label>
-                    <Input type='select' name='tag' onChange={e => setTag(e.target.value)} value={tag} required>
+        <div class='row justify-content-center align-items-start'>
+            <div class='col-sm-10 col-lg-5 with-bg'>
+                <h1>create post</h1>
+                <form onSubmit={handlePost}>
+                    {/* <label id='b' htmlFor="imageCreate" className="file-upload btn-pb">choose image</label> */}
+                    <input className='d-block' type='file' name='imageCreate' onChange={handleImage} value={image} />
+                    {previewSrc && (
+                        <img src={previewSrc} class='shadow preview' alt='Preview of chosen file' style={{ height: '300px' }} />
+                    )}
+                    <input class='reg-input input' placeholder='title' onChange={e => setTitle(e.target.value)} value={title} />
+                    <textarea class='input' placeholder='description' value={description} onChange={e => setDescription(e.target.value)}></textarea>
+                    <select type='select' onChange={e => setTag(e.target.value)} name='tag' class='input' required>
                         <option value='FurBaby'>Fur Baby</option>
                         <option value='ScaleBaby'>Scale Baby</option>
                         <option value='ExoticBaby'>Exotic Baby</option>
-                    </Input>
-                </FormGroup>
-
-                <FormGroup>
-                    <Label htmlFor='private'>Private</Label>
-                    <Input type='checkbox' name='private' onChange={e => isChecked(e)} value={isPrivate} />
-                </FormGroup>
-                <Button type='submit'>Post</Button>
-            </Form>
+                    </select>
+                    <div class='checkbox-container'>
+                        <input id='input-checkbox' type='checkbox' name='private' />
+                        <label class='label-checkbox' for='private'>private</label><br />
+                    </div>
+                    <button type='submit' id='createPost' className='d-block btn btn-pb mx-auto'>Post</button>
+                </form>
+            </div>
         </div>
     );
 };

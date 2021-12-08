@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 
 const EditDeletePost = (props) => {
   let pathName = window.location.pathname;
@@ -56,25 +55,16 @@ const EditDeletePost = (props) => {
 
   return (
     <div id='editPost'>
-      <Form onSubmit={updatePost}>
-        <FormGroup>
-          <Label htmlFor='title' />
-          <Input name='title' onChange={e => setTitle(e.target.value)} value={title} required />
-        </FormGroup>
+      <form onSubmit={updatePost}>
+        <input className='h2-input' name='title' onChange={e => setTitle(e.target.value)} value={title} required />
+        <textarea name='description' className='p-input' onChange={e => setDescription(e.target.value)} value={description} required></textarea>
+        <input id='input-checkbox' type='checkbox' name='private' onChange={e => isChecked(e)} defaultChecked={isPrivate} />
+        <label class='label-checkbox' for='private'>private</label><br />
 
-        <FormGroup>
-          <Label htmlFor='description' />
-          <Input type='text' name='description' onChange={e => setDescription(e.target.value)} value={description} required />
-        </FormGroup>
 
-        <FormGroup>
-          <Label htmlFor='private'>Private</Label>
-          <Input type='checkbox' name='private' onChange={e => isChecked(e)} defaultChecked={isPrivate} />
-        </FormGroup>
-
-        <Button type='submit'>{props.edit}</Button>
-        <Button onClick={deletePost}>Delete</Button>
-      </Form>
+        <button className="edit" type='submit'>{props.edit}</button>
+        <button className="delete" onClick={deletePost}>Delete</button>
+      </form>
     </div>
   )
 };
