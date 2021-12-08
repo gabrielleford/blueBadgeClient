@@ -18,8 +18,8 @@ function App() {
   const [userID, setUserID] = useState('');
   const [username, setUsername] = useState('');
   const [userLikedPosts, setUserLikedPosts] = useState([])
-  const fetchUrl = 'https://gfks-instapet.herokuapp.com';
-  // const fetchUrl = 'http://localhost:3000'
+  // const fetchUrl = 'https://gfks-instapet.herokuapp.com';
+  const fetchUrl = 'http://localhost:3000'
 
   const fetchData = async () => {
     if (localStorage.getItem('Authorization')) {

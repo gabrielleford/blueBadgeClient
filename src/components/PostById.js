@@ -20,7 +20,7 @@ const PostById = (props) => {
           <TitleDescription
             postTitle={post.title}
             postDescrip={post.description}
-            editActive={editActive}
+
             edit={edit} />
         </div>
       )
@@ -35,7 +35,7 @@ const PostById = (props) => {
             isPrivate={post.private}
             id={id}
             sessionToken={props.sessionToken}
-            editInactive={editInactive}
+
             edit={edit} />
         </div>
       )

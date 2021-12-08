@@ -43,7 +43,7 @@ const PostDisplay = (props) => {
         }
         //console.log(`http://localhost:3000${fetchURL}`)
 
-        await fetch(`${props.fetchUrl}${fetchURL}`, method)
+        await fetch(`${props.fetchUrl}${fetchURL}/${offset}`, method)
             .then((res) => res.json())
             .then((json) => {
                 console.log(json)
