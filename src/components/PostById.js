@@ -24,7 +24,6 @@ const PostById = (props) => {
             ownerId={post.owner_id} 
             id={id} 
             postDescrip={post.description} 
-            editActive={editActive} 
             edit={edit} 
             sessionToken={props.sessionToken} />
         </div>

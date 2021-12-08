@@ -43,7 +43,7 @@ const PostDisplay = (props) => {
             case 'likes': fetchURL = '/post/toplikes'; break;
         }
         //console.log(`http://localhost:3000${fetchURL}`)
-        await fetch(`${APIURL}${fetchURL}`, method)
+        await fetch(`${APIURL}${fetchURL}/${offset}`, method)
             .then((res) => res.json())
             .then((json) => {
                 console.log(json)
