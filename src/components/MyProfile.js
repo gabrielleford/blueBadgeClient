@@ -15,7 +15,7 @@ const MyProfile = (props) => {
     const [editing, setEditing] = useState(false);
 
     const fetchUserInfo = async () => {
-        await fetch(`http://localhost:3000/user/${props.username}`, {
+        await fetch(`${props.fetchUrl}/user/${props.userID}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -66,7 +66,7 @@ const MyProfile = (props) => {
         }
         else imageURL = profilePicture;
 
-        await fetch('http://localhost:3000/user/edit', {
+        await fetch(`${props.fetchUrl}/user/edit`, {
             method: 'PUT',
             body: JSON.stringify({
                 user: {
@@ -112,6 +112,7 @@ const MyProfile = (props) => {
                         profileDescription={profileDescription} />}
             </div>
             <PostDisplay
+                fetchUrl={props.fetchUrl}
                 getWhat={getWhat}
                 username={props.username}
                 sessionToken={props.sessionToken}

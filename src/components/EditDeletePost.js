@@ -2,26 +2,20 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 const EditDeletePost = (props) => {
-  let pathName = window.location.pathname;
-  console.log(pathName);
   const [title, setTitle] = useState(props.postTitle);
   const [description, setDescription] = useState(props.postDescrip);
   const [isPrivate, setIsPrivate] = useState(props.isPrivate);
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const isChecked = (e) => {
     const checked = e.target.checked;
-    if (!isPrivate) {
-      checked ? setIsPrivate(true) : setIsPrivate(false);
-    } else if (isPrivate) {
-      setIsPrivate(false);
-    }
+    checked ? setIsPrivate(true) : setIsPrivate(false);
   };
 
   const updatePost = async (e) => {
-    e.preventDefault();
     let responseCode;
-    await fetch(`http://localhost:3000/post/edit/${props.id}`, {
+    e.preventDefault();
+    await fetch(`${props.fetchUrl}/post/edit/${props.id}`, {
       method: "PUT",
       body: JSON.stringify({
         post: {
@@ -39,7 +33,7 @@ const EditDeletePost = (props) => {
         console.log(res)
         res.json()
         responseCode = res.status
-        if (responseCode === 200) {
+        if (responseCode == '200') {
           props.setEdit('Edit');
           props.fetchPostById();
         }
@@ -47,8 +41,21 @@ const EditDeletePost = (props) => {
       .catch((err) => console.log(err))
   }
 
-  const deletePost = () => {
+  const deletePost = async () => {
     console.log("post deleted");
+    await fetch(`${props.fetchUrl}/post/delete/${props.id}`, {
+      method: "DELETE",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${props.sessionToken}`,
+      }),
+    }).then((res) => {
+      console.log(res);
+      let responseCode = res.status;
+      if (responseCode == "200") {
+        navigate(`/myProfile`);
+      }
+    });
   };
 
   console.log(isPrivate)
