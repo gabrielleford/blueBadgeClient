@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import APIURL from "../helpers/environment";
 import EditDeletePost from "./EditDeletePost";
 import TitleDescription from "./TitleDescription";
-import APIURL from '../helpers/environment'
 
 const PostById = (props) => {
   let pathName = window.location.pathname;
@@ -11,6 +11,7 @@ const PostById = (props) => {
   const [tag, setTag] = useState('');
   const [edit, setEdit] = useState("Edit");
   const [owner, setOwner] = useState('')
+  const navigate = useNavigate();
 
   const editActive = () => {
     setEdit("Save");
@@ -32,7 +33,8 @@ const PostById = (props) => {
             edit={edit}
             id={id}
             owner={owner}
-            sessionToken={props.sessionToken} />
+            sessionToken={props.sessionToken}
+            deletePost={deletePost} />
         </div>
       )
     } else if (edit === "Save") {
@@ -47,9 +49,10 @@ const PostById = (props) => {
             id={id}
             sessionToken={props.sessionToken}
             owner={owner}
-            edit={edit} />
+            edit={edit}
+            deletePost={deletePost} />
         </div>
-      )
+      );
     }
   }
 
@@ -87,6 +90,22 @@ const PostById = (props) => {
         })
         .catch((error) => console.log(error));
     }
+  };
+
+  const deletePost = async () => {
+    await fetch(`${APIURL}/post/delete/${props.id}`, {
+      method: "DELETE",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${props.sessionToken}`,
+      }),
+    }).then((res) => {
+      console.log(res);
+      let responseCode = res.status;
+      if (responseCode == "200") {
+        navigate(`/myProfile`);
+      }
+    }).catch(err => console.log(err))
   };
 
   useEffect(() => {

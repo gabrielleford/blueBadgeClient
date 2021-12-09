@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useState } from "react";
 import APIURL from '../helpers/environment'
 const EditDeletePost = (props) => {
   const [title, setTitle] = useState(props.postTitle);
   const [description, setDescription] = useState(props.postDescrip);
   const [isPrivate, setIsPrivate] = useState(props.isPrivate);
-  const navigate = useNavigate()
 
   const isChecked = (e) => {
     const checked = e.target.checked;
@@ -30,7 +28,7 @@ const EditDeletePost = (props) => {
       }),
     })
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         res.json()
         responseCode = res.status
         if (responseCode == '200') {
@@ -41,23 +39,7 @@ const EditDeletePost = (props) => {
       .catch((err) => console.log(err))
   }
 
-  const deletePost = async () => {
-    await fetch(`${APIURL}/post/delete/${props.id}`, {
-      method: "DELETE",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${props.sessionToken}`,
-      }),
-    }).then((res) => {
-      console.log(res);
-      let responseCode = res.status;
-      if (responseCode == "200") {
-        navigate(`/myProfile`);
-      }
-    });
-  };
-
-  console.log(isPrivate)
+  // console.log(isPrivate)
 
   return (
     <div id='editPost'>
@@ -68,7 +50,7 @@ const EditDeletePost = (props) => {
         <input id='input-checkbox' type='checkbox' name='private' onChange={e => isChecked(e)} defaultChecked={isPrivate} />
         <label class='label-checkbox' for='private'>private</label><br />
         <button className="edit" type='submit'>{props.edit}</button>
-        <button className="delete" onClick={deletePost}>Delete</button>
+        <button className="delete" onClick={props.deletePost}>Delete</button>
       </form>
     </div>
   )
