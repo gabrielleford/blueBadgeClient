@@ -10,6 +10,7 @@ import MyProfile from './components/MyProfile'
 import CreatePost from './components/CreatePost';
 import PostById from './components/PostById';
 import UserProfile from './components/UserProfile';
+import APIURL from './helpers/environment';
 
 
 function App() {
@@ -117,6 +118,7 @@ function App() {
             />
             <Route path="/post/:id" element={
               <PostById
+                userID={userID}
                 isLoggedIn={isLoggedIn}
                 sessionToken={sessionToken}
                 userID={userID}

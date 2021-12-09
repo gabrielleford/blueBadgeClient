@@ -75,7 +75,6 @@ const Landing = (props) => {
                 </div>
             </div>
             <PostDisplay
-                fetchUrl={props.fetchUrl}
                 sessionToken={props.sessionToken}
                 getWhat={getWhat}
                 userLikedPosts={props.userLikedPosts}

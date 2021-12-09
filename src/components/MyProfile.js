@@ -113,7 +113,6 @@ const MyProfile = (props) => {
                         profileDescription={profileDescription} />}
             </div>
             <PostDisplay
-                fetchUrl={props.fetchUrl}
                 getWhat={getWhat}
                 username={props.username}
                 sessionToken={props.sessionToken}

@@ -97,7 +97,7 @@ const CreatePost = (props) => {
                         <option value='ExoticBaby'>Exotic Baby</option>
                     </select>
                     <div class='checkbox-container'>
-                        <input onChange={e => isChecked(e)} value={isPrivate} id='input-checkbox' type='checkbox' name='private' />
+                        <input id='input-checkbox' value={isChecked} type='checkbox' name='private' onChange={e => isChecked(e)} />
                         <label class='label-checkbox' for='private'>private</label><br />
                     </div>
                     <button type='submit' id='createPost' className='d-block btn btn-pb mx-auto'>Post</button>
