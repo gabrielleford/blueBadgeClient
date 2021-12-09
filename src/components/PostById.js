@@ -73,7 +73,7 @@ const PostById = (props) => {
           .catch((error) => console.log(error));
       }
     } else {
-      fetchURL = `${APIURL}/post/${id}`;
+      fetchURL = `${APIURL}/post/getOne/${id}`;
       await fetch(fetchURL, {
         method: "GET",
         headers: new Headers({

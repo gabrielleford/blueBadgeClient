@@ -33,7 +33,7 @@ const PostDisplay = (props) => {
         switch (props.getWhat.what) {
             case 'all': props.sessionToken !== '' ? fetchURL = '/post/allposts' : fetchURL = '/post/'; break;
             case "tag":
-                fetchURL = '/post/tag/all/';
+                props.sessionToken !== '' ? fetchURL = '/post/tag/all/' : fetchURL ='/post/tag/';
                 if (props.getWhat.tag === "fur baby") fetchURL += "FurBaby";
                 else if (props.getWhat.tag === "scale baby") fetchURL += "ScaleBaby";
                 else if (props.getWhat.tag === "exotic baby") fetchURL += "ExoticBaby";
@@ -45,9 +45,9 @@ const PostDisplay = (props) => {
         await fetch(`${APIURL}${fetchURL}/${offset}`, method)
             .then((res) => res.json())
             .then((json) => {
-                console.log(json)
+                // console.log(json)
                 setPosts(json)
-                console.log(posts)
+                // console.log(posts)
             })
             .catch((error) => console.log(error))
     };
