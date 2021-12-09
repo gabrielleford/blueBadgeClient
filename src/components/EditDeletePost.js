@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import APIURL from "../helpers/environment";
-
-
+import APIURL from '../helpers/environment'
 const EditDeletePost = (props) => {
   const [title, setTitle] = useState(props.postTitle);
   const [description, setDescription] = useState(props.postDescrip);
@@ -45,7 +42,6 @@ const EditDeletePost = (props) => {
   }
 
   const deletePost = async () => {
-    console.log("post deleted");
     await fetch(`${APIURL}/post/delete/${props.id}`, {
       method: "DELETE",
       headers: new Headers({
@@ -65,13 +61,12 @@ const EditDeletePost = (props) => {
 
   return (
     <div id='editPost'>
+      {props.owner ? <a id='owner' href={`user/${props.owner}`}>{props.owner}</a> : ''}
       <form onSubmit={updatePost}>
         <input className='h2-input' name='title' onChange={e => setTitle(e.target.value)} value={title} required />
         <textarea name='description' className='p-input' onChange={e => setDescription(e.target.value)} value={description} required></textarea>
         <input id='input-checkbox' type='checkbox' name='private' onChange={e => isChecked(e)} defaultChecked={isPrivate} />
         <label class='label-checkbox' for='private'>private</label><br />
-
-
         <button className="edit" type='submit'>{props.edit}</button>
         <button className="delete" onClick={deletePost}>Delete</button>
       </form>

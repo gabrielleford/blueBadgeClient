@@ -1,11 +1,12 @@
 let APIURL = '';
 
 switch (window.location.hostname) {
-    case 'localhost' || '127.0.0.1' :
-        APIURL = 'http://localhost:3005';
+    case 'localhost' || '127.0.0.1':
+        APIURL = 'http://localhost:3000';
         break;
-    case 'gfks-instapet-client.herokuapp.com' :
-        APIURL = 'https://gfks-instapet-server.herokuapp.com'
+    case 'ksgf-instapet.herokuapp.com':
+        APIURL = 'https://gfks-instapet.herokuapp.com'
 }
 
-export default APIURL;
+export default APIURL
+

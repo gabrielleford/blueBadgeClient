@@ -1,3 +1,4 @@
+import APIURL from './helpers/environment'
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.css";
@@ -90,6 +91,7 @@ function App() {
                 fetchData={fetchData}
                 sessionToken={sessionToken}
                 userLikedPosts={userLikedPosts}
+                isLoggedIn={isLoggedIn}
               />}
             />
             <Route path="/login" element={
@@ -106,6 +108,7 @@ function App() {
                 sessionToken={sessionToken}
                 userLikedPosts={userLikedPosts}
                 fetchData={fetchData}
+                isLoggedIn={isLoggedIn}
               />}
             />
             <Route path="/newPost" element={
@@ -118,6 +121,7 @@ function App() {
                 userID={userID}
                 isLoggedIn={isLoggedIn}
                 sessionToken={sessionToken}
+                userID={userID}
               />}
             />
             <Route path="/user/:username" element={

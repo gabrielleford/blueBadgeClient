@@ -8,12 +8,12 @@ const Post = (props) => {
             </a>
             <div class='d-flex post-info justify-content-between'>
                 <p class='post-title'>{props.title.length < 20 ? props.title : props.title.substring(0, 20) + '...'}</p>
-                <LikeButton
+                {props.isLoggedIn ? <LikeButton
                     post_id={props.post_id}
                     userLikedPosts={props.userLikedPosts}
                     sessionToken={props.sessionToken}
                     fetchData={props.fetchData}
-                />
+                /> : ''}
             </div>
         </div>
     )
