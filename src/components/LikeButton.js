@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import APIURL from '../helpers/environment';
+import APIURL from '../helpers/environment'
 
 const LikeButton = (props) => {
 

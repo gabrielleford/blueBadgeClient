@@ -1,3 +1,4 @@
+import APIURL from './helpers/environment'
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.css";
@@ -19,8 +20,6 @@ function App() {
   const [userID, setUserID] = useState('');
   const [username, setUsername] = useState('');
   const [userLikedPosts, setUserLikedPosts] = useState([])
-  const fetchUrl = 'https://gfks-instapet.herokuapp.com';
-  //const fetchUrl = 'http://localhost:3000'
 
   const fetchData = async () => {
     if (localStorage.getItem('Authorization')) {
@@ -92,6 +91,7 @@ function App() {
                 fetchData={fetchData}
                 sessionToken={sessionToken}
                 userLikedPosts={userLikedPosts}
+                isLoggedIn={isLoggedIn}
               />}
             />
             <Route path="/login" element={
@@ -108,6 +108,7 @@ function App() {
                 sessionToken={sessionToken}
                 userLikedPosts={userLikedPosts}
                 fetchData={fetchData}
+                isLoggedIn={isLoggedIn}
               />}
             />
             <Route path="/newPost" element={
@@ -117,8 +118,10 @@ function App() {
             />
             <Route path="/post/:id" element={
               <PostById
+                userID={userID}
                 isLoggedIn={isLoggedIn}
                 sessionToken={sessionToken}
+                userID={userID}
               />}
             />
             <Route path="/user/:username" element={
