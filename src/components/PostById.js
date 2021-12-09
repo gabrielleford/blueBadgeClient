@@ -93,7 +93,7 @@ const PostById = (props) => {
   };
 
   const deletePost = async () => {
-    await fetch(`${APIURL}/post/delete/${props.id}`, {
+    await fetch(`${APIURL}/post/delete/${id}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",

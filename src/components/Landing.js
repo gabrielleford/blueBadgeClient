@@ -49,27 +49,27 @@ const Landing = (props) => {
 
     return (
         <>
-            <div class="row mb-3 justify-content-center">
-                <div class="col-xs-10 col-xl-4">
-                    <ul class="tag-nav-left nav nav-pills">
-                        <li class="nav-item">
-                            <a id='furBaby' class="nav-link" onClick={furBaby}>🐶 fur babies</a>
+            <div className="row mb-3 justify-content-center">
+                <div className="col-xs-10 col-xl-4">
+                    <ul className="tag-nav-left nav nav-pills">
+                        <li className="nav-item">
+                            <a id='furBaby' className="nav-link" onClick={furBaby}>🐶 fur babies</a>
                         </li>
-                        <li class="nav-item">
-                            <a id='exoticBaby' class="nav-link" onClick={exoticBaby}>🐯 exotic babies</a>
+                        <li className="nav-item">
+                            <a id='exoticBaby' className="nav-link" onClick={exoticBaby}>🐯 exotic babies</a>
                         </li>
-                        <li class="nav-item">
-                            <a id='scaleBaby' class="nav-link" onClick={scaleBaby}>🐠 scale babies</a>
+                        <li className="nav-item">
+                            <a id='scaleBaby' className="nav-link" onClick={scaleBaby}>🐠 scale babies</a>
                         </li>
                     </ul>
                 </div>
-                <div class="col-xs-10 col-xl-4">
-                    <ul class="tag-nav-right nav nav-pills justify-content-end">
-                        <li class="nav-item">
-                            <a id='all' class="nav-link active" onClick={getAll}>🕐 latest</a>
+                <div className="col-xs-10 col-xl-4">
+                    <ul className="tag-nav-right nav nav-pills justify-content-end">
+                        <li className="nav-item">
+                            <a id='all' className="nav-link active" onClick={getAll}>🕐 latest</a>
                         </li>
-                        <li class="nav-item">
-                            <a id='likes' class="nav-link" onClick={likes}>🔥 top</a>
+                        <li className="nav-item">
+                            <a id='likes' className="nav-link" onClick={likes}>🔥 top</a>
                         </li>
                     </ul>
                 </div>
