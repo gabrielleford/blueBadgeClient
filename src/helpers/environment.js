@@ -5,7 +5,7 @@ switch (window.location.hostname) {
         APIURL = 'http://localhost:3005';
         break;
     case 'ksgf-instapet.herokuapp.com' :
-        APIURL = 'https://gfks-instapet.herokuapp.com'
+        APIURL = 'https://gfks-instapet-server.herokuapp.com'
 }
 
 export default APIURL;
