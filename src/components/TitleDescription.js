@@ -9,10 +9,11 @@ const TitleDescription = (props) => {
   const buttonRender = () => {
     if (props.sessionToken && props.userID === props.ownerID) {
       return (
-        <div>
-          <Button onClick={props.editActive}>{props.edit}</Button>
-          <Button onClick={deletePost}>Delete</Button>
+        <div className='post-controls'>
+          <button className="edit" onClick={props.editActive}>{props.edit}</button>
+          <button className="delete" onClick={deletePost} href="#">delete</button>
         </div>
+
       );
     }
   }
