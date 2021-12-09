@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import APIURL from '../helpers/environment'
 
 const LikeButton = (props) => {
 
     const like = async () => {
-        await fetch(`${props.fetchUrl}/post/like/${props.post_id}`, {
+        await fetch(`${APIURL}/post/like/${props.post_id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

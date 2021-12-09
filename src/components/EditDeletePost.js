@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import APIURL from '../helpers/environment'
 
 const EditDeletePost = (props) => {
   const [title, setTitle] = useState(props.postTitle);
@@ -15,7 +16,7 @@ const EditDeletePost = (props) => {
   const updatePost = async (e) => {
     let responseCode;
     e.preventDefault();
-    await fetch(`${props.fetchUrl}/post/edit/${props.id}`, {
+    await fetch(`${APIURL}/post/edit/${props.id}`, {
       method: "PUT",
       body: JSON.stringify({
         post: {
@@ -42,8 +43,7 @@ const EditDeletePost = (props) => {
   }
 
   const deletePost = async () => {
-    console.log("post deleted");
-    await fetch(`${props.fetchUrl}/post/delete/${props.id}`, {
+    await fetch(`${APIURL}/post/delete/${props.id}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -62,13 +62,12 @@ const EditDeletePost = (props) => {
 
   return (
     <div id='editPost'>
+      {props.owner ? <a id='owner' href={`user/${props.owner}`}>{props.owner}</a> : ''}
       <form onSubmit={updatePost}>
         <input className='h2-input' name='title' onChange={e => setTitle(e.target.value)} value={title} required />
         <textarea name='description' className='p-input' onChange={e => setDescription(e.target.value)} value={description} required></textarea>
         <input id='input-checkbox' type='checkbox' name='private' onChange={e => isChecked(e)} defaultChecked={isPrivate} />
         <label class='label-checkbox' for='private'>private</label><br />
-
-
         <button className="edit" type='submit'>{props.edit}</button>
         <button className="delete" onClick={deletePost}>Delete</button>
       </form>

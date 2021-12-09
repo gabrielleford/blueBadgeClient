@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import APIURL from '../helpers/environment'
 
 const LoginSignup = (props) => {
 
@@ -14,7 +15,7 @@ const LoginSignup = (props) => {
     const register = event => {
         let responseCode;
         event.preventDefault();
-        fetch(`${props.fetchUrl}/user/register`, {
+        fetch(`${APIURL}/user/register`, {
             method: 'POST',
             body: JSON.stringify({ user: { email: email, password: password, username: username } }),
             headers: {
@@ -36,7 +37,7 @@ const LoginSignup = (props) => {
     const login = event => {
         let responseCode;
         event.preventDefault();
-        fetch(`${props.fetchUrl}/user/login`, {
+        fetch(`${APIURL}/user/login`, {
             method: 'POST',
             body: JSON.stringify({ user: { email: email, password: password } }),
             headers: {
@@ -100,38 +101,6 @@ const LoginSignup = (props) => {
             </div>
 
         </>
-        // <div id='loginSignup'>
-        //     <h5>Log In / Sign Up</h5>
-        //     {feedback ? <div className={feedbackStatus}>{feedback}</div> : ''}
-        //     <div id='loginSwitcher' className='active toggler' onClick={() => setActiveTab('login')}>
-        //         Log In
-        //     </div>
-        //     <div id='signupSwitcher' className='notActive toggler' onClick={() => setActiveTab('signup')}>
-        //         Sign Up
-        //     </div>
-        //     <div id='login'>
-        //         <h5>Login</h5>
-        //         <form onSubmit={login}>
-        //             <label htmlFor='email'>Email</label>
-        //             <input onChange={(e) => setEmail(e.target.value)} type='email' name='email'></input>
-        //             <label htmlFor='password'>Password</label>
-        //             <input onChange={(e) => setPassword(e.target.value)} type='password' name='password'></input>
-        //             <button type='submit'>Log In</button>
-        //         </form>
-        //     </div>
-        //     <div id='signup'>
-        //         <h5>Sign Up</h5>
-        //         <form onSubmit={register}>
-        //             <label htmlFor='email'>Email</label>
-        //             <input onChange={(e) => setEmail(e.target.value)} type='email' name='email'></input>
-        //             <label htmlFor='email'>Username</label>
-        //             <input onChange={(e) => setUsername(e.target.value)} type='text' name='username'></input>
-        //             <label htmlFor='password'>Password</label>
-        //             <input onChange={(e) => setPassword(e.target.value)} type='password' name='password'></input>
-        //             <button type='submit'>Sign Up</button>
-        //         </form>
-        //     </div>
-        // </div >
     )
 }
 

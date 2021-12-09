@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import PostDisplay from "./PostDisplay";
 import MyProfileEdit from './MyProfileEdit'
 import MyProfileDisplay from './MyProfileDisplay'
+import APIURL from '../helpers/environment'
 
 const MyProfile = (props) => {
     const [profileDescription, setProfileDescription] = useState('');
@@ -15,7 +16,7 @@ const MyProfile = (props) => {
     const [editing, setEditing] = useState(false);
 
     const fetchUserInfo = async () => {
-        await fetch(`${props.fetchUrl}/user/${props.userID}`, {
+        await fetch(`${APIURL}/user/${props.username}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,11 +24,11 @@ const MyProfile = (props) => {
         })
             .then((response) => response.json())
             .then((data) => {
-                //console.log(data)
                 if (!editing) setNewProfileDescription(data[0].profileDescription)
                 setProfileDescription(data[0].profileDescription)
                 setProfilePicture(data[0].profilePicture)
             })
+
     }
 
     const previewImage = (file) => {
@@ -66,7 +67,7 @@ const MyProfile = (props) => {
         }
         else imageURL = profilePicture;
 
-        await fetch(`${props.fetchUrl}/user/edit`, {
+        await fetch(`${APIURL}/user/edit`, {
             method: 'PUT',
             body: JSON.stringify({
                 user: {
@@ -90,7 +91,7 @@ const MyProfile = (props) => {
 
     useEffect(() => {
         if (props.username !== '') fetchUserInfo();
-    }, [props.username, props.userLikedPosts, editing])
+    }, [props.username, props.userLikedPosts, editing, feedback])
 
     return (
         <>

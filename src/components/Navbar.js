@@ -8,7 +8,6 @@ const Navbar = (props) => {
             <div id='bg' className='d-flex justify-content-center  align-items-center'>
                 <div className='adjust-top me-3 d-flex justify-content-center'>
                     {props.isLoggedIn ? <Link className='btn btn-pb shadow topbutton pinkPurple' to="/myProfile">profile</Link> : <a className="btn btn-pb shadow invisible">wwww</a>}
-                    {props.isLoggedIn ? <a className='btn btn-pb shadow topbutton' onClick={() => props.clearToken()}>log out</a> : <a className="btn btn-pb shadow invisible">wwww</a>}
                 </div>
                 <div className='logo-bg-container'>
                     <div id='logobg' className='shadow'>
@@ -17,11 +16,11 @@ const Navbar = (props) => {
                 </div>
                 <div className='adjust-top ms-3 d-flex justify-content-center'>
                     {!props.isLoggedIn ? <Link to="/login" className='btn btn-pb shadow topbutton'>log in</Link> : ''}
-                    {props.isLoggedIn ? <Link to="/newPost" className='btn btn-pb shadow topbutton'>new post</Link> : ''}
-
+                    {props.isLoggedIn ? <a className='btn btn-pb shadow topbutton' onClick={() => props.clearToken()}>log out</a> : <a className="btn btn-pb shadow invisible">wwww</a>}
                 </div>
             </div>
             <div id='bg-under'></div>
+            {props.isLoggedIn ? <Link to="/newPost" id='new-post' className='btn btn-pb topbutton'>new post</Link> : ''}
         </>
     )
 }

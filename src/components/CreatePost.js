@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { useNavigate, useParams } from 'react-router';
+import APIURL from '../helpers/environment'
 
 const CreatePost = (props) => {
     const [title, setTitle] = useState('');
@@ -52,7 +52,7 @@ const CreatePost = (props) => {
         })
         const json = await res.json();
 
-        await fetch(`${props.fetchUrl}/post/create`, {
+        await fetch(`${APIURL}/post/create`, {
             method: 'POST',
             body: JSON.stringify({
                 post: {
@@ -84,8 +84,8 @@ const CreatePost = (props) => {
             <div class='col-sm-10 col-lg-5 with-bg'>
                 <h1>create post</h1>
                 <form onSubmit={handlePost}>
-                    {/* <label id='b' htmlFor="imageCreate" className="file-upload btn-pb">choose image</label> */}
-                    <input className='d-block' type='file' name='imageCreate' onChange={handleImage} value={image} />
+                    <label id='b' htmlFor="imageCreate" className="file-upload btn-pb">choose image</label>
+                    <input type='file' id='imageCreate' name='imageCreate' onChange={handleImage} value={image} />
                     {previewSrc && (
                         <img src={previewSrc} class='shadow preview' alt='Preview of chosen file' style={{ height: '300px' }} />
                     )}
@@ -97,7 +97,7 @@ const CreatePost = (props) => {
                         <option value='ExoticBaby'>Exotic Baby</option>
                     </select>
                     <div class='checkbox-container'>
-                        <input id='input-checkbox' type='checkbox' name='private' />
+                        <input onChange={e => isChecked(e)} value={isPrivate} id='input-checkbox' type='checkbox' name='private' />
                         <label class='label-checkbox' for='private'>private</label><br />
                     </div>
                     <button type='submit' id='createPost' className='d-block btn btn-pb mx-auto'>Post</button>

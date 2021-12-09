@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import LikeButton from './LikeButton';
 import Post from './Post';
+import APIURL from '../helpers/environment'
 
 const PostDisplay = (props) => {
     const [posts, setPosts] = useState([]);
@@ -43,7 +43,7 @@ const PostDisplay = (props) => {
         }
         //console.log(`http://localhost:3000${fetchURL}`)
 
-        await fetch(`${props.fetchUrl}${fetchURL}/${offset}`, method)
+        await fetch(`${APIURL}${fetchURL}/${offset}`, method)
             .then((res) => res.json())
             .then((json) => {
                 console.log(json)
@@ -81,6 +81,7 @@ const PostDisplay = (props) => {
                             title={post.title}
                             image={post.image}
                             index={index}
+                            isLoggedIn={props.isLoggedIn}
                         />
                     ))}
                 </div>

@@ -80,6 +80,7 @@ const Landing = (props) => {
                 getWhat={getWhat}
                 userLikedPosts={props.userLikedPosts}
                 fetchData={props.fetchData}
+                isLoggedIn={props.isLoggedIn}
             />
         </>
     )

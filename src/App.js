@@ -1,3 +1,4 @@
+import APIURL from './helpers/environment'
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.css";
@@ -18,13 +19,11 @@ function App() {
   const [userID, setUserID] = useState('');
   const [username, setUsername] = useState('');
   const [userLikedPosts, setUserLikedPosts] = useState([])
-  // const fetchUrl = 'https://gfks-instapet.herokuapp.com';
-  const fetchUrl = 'http://localhost:3000'
 
   const fetchData = async () => {
     if (localStorage.getItem('Authorization')) {
       setSessionToken(localStorage.getItem('Authorization'));
-      if (sessionToken !== '') await fetch(`${fetchUrl}/user/checkToken`, {
+      if (sessionToken !== '') await fetch(`${APIURL}/user/checkToken`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +42,7 @@ function App() {
         })
         .catch((error) => console.log(error))
 
-      if (sessionToken !== '') await fetch(`${fetchUrl}/user/likes`, {
+      if (sessionToken !== '') await fetch(`${APIURL}/user/likes`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -91,7 +90,7 @@ function App() {
                 fetchData={fetchData}
                 sessionToken={sessionToken}
                 userLikedPosts={userLikedPosts}
-                fetchUrl={fetchUrl}
+                isLoggedIn={isLoggedIn}
               />}
             />
             <Route path="/login" element={
@@ -99,7 +98,6 @@ function App() {
                 updateToken={updateToken}
                 setSessionToken={setSessionToken}
                 sessionToken={sessionToken}
-                fetchUrl={fetchUrl}
               />}
             />
             <Route path='/myProfile' element={
@@ -109,20 +107,19 @@ function App() {
                 sessionToken={sessionToken}
                 userLikedPosts={userLikedPosts}
                 fetchData={fetchData}
-                fetchUrl={fetchUrl}
+                isLoggedIn={isLoggedIn}
               />}
             />
             <Route path="/newPost" element={
               <CreatePost
                 sessionToken={sessionToken}
-                fetchUrl={fetchUrl}
               />}
             />
             <Route path="/post/:id" element={
               <PostById
                 isLoggedIn={isLoggedIn}
                 sessionToken={sessionToken}
-                fetchUrl={fetchUrl}
+                userID={userID}
               />}
             />
             <Route path="/user/:username" element={
@@ -132,7 +129,6 @@ function App() {
                 username={username}
                 userLikedPosts={userLikedPosts}
                 fetchData={fetchData}
-                fetchUrl={fetchUrl}
               />}
             />
           </Routes>
