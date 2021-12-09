@@ -66,7 +66,7 @@ const PostById = (props) => {
           .catch((error) => console.log(error));
       }
     } else {
-      fetchURL = `${APIURL}/post/${id}`;
+      fetchURL = `${APIURL}/post/getOne/${id}`;
       await fetch(fetchURL, {
         method: "GET",
         headers: new Headers({
@@ -84,7 +84,7 @@ const PostById = (props) => {
 
   useEffect(() => {
     if (Object.keys(post).length === 0) fetchPostById();
-  }, [props.sessionToken]);
+  }, [props.sessionToken, props.userID]);
 
   return (
     <>
