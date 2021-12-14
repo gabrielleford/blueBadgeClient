@@ -28,8 +28,12 @@ const PostById = (props) => {
             ownerID={post.owner_id}
             edit={edit}
             id={id}
-            username={post.username}
             sessionToken={props.sessionToken}
+            post_id={post.post_id}
+            userLikedPosts={props.userLikedPosts}
+            sessionToken={props.sessionToken}
+            fetchData={props.fetchData} />
+            username={post.username}
             deletePost={deletePost} />
         </div>
       )
@@ -44,6 +48,10 @@ const PostById = (props) => {
             isPrivate={post.private}
             id={id}
             sessionToken={props.sessionToken}
+            edit={edit}
+            post_id={post.post_id}
+            userLikedPosts={props.userLikedPosts}
+            fetchData={props.fetchData} />
             username={post.username}
             edit={edit}
             deletePost={deletePost} />
@@ -108,7 +116,7 @@ const PostById = (props) => {
     if (typeof post == 'object' && Object.keys(post).length === 0) {
       fetchPostById();
     }
-  }, [props.sessionToken, props.userID]);
+  }, [props.sessionToken, props.userID, props.userLikedPosts]);
 
   return (
     <>
@@ -120,6 +128,7 @@ const PostById = (props) => {
           </div>
         </div>
         <div className='col-sm-10 col-lg-3 with-bg'>
+
           {post ? componentRender() : ""}
         </div>
       </div>

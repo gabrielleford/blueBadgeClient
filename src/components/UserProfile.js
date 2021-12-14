@@ -8,10 +8,10 @@ const MyProfile = (props) => {
     const [getWhat] = useState({ what: 'user', tag: null });
 
     let pathName = window.location.pathname;
-    let username = pathName.slice(6);
+    let thisUsername = pathName.slice(6);
 
     const fetchUserInfo = async () => {
-        await fetch(`${APIURL}/user/${username}`, {
+        await fetch(`${APIURL}/user/${thisUsername}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -27,22 +27,29 @@ const MyProfile = (props) => {
     }
 
     useEffect(() => {
-        if (username !== '') fetchUserInfo();
+        if (thisUsername !== '') fetchUserInfo();
 
-    }, [username, profileDescription, profilePicture, props.sessionToken])
+    }, [thisUsername, profileDescription, profilePicture, props.sessionToken])
 
     return (
-        <div id='userProfile'>
-            <h5>User Profile</h5>
-            <p>Profile Description: {profileDescription}</p>
-            <img className='smol' src={profilePicture} />
+        <>
+            <div className='row justify-content-center mb-5'>
+                <div className='col-xs-1 col-lg-2'>
+                    {profilePicture ? <img className='profile-picture shadow' src={profilePicture} /> : <img className='profile-picture shadow' src='https://via.placeholder.com/150' />}
+                </div>
+                <div className='col-xs-10 col-lg-5'>
+                    <p className='username'>{thisUsername}</p>
+                    <p className='user-description shadow'>{profileDescription}</p>
+                </div>
+            </div>
             <PostDisplay
                 getWhat={getWhat}
-                username={username}
+                username={props.username}
                 sessionToken={props.sessionToken}
                 userLikedPosts={props.userLikedPosts}
+                fetchData={props.fetchData}
             />
-        </div>
+        </>
     )
 }
 

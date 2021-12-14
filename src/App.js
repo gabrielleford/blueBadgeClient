@@ -10,6 +10,7 @@ import MyProfile from './components/MyProfile'
 import CreatePost from './components/CreatePost';
 import PostById from './components/PostById';
 import UserProfile from './components/UserProfile';
+import MyProfileDisplay from './components/MyProfileDisplay';
 
 
 function App() {
@@ -123,6 +124,8 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 sessionToken={sessionToken}
                 userID={userID}
+                userLikedPosts={userLikedPosts}
+                fetchData={fetchData}
               />}
             />
             <Route path="/user/:username" element={

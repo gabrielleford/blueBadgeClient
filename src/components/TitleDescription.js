@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router';
+import LikeButton from "./LikeButton";
 
 const TitleDescription = (props) => {
   const navigate = useNavigate();
@@ -23,7 +24,13 @@ const TitleDescription = (props) => {
 
   return (
     <>
-      {props.username ? <button id="owner" onClick={navigateToUser}>{props.username}</button> : ''}
+      <div className='d-flex justify-content-between'>
+        {props.username ? <button id="owner" onClick={navigateToUser}>{props.username}</button> : ''}
+        <LikeButton post_id={props.post_id}
+          userLikedPosts={props.userLikedPosts}
+          sessionToken={props.sessionToken}
+          fetchData={props.fetchData} />
+      </div>
       <h2>{props.postTitle}</h2>
       <p>{props.postDescrip}</p>
       {buttonRender()}

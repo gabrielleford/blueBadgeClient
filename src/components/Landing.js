@@ -55,10 +55,10 @@ const Landing = (props) => {
                         <li className="nav-item">
                             <a id='furBaby' className="nav-link" onClick={furBaby}>🐶 fur babies</a>
                         </li>
-                        <li className="nav-item">
+                        <li class="nav-item">
                             <a id='exoticBaby' className="nav-link" onClick={exoticBaby}>🐯 exotic babies</a>
                         </li>
-                        <li className="nav-item">
+                        <li class="nav-item">
                             <a id='scaleBaby' className="nav-link" onClick={scaleBaby}>🐠 scale babies</a>
                         </li>
                     </ul>
