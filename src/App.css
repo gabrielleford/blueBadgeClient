@@ -412,3 +412,8 @@ p a {text-decoration: none;}
 #owner:before {
     content: 'by '
 }
+.likeContainer {
+    font-size:14pt;
+    font-weight:bold;
+    padding-right:1rem;
+}
