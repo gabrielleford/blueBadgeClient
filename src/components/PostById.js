@@ -31,7 +31,11 @@ const PostById = (props) => {
             edit={edit}
             id={id}
             owner={owner}
-            sessionToken={props.sessionToken} />
+            sessionToken={props.sessionToken}
+            post_id={post.post_id}
+            userLikedPosts={props.userLikedPosts}
+            sessionToken={props.sessionToken}
+            fetchData={props.fetchData} />
         </div>
       )
     } else if (edit === "Save") {
@@ -46,7 +50,11 @@ const PostById = (props) => {
             id={id}
             sessionToken={props.sessionToken}
             owner={owner}
-            edit={edit} />
+            edit={edit}
+            post_id={post.post_id}
+            userLikedPosts={props.userLikedPosts}
+            sessionToken={props.sessionToken}
+            fetchData={props.fetchData} />
         </div>
       )
     }
@@ -92,7 +100,7 @@ const PostById = (props) => {
     if (typeof post == 'object' && Object.keys(post).length === 0) {
       fetchPostById();
     }
-  }, [props.sessionToken, props.userID, owner]);
+  }, [props.sessionToken, props.userID, owner, props.userLikedPosts]);
 
   return (
     <>
@@ -104,6 +112,7 @@ const PostById = (props) => {
           </div>
         </div>
         <div className='col-sm-10 col-lg-3 with-bg'>
+
           {post ? componentRender() : ""}
         </div>
       </div>

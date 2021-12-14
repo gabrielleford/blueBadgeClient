@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import APIURL from '../helpers/environment'
+import LikeButton from "./LikeButton";
+
 const EditDeletePost = (props) => {
   const [title, setTitle] = useState(props.postTitle);
   const [description, setDescription] = useState(props.postDescrip);
@@ -61,7 +63,13 @@ const EditDeletePost = (props) => {
 
   return (
     <div id='editPost'>
-      {props.owner ? <a id='owner' href={`user/${props.owner}`}>{props.owner}</a> : ''}
+      <div className='d-flex justify-content-between'>
+        {props.owner ? <a id='owner' href={`user/${props.owner}`}>{props.owner}</a> : ''}
+        <LikeButton post_id={props.post_id}
+          userLikedPosts={props.userLikedPosts}
+          sessionToken={props.sessionToken}
+          fetchData={props.fetchData} />
+      </div>
       <form onSubmit={updatePost}>
         <input className='h2-input' name='title' onChange={e => setTitle(e.target.value)} value={title} required />
         <textarea name='description' className='p-input' onChange={e => setDescription(e.target.value)} value={description} required></textarea>
