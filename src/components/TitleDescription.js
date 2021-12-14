@@ -15,12 +15,11 @@ const TitleDescription = (props) => {
     }
   }
 
-  // console.log(CLIENTURL)
-
   return (
     <>
       <div className='d-flex justify-content-between'>
         {props.username ? <a id='owner' href={`gfks-instapet-client.herokuapp.com/user/${props.username}`}>{props.username}</a> : ''}
+        <div className='likeContainer ms-auto'>{props.postLikes}</div>
         <LikeButton post_id={props.post_id}
           userLikedPosts={props.userLikedPosts}
           sessionToken={props.sessionToken}
