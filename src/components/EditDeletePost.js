@@ -66,7 +66,7 @@ const EditDeletePost = (props) => {
         <input className='h2-input' name='title' onChange={e => setTitle(e.target.value)} value={title} required />
         <textarea name='description' className='p-input' onChange={e => setDescription(e.target.value)} value={description} required></textarea>
         <input id='input-checkbox' type='checkbox' name='private' onChange={e => isChecked(e)} defaultChecked={isPrivate} />
-        <label class='label-checkbox' for='private'>private</label><br />
+        <label className='label-checkbox' for='private'>private</label><br />
         <button className="edit" type='submit'>{props.edit}</button>
         <button className="delete" onClick={deletePost}>Delete</button>
       </form>

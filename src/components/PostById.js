@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import APIURL from "../helpers/environment";
 import EditDeletePost from "./EditDeletePost";
 import TitleDescription from "./TitleDescription";
-import APIURL from '../helpers/environment'
 
 const PostById = (props) => {
   let pathName = window.location.pathname;
