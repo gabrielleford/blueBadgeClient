@@ -1,7 +1,7 @@
 const MyProfileEdit = (props) => {
     return (
         <>
-            <div class='col-xs-1 col-lg-2'>
+            <div className='col-xs-1 col-lg-2'>
                 {props.previewSrc ?
                     <img className='profile-picture shadow' src={props.previewSrc} alt='Preview of chosen file' /> :
                     <img className='profile-picture shadow' src={props.profilePicture} alt='Current profile picture' />
@@ -9,7 +9,7 @@ const MyProfileEdit = (props) => {
                 <label htmlFor="image" className="file-upload btn-pb">choose image</label>
                 <input id='image' type='file' name='image' onChange={props.handleImage} />
             </div>
-            <div class='col-xs-10 col-lg-5'>
+            <div className='col-xs-10 col-lg-5'>
                 <p className='username'>{props.username}</p>
                 <p className='user-description shadow'>
 
