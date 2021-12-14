@@ -406,6 +406,7 @@ p a {text-decoration: none;}
 }
 #owner {
     text-decoration:none;
+    background: none;
     margin:0 0 1rem !important;
     display:block;
 }

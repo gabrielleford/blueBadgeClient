@@ -1,6 +1,7 @@
-import CLIENTURL from '../helpers/environment'
+import { useNavigate } from 'react-router';
 
 const TitleDescription = (props) => {
+  const navigate = useNavigate();
 
   const buttonRender = () => {
     if (props.sessionToken && props.userID === props.ownerID) {
@@ -14,11 +15,15 @@ const TitleDescription = (props) => {
     }
   }
 
+  const navigateToUser = () => {
+    navigate(`/user/${props.username}`);
+  }
+
   // console.log(CLIENTURL)
 
   return (
     <>
-      {props.username ? <a id='owner' href={`gfks-instapet-client.herokuapp.com/user/${props.username}`}>{props.username}</a> : ''}
+      {props.username ? <button id="owner" onClick={navigateToUser}>{props.username}</button> : ''}
       <h2>{props.postTitle}</h2>
       <p>{props.postDescrip}</p>
       {buttonRender()}
