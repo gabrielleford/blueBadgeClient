@@ -35,7 +35,7 @@ const PostById = (props) => {
             fetchData={props.fetchData}
             username={post.username}
             deletePost={deletePost}
-            postLikes={likes} />
+            postLikes={likes}
             navigateToUser={navigateToUser} />
         </div>
       )
@@ -57,7 +57,7 @@ const PostById = (props) => {
             username={post.username}
             edit={edit}
             deletePost={deletePost}
-            postLikes={likes} />
+            postLikes={likes}
             navigateToUser={navigateToUser} />
         </div>
       );
