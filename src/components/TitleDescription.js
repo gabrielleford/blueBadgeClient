@@ -18,7 +18,7 @@ const TitleDescription = (props) => {
 
   return (
     <>
-      {props.owner ? <a id='owner' href={`gfks-instapet-client.herokuapp.com/user/${props.owner}`}>{props.owner}</a> : ''}
+      {props.username ? <a id='owner' href={`gfks-instapet-client.herokuapp.com/user/${props.username}`}>{props.username}</a> : ''}
       <h2>{props.postTitle}</h2>
       <p>{props.postDescrip}</p>
       {buttonRender()}

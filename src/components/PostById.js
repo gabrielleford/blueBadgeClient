@@ -32,6 +32,7 @@ const PostById = (props) => {
             ownerID={post.owner_id}
             edit={edit}
             id={id}
+            username={post.username}
             owner={owner}
             sessionToken={props.sessionToken}
             deletePost={deletePost} />
