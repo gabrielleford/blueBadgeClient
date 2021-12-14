@@ -10,7 +10,6 @@ const PostById = (props) => {
   const [post, setPost] = useState({});
   const [tag, setTag] = useState('');
   const [edit, setEdit] = useState("Edit");
-  const [owner, setOwner] = useState('')
   const navigate = useNavigate();
 
   const editActive = () => {
@@ -18,9 +17,6 @@ const PostById = (props) => {
   }
 
   const componentRender = () => {
-    fetch(`${APIURL}/user/usernameFromId/${post.owner_id}`)
-      .then((response) => response.json())
-      .then((json) => typeof json[0] !== 'undefined' ? setOwner(json[0].username) : '')
     if (edit === "Edit") {
       return (
         <div>
@@ -33,7 +29,6 @@ const PostById = (props) => {
             edit={edit}
             id={id}
             username={post.username}
-            owner={owner}
             sessionToken={props.sessionToken}
             deletePost={deletePost} />
         </div>
@@ -49,7 +44,7 @@ const PostById = (props) => {
             isPrivate={post.private}
             id={id}
             sessionToken={props.sessionToken}
-            owner={owner}
+            username={post.username}
             edit={edit}
             deletePost={deletePost} />
         </div>
@@ -113,7 +108,7 @@ const PostById = (props) => {
     if (typeof post == 'object' && Object.keys(post).length === 0) {
       fetchPostById();
     }
-  }, [props.sessionToken, props.userID, owner]);
+  }, [props.sessionToken, props.userID]);
 
   return (
     <>

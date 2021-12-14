@@ -44,7 +44,7 @@ const EditDeletePost = (props) => {
 
   return (
     <div id='editPost'>
-      {props.owner ? <a id='owner' href={`user/${props.owner}`}>{props.owner}</a> : ''}
+      {props.username ? <a id='owner' href={`user/${props.username}`}>{props.username}</a> : ''}
       <form onSubmit={updatePost}>
         <input className='h2-input' name='title' onChange={e => setTitle(e.target.value)} value={title} required />
         <textarea name='description' className='p-input' onChange={e => setDescription(e.target.value)} value={description} required></textarea>
