@@ -27,7 +27,10 @@ Technology Used:
     11.30       my profile component
     12.02       like post component
     12.04       styling
+    12.04       refactoring postDisplay (DRY)
     12.04       user profile component
+    12.08       user profile link on postById
+    12.14       added like button to postById
  
 
 ## Team Member #2  Gabrielle Ford

@@ -48,12 +48,13 @@ const EditDeletePost = (props) => {
     <div id='editPost'>
       <div className='d-flex justify-content-between'>
         {props.username ? <button id="owner" onClick={props.navigateToUser}>{props.username}</button> : ''}
+        <div className='likeContainer ms-auto'>{props.postLikes}</div>
         <LikeButton post_id={props.post_id}
           userLikedPosts={props.userLikedPosts}
           sessionToken={props.sessionToken}
           fetchData={props.fetchData} />
       </div>
-      
+
       <form onSubmit={updatePost}>
         <input className='h2-input' name='title' onChange={e => setTitle(e.target.value)} value={title} required />
         <textarea name='description' className='p-input' onChange={e => setDescription(e.target.value)} value={description} required></textarea>

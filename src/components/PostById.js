@@ -11,6 +11,7 @@ const PostById = (props) => {
   const [tag, setTag] = useState('');
   const [edit, setEdit] = useState("Edit");
   const navigate = useNavigate();
+  const [likes, setLikes] = useState(0);
 
   const editActive = () => {
     setEdit("Save");
@@ -28,12 +29,13 @@ const PostById = (props) => {
             ownerID={post.owner_id}
             edit={edit}
             id={id}
-            sessionToken={props.sessionToken}
             post_id={post.post_id}
             userLikedPosts={props.userLikedPosts}
+            sessionToken={props.sessionToken}
             fetchData={props.fetchData}
             username={post.username}
             deletePost={deletePost}
+            postLikes={likes} />
             navigateToUser={navigateToUser} />
         </div>
       )
@@ -53,7 +55,9 @@ const PostById = (props) => {
             userLikedPosts={props.userLikedPosts}
             fetchData={props.fetchData}
             username={post.username}
+            edit={edit}
             deletePost={deletePost}
+            postLikes={likes} />
             navigateToUser={navigateToUser} />
         </div>
       );
@@ -76,6 +80,7 @@ const PostById = (props) => {
           .then((json) => {
             setPost(json[0]);
             setTag(json[0].tag.slice(0, json[0].tag.search('Baby')))
+            setLikes(json[0].likes)
           })
           .catch((error) => console.log(error));
       }
@@ -91,6 +96,7 @@ const PostById = (props) => {
         .then((json) => {
           setPost(json[0]);
           setTag(json[0].tag.slice(0, json[0].tag.search('Baby')))
+          setLikes(json[0].likes)
         })
         .catch((error) => console.log(error));
     }
@@ -117,10 +123,10 @@ const PostById = (props) => {
   };
 
   useEffect(() => {
-    if (typeof post == 'object' && Object.keys(post).length === 0) {
-      fetchPostById();
-    }
-  }, [props.sessionToken, props.userID, props.userLikedPosts]);
+    //if (typeof post == 'object' && Object.keys(post).length === 0) {
+    fetchPostById();
+    //}
+  }, [props.sessionToken, props.userID, props.userLikedPosts, likes]);
 
   return (
     <>

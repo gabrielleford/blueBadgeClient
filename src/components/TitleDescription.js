@@ -16,12 +16,11 @@ const TitleDescription = (props) => {
     }
   }
 
-  // console.log(CLIENTURL)
-
   return (
     <>
       <div className='d-flex justify-content-between'>
         {props.username ? <button id="owner" onClick={props.navigateToUser}>{props.username}</button> : ''}
+        <div className='likeContainer ms-auto'>{props.postLikes}</div>
         <LikeButton post_id={props.post_id}
           userLikedPosts={props.userLikedPosts}
           sessionToken={props.sessionToken}
