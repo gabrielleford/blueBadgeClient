@@ -44,7 +44,7 @@ const MyProfile = (props) => {
             </div>
             <PostDisplay
                 getWhat={getWhat}
-                username={props.username}
+                username={thisUsername}
                 sessionToken={props.sessionToken}
                 userLikedPosts={props.userLikedPosts}
                 fetchData={props.fetchData}
