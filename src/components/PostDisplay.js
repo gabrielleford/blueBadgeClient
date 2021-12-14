@@ -31,14 +31,14 @@ const PostDisplay = (props) => {
     const postMapper = async () => {
         let fetchURL;
         switch (props.getWhat.what) {
-            case 'all': props.sessionToken !== 'undefined' ? fetchURL = '/post/allposts' : fetchURL = '/post/'; break;
+            case 'all': props.sessionToken !== '' ? fetchURL = '/post/allposts' : fetchURL = '/post/'; break;
             case "tag":
-                props.sessionToken !== 'undefined' ? fetchURL = '/post/tag/all/' : fetchURL ='/post/tag/';
+                props.sessionToken !== '' ? fetchURL = '/post/tag/all/' : fetchURL ='/post/tag/';
                 if (props.getWhat.tag === "fur baby") fetchURL += "FurBaby";
                 else if (props.getWhat.tag === "scale baby") fetchURL += "ScaleBaby";
                 else if (props.getWhat.tag === "exotic baby") fetchURL += "ExoticBaby";
                 break;
-            case 'user': props.sessionToken !== 'undefined' ? fetchURL = `/post/posts/all/${props.username}` : fetchURL = `/post/posts/${props.username}`; break;
+            case 'user': props.sessionToken !== '' ? fetchURL = `/post/posts/all/${props.username}` : fetchURL = `/post/posts/${props.username}`; break;
             case 'likes': fetchURL = '/post/toplikes'; break;
         }
         //console.log(`http://localhost:3000${fetchURL}`)

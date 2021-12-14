@@ -16,16 +16,12 @@ const TitleDescription = (props) => {
     }
   }
 
-  const navigateToUser = () => {
-    navigate(`/user/${props.username}`);
-  }
-
   // console.log(CLIENTURL)
 
   return (
     <>
       <div className='d-flex justify-content-between'>
-        {props.username ? <button id="owner" onClick={navigateToUser}>{props.username}</button> : ''}
+        {props.username ? <button id="owner" onClick={props.navigateToUser}>{props.username}</button> : ''}
         <LikeButton post_id={props.post_id}
           userLikedPosts={props.userLikedPosts}
           sessionToken={props.sessionToken}

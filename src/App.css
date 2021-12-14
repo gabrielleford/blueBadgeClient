@@ -407,9 +407,15 @@ p a {text-decoration: none;}
 #owner {
     text-decoration:none;
     background: none;
+    color: #0D6EFD;
+    font-size: 0.8rem;
     margin:0 0 1rem !important;
     display:block;
+}
+#owner:hover {
+    color: #0A58CA;
 }
 #owner:before {
     content: 'by '
 }
+/* #0A58CA */

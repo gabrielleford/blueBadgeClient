@@ -31,10 +31,10 @@ const PostById = (props) => {
             sessionToken={props.sessionToken}
             post_id={post.post_id}
             userLikedPosts={props.userLikedPosts}
-            sessionToken={props.sessionToken}
-            fetchData={props.fetchData} />
+            fetchData={props.fetchData}
             username={post.username}
-            deletePost={deletePost} />
+            deletePost={deletePost}
+            navigateToUser={navigateToUser} />
         </div>
       )
     } else if (edit === "Save") {
@@ -51,10 +51,10 @@ const PostById = (props) => {
             edit={edit}
             post_id={post.post_id}
             userLikedPosts={props.userLikedPosts}
-            fetchData={props.fetchData} />
+            fetchData={props.fetchData}
             username={post.username}
-            edit={edit}
-            deletePost={deletePost} />
+            deletePost={deletePost}
+            navigateToUser={navigateToUser} />
         </div>
       );
     }
@@ -110,6 +110,10 @@ const PostById = (props) => {
         navigate(`/myProfile`);
       }
     }).catch(err => console.log(err))
+  };
+
+  const navigateToUser = () => {
+    navigate(`/user/${props.username}`);
   };
 
   useEffect(() => {
