@@ -1,7 +1,8 @@
-import CLIENTURL from '../helpers/environment'
+import { useNavigate } from 'react-router';
 import LikeButton from "./LikeButton";
 
 const TitleDescription = (props) => {
+  const navigate = useNavigate();
 
   const buttonRender = () => {
     if (props.sessionToken && props.userID === props.ownerID) {
@@ -18,7 +19,7 @@ const TitleDescription = (props) => {
   return (
     <>
       <div className='d-flex justify-content-between'>
-        {props.username ? <a id='owner' href={`gfks-instapet-client.herokuapp.com/user/${props.username}`}>{props.username}</a> : ''}
+        {props.username ? <button id="owner" onClick={props.navigateToUser}>{props.username}</button> : ''}
         <div className='likeContainer ms-auto'>{props.postLikes}</div>
         <LikeButton post_id={props.post_id}
           userLikedPosts={props.userLikedPosts}

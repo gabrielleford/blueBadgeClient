@@ -47,7 +47,7 @@ const EditDeletePost = (props) => {
   return (
     <div id='editPost'>
       <div className='d-flex justify-content-between'>
-        {props.username ? <a id='owner' href={`gfks-instapet-client.herokuapp.com/user/${props.username}`}>{props.username}</a> : ''}
+        {props.username ? <button id="owner" onClick={props.navigateToUser}>{props.username}</button> : ''}
         <div className='likeContainer ms-auto'>{props.postLikes}</div>
         <LikeButton post_id={props.post_id}
           userLikedPosts={props.userLikedPosts}

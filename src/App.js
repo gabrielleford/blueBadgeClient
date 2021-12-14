@@ -20,6 +20,8 @@ function App() {
   const [userID, setUserID] = useState('');
   const [username, setUsername] = useState('');
   const [userLikedPosts, setUserLikedPosts] = useState([])
+  const [text, setText] = useState('');
+  const [toastMode, setToastMode] = useState('success');
 
   const fetchData = async () => {
     if (localStorage.getItem('Authorization')) {

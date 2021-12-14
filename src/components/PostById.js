@@ -29,7 +29,6 @@ const PostById = (props) => {
             ownerID={post.owner_id}
             edit={edit}
             id={id}
-            sessionToken={props.sessionToken}
             post_id={post.post_id}
             userLikedPosts={props.userLikedPosts}
             sessionToken={props.sessionToken}
@@ -37,6 +36,7 @@ const PostById = (props) => {
             username={post.username}
             deletePost={deletePost}
             postLikes={likes} />
+            navigateToUser={navigateToUser} />
         </div>
       )
     } else if (edit === "Save") {
@@ -58,6 +58,7 @@ const PostById = (props) => {
             edit={edit}
             deletePost={deletePost}
             postLikes={likes} />
+            navigateToUser={navigateToUser} />
         </div>
       );
     }
@@ -115,6 +116,10 @@ const PostById = (props) => {
         navigate(`/myProfile`);
       }
     }).catch(err => console.log(err))
+  };
+
+  const navigateToUser = () => {
+    navigate(`/user/${props.username}`);
   };
 
   useEffect(() => {
