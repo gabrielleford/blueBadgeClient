@@ -6,8 +6,8 @@ const Post = (props) => {
             <a href={'/post/' + props.post_id}>
                 <img src={props.image} className='post-pic' />
             </a>
-            <div class='d-flex post-info justify-content-between'>
-                <p class='post-title'>{props.title.length < 20 ? props.title : props.title.substring(0, 20) + '...'}</p>
+            <div className='d-flex post-info justify-content-between'>
+                <p className='post-title'>{props.title.length < 20 ? props.title : props.title.substring(0, 20) + '...'}</p>
                 {props.isLoggedIn ? <LikeButton
                     post_id={props.post_id}
                     userLikedPosts={props.userLikedPosts}

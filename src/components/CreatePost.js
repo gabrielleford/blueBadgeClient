@@ -87,7 +87,7 @@ const CreatePost = (props) => {
                     <label id='b' htmlFor="imageCreate" className="file-upload btn-pb">choose image</label>
                     <input type='file' id='imageCreate' name='imageCreate' onChange={handleImage} value={image} />
                     {previewSrc && (
-                        <img src={previewSrc} class='shadow preview' alt='Preview of chosen file' style={{ height: '300px' }} />
+                        <img src={previewSrc} className='shadow preview' alt='Preview of chosen file' style={{ height: '300px' }} />
                     )}
                     <input className='reg-input input' placeholder='title' onChange={e => setTitle(e.target.value)} value={title} />
                     <textarea className='input' placeholder='description' value={description} onChange={e => setDescription(e.target.value)}></textarea>
@@ -98,7 +98,7 @@ const CreatePost = (props) => {
                     </select>
                     <div className='checkbox-container'>
                         <input id='input-checkbox' value={isChecked} type='checkbox' name='private' onChange={e => isChecked(e)} />
-                        <label class='label-checkbox' for='private'>private</label><br />
+                        <label className='label-checkbox' for='private'>private</label><br />
                     </div>
                     <button type='submit' id='createPost' className='d-block btn btn-pb mx-auto'>Post</button>
                 </form>

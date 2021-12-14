@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import APIURL from "../helpers/environment";
 import EditDeletePost from "./EditDeletePost";
 import TitleDescription from "./TitleDescription";
@@ -9,16 +10,13 @@ const PostById = (props) => {
   const [post, setPost] = useState({});
   const [tag, setTag] = useState('');
   const [edit, setEdit] = useState("Edit");
-  const [owner, setOwner] = useState('')
+  const navigate = useNavigate();
 
   const editActive = () => {
     setEdit("Save");
   }
 
   const componentRender = () => {
-    fetch(`${APIURL}/user/usernameFromId/${post.owner_id}`)
-      .then((response) => response.json())
-      .then((json) => typeof json[0] !== 'undefined' ? setOwner(json[0].username) : '')
     if (edit === "Edit") {
       return (
         <div>
@@ -30,12 +28,13 @@ const PostById = (props) => {
             ownerID={post.owner_id}
             edit={edit}
             id={id}
-            owner={owner}
             sessionToken={props.sessionToken}
             post_id={post.post_id}
             userLikedPosts={props.userLikedPosts}
             sessionToken={props.sessionToken}
             fetchData={props.fetchData} />
+            username={post.username}
+            deletePost={deletePost} />
         </div>
       )
     } else if (edit === "Save") {
@@ -49,14 +48,15 @@ const PostById = (props) => {
             isPrivate={post.private}
             id={id}
             sessionToken={props.sessionToken}
-            owner={owner}
             edit={edit}
             post_id={post.post_id}
             userLikedPosts={props.userLikedPosts}
-            sessionToken={props.sessionToken}
             fetchData={props.fetchData} />
+            username={post.username}
+            edit={edit}
+            deletePost={deletePost} />
         </div>
-      )
+      );
     }
   }
 
@@ -96,11 +96,27 @@ const PostById = (props) => {
     }
   };
 
+  const deletePost = async () => {
+    await fetch(`${APIURL}/post/delete/${id}`, {
+      method: "DELETE",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${props.sessionToken}`,
+      }),
+    }).then((res) => {
+      console.log(res);
+      let responseCode = res.status;
+      if (responseCode == "200") {
+        navigate(`/myProfile`);
+      }
+    }).catch(err => console.log(err))
+  };
+
   useEffect(() => {
     if (typeof post == 'object' && Object.keys(post).length === 0) {
       fetchPostById();
     }
-  }, [props.sessionToken, props.userID, owner, props.userLikedPosts]);
+  }, [props.sessionToken, props.userID, props.userLikedPosts]);
 
   return (
     <>
