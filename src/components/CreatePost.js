@@ -80,8 +80,8 @@ const CreatePost = (props) => {
     }
 
     return (
-        <div class='row justify-content-center align-items-start'>
-            <div class='col-sm-10 col-lg-5 with-bg'>
+        <div className='row justify-content-center align-items-start'>
+            <div className='col-sm-10 col-lg-5 with-bg'>
                 <h1>create post</h1>
                 <form onSubmit={handlePost}>
                     <label id='b' htmlFor="imageCreate" className="file-upload btn-pb">choose image</label>
@@ -89,14 +89,14 @@ const CreatePost = (props) => {
                     {previewSrc && (
                         <img src={previewSrc} class='shadow preview' alt='Preview of chosen file' style={{ height: '300px' }} />
                     )}
-                    <input class='reg-input input' placeholder='title' onChange={e => setTitle(e.target.value)} value={title} />
-                    <textarea class='input' placeholder='description' value={description} onChange={e => setDescription(e.target.value)}></textarea>
-                    <select type='select' onChange={e => setTag(e.target.value)} name='tag' class='input' required>
+                    <input className='reg-input input' placeholder='title' onChange={e => setTitle(e.target.value)} value={title} />
+                    <textarea className='input' placeholder='description' value={description} onChange={e => setDescription(e.target.value)}></textarea>
+                    <select type='select' onChange={e => setTag(e.target.value)} name='tag' className='input' required>
                         <option value='FurBaby'>Fur Baby</option>
                         <option value='ScaleBaby'>Scale Baby</option>
                         <option value='ExoticBaby'>Exotic Baby</option>
                     </select>
-                    <div class='checkbox-container'>
+                    <div className='checkbox-container'>
                         <input id='input-checkbox' value={isChecked} type='checkbox' name='private' onChange={e => isChecked(e)} />
                         <label class='label-checkbox' for='private'>private</label><br />
                     </div>
