@@ -4,7 +4,7 @@ import APIURL from '../helpers/environment'
 import formValidation from './formValidation';
 
 const CreatePost = (props) => {
-    const {isChecked, setTag, handleChange, handleImage, handlePost, values, image, previewSrc, errors} = useCreateForm(props, formValidation);
+    const {isChecked, handleChange, handleImage, handlePost, furBaby, scaleBaby, exoticBaby, values, image, previewSrc, errors} = useCreateForm(props, formValidation);
 
     return (
         <div className='row justify-content-center align-items-start'>
@@ -21,11 +21,17 @@ const CreatePost = (props) => {
                     {errors.title && <p className='error'>{errors.title}</p>}
                     <textarea className='input' placeholder='description' name='description' value={values.description} onChange={handleChange}></textarea>
                     {errors.description && <p className='error'>{errors.description}</p>}
-                    <select type='select' onChange={e => setTag(e.target.value)} name='tag' className='input' required>
-                        <option value='FurBaby'>Fur Baby</option>
-                        <option value='ScaleBaby'>Scale Baby</option>
-                        <option value='ExoticBaby'>Exotic Baby</option>
-                    </select>
+                    <ul className="nav nav-pills justify-content-center">
+                        <li className="nav-item">
+                              <a id='furBaby' className="nav-link active" onClick={furBaby}>🐶 fur baby</a>
+                        </li>
+                        <li class="nav-item">
+                              <a id='exoticBaby' className="nav-link" onClick={exoticBaby}>🐯 exotic baby</a>
+                        </li>
+                        <li class="nav-item">
+                              <a id='scaleBaby' className="nav-link" onClick={scaleBaby}>🐠 scale baby</a>
+                        </li>
+                    </ul>
                     <div className='checkbox-container'>
                         <input id='input-checkbox' value={isChecked} type='checkbox' name='private' onChange={isChecked} />
                         <label className='label-checkbox' htmlFor='private'>private</label><br />
@@ -87,6 +93,36 @@ const useCreateForm = (props, formValidation) => {
       createPost(previewSrc);
     }
 
+    const furBaby = () => {
+      setTag("FurBaby");
+      tagClicked("furBaby");
+    };
+
+    const scaleBaby = () => {
+      setTag("ScaleBaby");
+      tagClicked("scaleBaby");
+    };
+
+    const exoticBaby = () => {
+      setTag("ExoticBaby");
+      tagClicked("exoticBaby");
+    };
+
+    const tagClicked = (tag) => {
+      let tags = {
+        furBaby: document.getElementById("furBaby"),
+        scaleBaby: document.getElementById("scaleBaby"),
+        exoticBaby: document.getElementById("exoticBaby"),
+      };
+
+      Object.keys(tags).map((key, index) => {
+        tags[key].classList.remove("active");
+      });
+
+      tags[tag].classList.add("active");
+    };
+    
+
     const createPost = async (encodedImage) => {
       const formData = new FormData();
       formData.append("file", encodedImage);
@@ -137,7 +173,7 @@ const useCreateForm = (props, formValidation) => {
       console.log(`VALUES: ${values.image}`);
     }
 
-    return {isChecked, setTag, handleChange, handleImage, handlePost, values, image, previewSrc, errors}
+    return {isChecked, handleChange, handleImage, handlePost, furBaby, scaleBaby, exoticBaby, values, image, previewSrc, errors}
 }
 
 export default CreatePost;
