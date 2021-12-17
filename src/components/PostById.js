@@ -119,7 +119,7 @@ const PostById = (props) => {
   };
 
   const navigateToUser = () => {
-    navigate(`/user/${props.username}`);
+    navigate(`/user/${post.username}`);
   };
 
   useEffect(() => {
