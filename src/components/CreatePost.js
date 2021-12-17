@@ -40,6 +40,34 @@ const CreatePost = (props) => {
         }
     }
 
+    const furBaby = () => {
+        setTag('FurBaby');
+        tagClicked('furBaby');
+    };
+
+    const scaleBaby = () => {
+        setTag('ScaleBaby');
+        tagClicked('scaleBaby');
+    };
+
+    const exoticBaby = () => {
+        setTag('ExoticBaby');
+        tagClicked('exoticBaby');
+    };
+
+    const tagClicked = (tag) => {
+        let tags = {
+            furBaby: document.getElementById('furBaby'),
+            scaleBaby: document.getElementById('scaleBaby'),
+            exoticBaby: document.getElementById('exoticBaby'),
+        }
+
+        Object.keys(tags).map((key, index) => {
+            tags[key].classList.remove('active')
+        })
+        tags[tag].classList.add('active')
+    }
+
     const uploadImage = async (encodedImage) => {
         let responseCode;
         const formData = new FormData();
@@ -91,11 +119,22 @@ const CreatePost = (props) => {
                     )}
                     <input className='reg-input input' placeholder='title' onChange={e => setTitle(e.target.value)} value={title} />
                     <textarea className='input' placeholder='description' value={description} onChange={e => setDescription(e.target.value)}></textarea>
-                    <select type='select' onChange={e => setTag(e.target.value)} name='tag' className='input' required>
+                    <ul className="nav nav-pills justify-content-center">
+                        <li className="nav-item">
+                            <a id='furBaby' className="nav-link active" onClick={furBaby}>🐶 fur baby</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id='exoticBaby' className="nav-link" onClick={exoticBaby}>🐯 exotic baby</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id='scaleBaby' className="nav-link" onClick={scaleBaby}>🐠 scale baby</a>
+                        </li>
+                    </ul>
+                    {/* <select type='select' onChange={e => setTag(e.target.value)} name='tag' className='input' required>
                         <option value='FurBaby'>Fur Baby</option>
                         <option value='ScaleBaby'>Scale Baby</option>
                         <option value='ExoticBaby'>Exotic Baby</option>
-                    </select>
+                    </select> */}
                     <div className='checkbox-container'>
                         <input id='input-checkbox' value={isChecked} type='checkbox' name='private' onChange={e => isChecked(e)} />
                         <label className='label-checkbox' for='private'>private</label><br />
