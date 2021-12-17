@@ -422,3 +422,11 @@ p a {text-decoration: none;}
     font-weight:bold;
     padding-right:1rem;
 }
+.error {
+    margin-top: -13px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fd3c8e;
+    -webkit-text-stroke: 1px rgba(175, 44, 100, 0.4);
+    font-size: 0.85rem;
+}
