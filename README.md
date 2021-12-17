@@ -13,7 +13,7 @@ Technology Used:
 
 [Portfolio](https://ksallows.github.io/)
 
-[LinkedIn](https://www.linkedin.com/in/katie-sallows-b7b6b6222/)
+[LinkedIn](https://www.linkedin.com/in/katie-sallows)
 
 ### Assigned Tasks
 
