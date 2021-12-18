@@ -21,7 +21,7 @@ export default function formValidation(values, responseCode, what) {
         errors.username = "Username required";
       } else if (values.username.length < 3) {
         errors.username =
-          "Username must be at least 3 characters & less than 30 characters";
+          "Username must be at least 3 characters";
       } else if (values.username.length > 30) {
         errors.username = "Username is too long";
       } 
