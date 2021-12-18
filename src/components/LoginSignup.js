@@ -48,6 +48,7 @@ const LoginSignup = (props) => {
                             {errors.username && <p className='error'>{errors.username}</p>}
                             <input className='input' onChange={handleChange} value={values.password} id='registerPassword' name='password' type='password' placeholder='password' />
                             {errors.password && <p className='error'>{errors.password}</p>}
+                            {errors.error && <p className='error'>{errors.error}</p>}
                             <button type='submit' id='registerSubmit' className='btn-pb pinkPurple shadow'>sign up</button>
                         </form>
                         <a id='loginSwitcher' onClick={() => setActiveTab('login')} className='mt-2'>&laquo; log in</a>
@@ -97,7 +98,6 @@ const useForm = (props, formValidation) => {
         .then((data) => {
           setErrors(formValidation(values, responseCode, what));
           if (typeof data.sessionToken != 'undefined') props.updateToken(data.sessionToken);
-          props.updateToken(data.sessionToken);
           if (responseCode == "201") navigate("/");
         });
     };
@@ -119,7 +119,6 @@ const useForm = (props, formValidation) => {
         .then((data) => {
           setErrors(formValidation(values, responseCode, what));
           if (typeof data.sessionToken != 'undefined') props.updateToken(data.sessionToken);
-          props.updateToken(data.sessionToken);
           if (responseCode == "200") navigate("/");
         });
     };
