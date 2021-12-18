@@ -5,7 +5,7 @@ import formValidation from './formValidation';
 
 const CreatePost = (props) => {
     const {isChecked, handleChange, handleImage, handlePost, furBaby, scaleBaby, exoticBaby, values, image, previewSrc, errors} = useCreateForm(props, formValidation);
-
+  
     return (
         <div className='row justify-content-center align-items-start'>
             <div className='col-sm-10 col-lg-5 with-bg'>
@@ -23,15 +23,20 @@ const CreatePost = (props) => {
                     {errors.description && <p className='error'>{errors.description}</p>}
                     <ul className="nav nav-pills justify-content-center">
                         <li className="nav-item">
-                              <a id='furBaby' className="nav-link active" onClick={furBaby}>🐶 fur baby</a>
+                            <a id='furBaby' className="nav-link active" onClick={furBaby}>🐶 fur baby</a>
                         </li>
                         <li class="nav-item">
-                              <a id='exoticBaby' className="nav-link" onClick={exoticBaby}>🐯 exotic baby</a>
+                            <a id='exoticBaby' className="nav-link" onClick={exoticBaby}>🐯 exotic baby</a>
                         </li>
                         <li class="nav-item">
-                              <a id='scaleBaby' className="nav-link" onClick={scaleBaby}>🐠 scale baby</a>
+                            <a id='scaleBaby' className="nav-link" onClick={scaleBaby}>🐠 scale baby</a>
                         </li>
                     </ul>
+                    {/* <select type='select' onChange={e => setTag(e.target.value)} name='tag' className='input' required>
+                        <option value='FurBaby'>Fur Baby</option>
+                        <option value='ScaleBaby'>Scale Baby</option>
+                        <option value='ExoticBaby'>Exotic Baby</option>
+                    </select> */}
                     <div className='checkbox-container'>
                         <input id='input-checkbox' value={isChecked} type='checkbox' name='private' onChange={isChecked} />
                         <label className='label-checkbox' htmlFor='private'>private</label><br />

@@ -13,7 +13,7 @@ Technology Used:
 
 [Portfolio](https://ksallows.github.io/)
 
-[LinkedIn](https://www.linkedin.com/in/katie-sallows-b7b6b6222/)
+[LinkedIn](https://www.linkedin.com/in/katie-sallows)
 
 ### Assigned Tasks
 
@@ -31,6 +31,7 @@ Technology Used:
     12.04       user profile component
     12.08       user profile link on postById
     12.14       added like button to postById
+    12.17       added landing page tags to createPost instead of select dropdown
  
 
 ## Team Member #2  Gabrielle Ford
