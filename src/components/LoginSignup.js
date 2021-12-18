@@ -96,6 +96,7 @@ const useForm = (props, formValidation) => {
         })
         .then((data) => {
           setErrors(formValidation(values, responseCode, what));
+          if (typeof data.sessionToken != 'undefined') props.updateToken(data.sessionToken);
           props.updateToken(data.sessionToken);
           if (responseCode == "201") navigate("/");
         });
@@ -117,6 +118,7 @@ const useForm = (props, formValidation) => {
         })
         .then((data) => {
           setErrors(formValidation(values, responseCode, what));
+          if (typeof data.sessionToken != 'undefined') props.updateToken(data.sessionToken);
           props.updateToken(data.sessionToken);
           if (responseCode == "200") navigate("/");
         });

@@ -57,6 +57,20 @@ export default function formValidation(values, responseCode, what) {
         errors.image = "Image required";
       }
       break;
+
+    case 'edit post':
+      if (values.description.length < 8) {
+        errors.description = "Description must be at least 8 characters";
+      } else if (values.description.length > 1000) {
+        errors.description = "Description too long";
+      } 
+      
+      if (values.title.length < 3) {
+        errors.title = "Title must be at least 3 characters";
+      } else if (values.title.length > 150) {
+        errors.title = "Title is too long";
+      }
+      break;
     default:
       break;
   }
