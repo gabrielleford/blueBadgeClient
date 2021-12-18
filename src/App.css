@@ -219,7 +219,7 @@ h2 {
     height:30rem;
     margin-top:2rem;
 }
-#description {height:10rem;}
+#description {height:250px;}
 .save {
     margin:2rem auto 0;
     display:block;
@@ -421,4 +421,16 @@ p a {text-decoration: none;}
     font-size:14pt;
     font-weight:bold;
     padding-right:1rem;
+}
+.error {
+    margin-top: -13px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fd3c8e;
+    -webkit-text-stroke: 1px rgba(175, 44, 100, 0.4);
+    font-size: 0.85rem;
+}
+.error-adjust {
+    margin-top:1rem;
+    margin-bottom:0;
 }

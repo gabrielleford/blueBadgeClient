@@ -1,49 +1,10 @@
 import { useState } from "react";
 import APIURL from '../helpers/environment'
 import LikeButton from "./LikeButton";
-
+import formValidation from "./formValidation";
 
 const EditDeletePost = (props) => {
-  const [title, setTitle] = useState(props.postTitle);
-  const [description, setDescription] = useState(props.postDescrip);
-  const [isPrivate, setIsPrivate] = useState(props.isPrivate);
-
-  const isChecked = (e) => {
-    const checked = e.target.checked;
-    checked ? setIsPrivate(true) : setIsPrivate(false);
-  };
-
-  const updatePost = async (e) => {
-    let responseCode;
-    e.preventDefault();
-    await fetch(`${APIURL}/post/edit/${props.id}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        post: {
-          private: isPrivate,
-          title: title,
-          description: description,
-        },
-      }),
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${props.sessionToken}`,
-      }),
-    })
-      .then((res) => {
-        // console.log(res)
-        res.json()
-        responseCode = res.status
-        if (responseCode == '200') {
-          props.setEdit('Edit');
-          props.fetchPostById();
-        }
-      })
-      .catch((err) => console.log(err))
-  }
-
-  // console.log(isPrivate)
-
+  const { isChecked, handleChange, updatePost, values, isPrivate, errors } = useForm(props, formValidation);
   return (
     <div id='editPost'>
       <div className='d-flex justify-content-between'>
@@ -56,16 +17,76 @@ const EditDeletePost = (props) => {
       </div>
 
       <form onSubmit={updatePost}>
-        <input className='h2-input' name='title' onChange={e => setTitle(e.target.value)} value={title} required />
-        <textarea name='description' className='p-input' onChange={e => setDescription(e.target.value)} value={description} required></textarea>
+        <input className='h2-input' name='title' onChange={handleChange} value={values.title} required />
+        {errors.title && <p className="error error-adjust">{errors.title}</p>}
+        <textarea name='description' className='p-input' onChange={handleChange} value={values.description} required></textarea>
+        {errors.description && <p className="error error-adjust">{errors.description}</p>}
         <input id='input-checkbox' type='checkbox' name='private' onChange={e => isChecked(e)} defaultChecked={isPrivate} />
-        <label className='label-checkbox' for='private'>private</label><br />
+        <label className='label-checkbox' htmlFor='private'>private</label><br />
         <button className="edit" type='submit'>{props.edit}</button>
         <button className="delete" onClick={props.deletePost}>Delete</button>
       </form>
     </div>
   )
 };
+
+const useForm = (props, formValidation) => {
+  const [title, setTitle] = useState(props.postTitle);
+  const [description, setDescription] = useState(props.postDescrip);
+  const [isPrivate, setIsPrivate] = useState(props.isPrivate);
+  const [values, setValues] = useState({
+    title: title,
+    description: description,
+  });
+  const [errors, setErrors] = useState({})
+  let what = 'edit post';
+  let responseCode;
+
+  const isChecked = (e) => {
+    const checked = e.target.checked;
+    checked ? setIsPrivate(true) : setIsPrivate(false);
+  };
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value
+    });
+    setTitle(values.title)
+    setDescription(values.description)
+  }
+
+  const updatePost = async (e) => {
+    e.preventDefault();
+    await fetch(`${APIURL}/post/edit/${props.id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        post: {
+          private: isPrivate,
+          title: values.title,
+          description: values.description,
+        },
+      }),
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${props.sessionToken}`,
+      }),
+    })
+      .then((res) => {
+        res.json();
+        responseCode = res.status;
+        setErrors(formValidation(values, responseCode, what));
+        if (responseCode == "200") {
+          props.setEdit("Edit");
+          props.fetchPostById();
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  return { isChecked, handleChange, updatePost, values, isPrivate, errors }
+}
 
 export default EditDeletePost;
 

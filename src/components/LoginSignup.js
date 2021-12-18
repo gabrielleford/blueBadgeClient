@@ -1,60 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import APIURL from '../helpers/environment'
+import formValidation from './formValidation';
 
 const LoginSignup = (props) => {
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [username, setUsername] = useState('');
-    const navigate = useNavigate();
-    const [feedback, setFeedBack] = useState('');
-    const [feedbackStatus, setFeedBackStatus] = useState('');
+    const {handleChange, values, register, login, errors} = useForm(props, formValidation);
     const [activeTab, setActiveTab] = useState('login');
-
-    const register = event => {
-        let responseCode;
-        event.preventDefault();
-        fetch(`${APIURL}/user/register`, {
-            method: 'POST',
-            body: JSON.stringify({ user: { email: email, password: password, username: username } }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((response) => {
-                setFeedBackStatus(`s${response.status}`)
-                responseCode = response.status
-                return response.json();
-            })
-            .then((data) => {
-                props.updateToken(data.sessionToken);
-                setFeedBack(data.message);
-                if (responseCode == '201') navigate('/')
-            })
-    }
-
-    const login = event => {
-        let responseCode;
-        event.preventDefault();
-        fetch(`${APIURL}/user/login`, {
-            method: 'POST',
-            body: JSON.stringify({ user: { email: email, password: password } }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((response) => {
-                setFeedBackStatus(`s${response.status}`)
-                responseCode = response.status
-                return response.json();
-            })
-            .then((data) => {
-                props.updateToken(data.sessionToken);
-                setFeedBack(data.message);
-                if (responseCode == '200') navigate('/')
-            })
-    }
 
     useEffect(() => {
         if (activeTab == 'login') {
@@ -77,8 +28,9 @@ const LoginSignup = (props) => {
                     <div className='with-bg'>
                         <h1>login</h1>
                         <form onSubmit={login}>
-                            <input className='input' onChange={(e) => setEmail(e.target.value)} id='loginEmail' type='email' placeholder='email' />
-                            <input className='input' onChange={(e) => setPassword(e.target.value)} id='loginPassword' type='password' placeholder='password' />
+                            <input className='input' onChange={handleChange} value={values.email} id='loginEmail' name='email' type='email' placeholder='email' />
+                            <input className='input' onChange={handleChange} value={values.password} id='loginPassword' name='password' type='password' placeholder='password' />
+                            {errors.error && <p className='error'>{errors.error}</p>}
                             <button type='submit' id='loginSubmit' className='btn-pb pinkPurple shadow'>log in</button>
                         </form>
                         <a id='signupSwitcher' onClick={() => setActiveTab('signup')} className='mt-2'>sign up &raquo;</a>
@@ -90,9 +42,12 @@ const LoginSignup = (props) => {
                     <div className='with-bg'>
                         <h1>sign up</h1>
                         <form onSubmit={register}>
-                            <input className='input' onChange={(e) => setEmail(e.target.value)} id='registerEmail' type='email' placeholder='email' />
-                            <input className='input' onChange={(e) => setUsername(e.target.value)} id='registerUsername' type='text' placeholder='username' />
-                            <input className='input' onChange={(e) => setPassword(e.target.value)} id='registerPassword' type='password' placeholder='password' />
+                            <input className='input' onChange={handleChange} value={values.email} id='registerEmail' name='email' type='email' placeholder='email' />
+                            {errors.email && <p className='error'>{errors.email}</p>}
+                            <input className='input' onChange={handleChange} value={values.username} id='registerUsername' name='username' type='text' placeholder='username' />
+                            {errors.username && <p className='error'>{errors.username}</p>}
+                            <input className='input' onChange={handleChange} value={values.password} id='registerPassword' name='password' type='password' placeholder='password' />
+                            {errors.password && <p className='error'>{errors.password}</p>}
                             <button type='submit' id='registerSubmit' className='btn-pb pinkPurple shadow'>sign up</button>
                         </form>
                         <a id='loginSwitcher' onClick={() => setActiveTab('login')} className='mt-2'>&laquo; log in</a>
@@ -102,6 +57,74 @@ const LoginSignup = (props) => {
 
         </>
     )
+}
+
+const useForm = (props, formValidation) => {
+    const [values, setValues] = useState({
+        email: '',
+        username: '',
+        password:''
+    })
+    const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+    let what;
+    let responseCode;
+
+    const handleChange = e => {
+        const {name, value} = e.target;
+        setValues({
+            ...values,
+            [name]: value
+        });
+    }
+
+    const register = async (event) => {
+      event.preventDefault();
+      await fetch(`${APIURL}/user/register`, {
+        method: "POST",
+        body: JSON.stringify({
+          user: { email: values.email, password: values.password, username: values.username.trim() },
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          what = "register";
+          responseCode = response.status;
+          return response.json();
+        })
+        .then((data) => {
+          setErrors(formValidation(values, responseCode, what));
+          if (typeof data.sessionToken != 'undefined') props.updateToken(data.sessionToken);
+          props.updateToken(data.sessionToken);
+          if (responseCode == "201") navigate("/");
+        });
+    };
+
+    const login = async (event) => {
+      event.preventDefault();
+      await fetch(`${APIURL}/user/login`, {
+        method: "POST",
+        body: JSON.stringify({ user: { email: values.email, password: values.password } }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          what = 'login';
+          responseCode = response.status;
+          return response.json();
+        })
+        .then((data) => {
+          setErrors(formValidation(values, responseCode, what));
+          if (typeof data.sessionToken != 'undefined') props.updateToken(data.sessionToken);
+          props.updateToken(data.sessionToken);
+          if (responseCode == "200") navigate("/");
+        });
+    };
+
+    return {handleChange, values, register, login, errors}
 }
 
 export default LoginSignup;
