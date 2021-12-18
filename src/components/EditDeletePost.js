@@ -4,7 +4,7 @@ import LikeButton from "./LikeButton";
 import formValidation from "./formValidation";
 
 const EditDeletePost = (props) => {
-  const {isChecked, handleChange, updatePost, values, isPrivate, errors} = useForm(props, formValidation);
+  const { isChecked, handleChange, updatePost, values, isPrivate, errors } = useForm(props, formValidation);
   return (
     <div id='editPost'>
       <div className='d-flex justify-content-between'>
@@ -18,9 +18,9 @@ const EditDeletePost = (props) => {
 
       <form onSubmit={updatePost}>
         <input className='h2-input' name='title' onChange={handleChange} value={values.title} required />
-        {errors.title && <p className="error">{errors.title}</p>}
+        {errors.title && <p className="error error-adjust">{errors.title}</p>}
         <textarea name='description' className='p-input' onChange={handleChange} value={values.description} required></textarea>
-        {errors.description && <p className="error">{errors.description}</p>}
+        {errors.description && <p className="error error-adjust">{errors.description}</p>}
         <input id='input-checkbox' type='checkbox' name='private' onChange={e => isChecked(e)} defaultChecked={isPrivate} />
         <label className='label-checkbox' htmlFor='private'>private</label><br />
         <button className="edit" type='submit'>{props.edit}</button>
@@ -41,14 +41,14 @@ const useForm = (props, formValidation) => {
   const [errors, setErrors] = useState({})
   let what = 'edit post';
   let responseCode;
-  
+
   const isChecked = (e) => {
     const checked = e.target.checked;
     checked ? setIsPrivate(true) : setIsPrivate(false);
   };
-  
+
   const handleChange = e => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setValues({
       ...values,
       [name]: value
@@ -85,7 +85,7 @@ const useForm = (props, formValidation) => {
       .catch((err) => console.log(err));
   };
 
-  return {isChecked, handleChange, updatePost, values, isPrivate, errors}
+  return { isChecked, handleChange, updatePost, values, isPrivate, errors }
 }
 
 export default EditDeletePost;
