@@ -50,3 +50,4 @@ Technology Used:
     11.30       public vs private fetches -> added fetches for logged in user vs user who isn't
     12.02       post by id with update & delete -> finished the post by id component with edit & delete functionalities
     12.04       edit/delete buttons -> made it so only owner of post can see the edit & delete buttons
+    12.17       login/signup, create post, edit post -> added form validation to forms
